@@ -1,142 +1,335 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Security.Cryptography;
+using UnityEngine.EventSystems;
 
 public class SpaceshipControls : MonoBehaviour
 {
+
+    //TODO: Warning HIGH MASS MAKE SPACESHIP IMPOSSIBLE TO CONTROL !
+
     private Rigidbody rb;
 
-    public float maxSpeed = 100;
-    public float minSpeed = -100;
+    //Keayboard controls
+    public float maxSpeed = 200;
+    public float RollSpeed = 0.30F;
+    public float acceleration = 2.5F;
+    public float deceleration = 2.5F;
 
-    float dragLongi = 1;
-    float dragLat= 1;
-    float dragPerp = 1;
+    private float timeLong = 0;
+    private float timeLat = 0;
+    private float timePerp = 0;
 
-    public float RotationSpeed = 1;
+    //Mouse Controls
+    public float pitchRate = 1.5F;
+    public float yawRate = 1.5F;
 
-    public float acceleration = 1;
-    public float deceleration = 1;
+    //For doubleTap function
+    private int buttonCountA = 0;
+    private int buttonCountE = 0;
+    private int buttonCountZ = 0;
+    private int buttonCountS = 0;
+    private int buttonCountQ = 0;
+    private int buttonCountD = 0;
+    private int buttonCountSpace = 0;
+    private int buttonCountLCtrl = 0;
 
-    float forwardBackward = 0;
-    float leftRight = 0;
-    float upDown = 0;
+    private float coolDownDash = 5.0F;
+    private float TapCooldown = 0;
+    private float dashIntensity = 10000;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.drag = rb.mass * deceleration;
+    }
 
 
-    void Start ()
-	{
-	    rb = GetComponent<Rigidbody>();
+    void Update()
+    {
+        //################################################################################
+        //#--------------------------------DASH MANAGER---------------------------------#
+        //################################################################################
 
-	}
-	
-	void FixedUpdate ()
-	{
+        //TODO Make TapCooldown FOR EACH KEY PRESSED !
+
+        Debug.Log("Dash Cool Down:" + coolDownDash );
+        if (Input.anyKeyDown )
+        {
+
+            // A KEY
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                if (coolDownDash <= 0 && buttonCountA == 1 && TapCooldown > 0)
+                {
+                    rb.AddTorque(transform.forward * dashIntensity);
+                    coolDownDash = 5.0F;
+                    buttonCountA = 0;
+                }
+                else
+                {
+                    if (buttonCountA < 1)
+                    { buttonCountA += 1; }
+                    TapCooldown = 0.2F;
+                }
+            }
+            
+            // E KEY
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (coolDownDash <= 0 && buttonCountE == 1 && TapCooldown > 0)
+                {
+                    rb.AddTorque(-transform.forward * dashIntensity); 
+                    coolDownDash = 5.0F;
+                    buttonCountE = 0;
+                }
+                else
+                {
+                    if (buttonCountE < 1)
+                    { buttonCountE += 1; }
+                    TapCooldown = 0.2F;
+                }
+            }
+
+            // Z KEY
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                if (coolDownDash <= 0 && buttonCountZ == 1 && TapCooldown > 0)
+                {
+                    rb.AddForce(transform.forward * dashIntensity);
+                    coolDownDash = 5.0F;
+                    buttonCountZ = 0;
+                }
+                else
+                {
+                    if (buttonCountZ < 1)
+                    {buttonCountZ += 1;}
+                    TapCooldown = 0.2F;
+                }
+            }
+
+            // S KEY
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                if (coolDownDash <= 0 && buttonCountS == 1 && TapCooldown > 0)
+                {
+                    rb.AddForce(-transform.forward * dashIntensity);
+                    coolDownDash = 5.0F;
+                    buttonCountS = 0;
+                }
+                else
+                {
+
+                    if (buttonCountS < 1)
+                    { buttonCountS += 1; }
+                    TapCooldown = 0.2F;
+                }
+            }
+
+            // Q KEY
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (coolDownDash <= 0 && buttonCountQ == 1 && TapCooldown > 0)
+                {
+                    rb.AddForce(-transform.right * dashIntensity);
+                    coolDownDash = 5.0F;
+                    buttonCountQ = 0;
+                }
+                else
+                {
+                    if (buttonCountQ < 1)
+                    { buttonCountQ += 1; }
+                    TapCooldown = 0.2F;
+                }
+            }
+
+            // D KEY
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                if (coolDownDash <= 0 && buttonCountD == 1 && TapCooldown > 0)
+                {
+                    rb.AddForce(transform.right * dashIntensity);
+                    coolDownDash = 5.0F;
+                    buttonCountD = 0;
+                }
+                else
+                {
+                    if (buttonCountD < 1)
+                    { buttonCountD += 1; }
+                    TapCooldown = 0.2F;
+                }
+            }
+
+            // SPACE
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (coolDownDash <= 0 && buttonCountSpace == 1 && TapCooldown > 0)
+                {
+                    rb.AddForce(transform.up * dashIntensity);
+                    coolDownDash = 5.0F;
+                    buttonCountSpace = 0;
+                }
+                else
+                {
+                    if (buttonCountSpace < 1)
+                    { buttonCountSpace += 1; }
+                    TapCooldown = 0.2F;
+                }
+            }
+
+            // LEFT CONTROL
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                if (coolDownDash <= 0 && buttonCountLCtrl == 1 && TapCooldown > 0)
+                {
+                    rb.AddForce(-transform.up * dashIntensity);
+                    coolDownDash = 5.0F;
+                    buttonCountLCtrl = 0;
+                }
+                else
+                {
+                    if (buttonCountLCtrl < 1)
+                    { buttonCountLCtrl += 1; }
+                    TapCooldown = 0.2F;
+                }
+            }
+        }
+
+        //UPDATING TIMERS
+        if (TapCooldown <= 0)
+        {
+            buttonCountZ = 0;
+            buttonCountA = 0;
+            buttonCountE = 0;
+            buttonCountZ = 0;
+            buttonCountS = 0;
+            buttonCountQ = 0;
+            buttonCountD = 0;
+            buttonCountSpace = 0;
+            buttonCountLCtrl = 0;
+        }
+        else
+        {
+            TapCooldown -= Time.deltaTime;
+        }
+
+        if (coolDownDash > 0)
+        {
+            coolDownDash -= Time.deltaTime;
+        }
+
+    }
+
+
+
+    void FixedUpdate()
+    {
+
+
         //TODO set project control settings
         //CANDO Different speed for the 3 axes
 
-        float magnitudeLongi = Vector3.Magnitude(Vector3.Project(rb.velocity, transform.forward));
-        float magnitudePerp = Vector3.Magnitude(Vector3.Project(rb.velocity, transform.up));
-        float magnitudeLat = Vector3.Magnitude(Vector3.Project(rb.velocity, transform.right));
-	    float magnitudeRoll = Vector3.Magnitude(rb.angularVelocity);
+        //################################################################################
+        //#------------------------------KEYBOARD INPUTS---------------------------------#
+        //################################################################################
 
-        // LONGITUDINAL
-        if (Input.GetButton("Longitudinal") )
-	    {
-            if (magnitudeLongi < 10F)
-	        {
-                rb.AddForce(transform.forward * Input.GetAxis("Longitudinal") * 12);
-            }
-	        else if (magnitudeLongi >= 10F && magnitudeLongi <= 20F)
-            {
-                rb.AddForce(transform.forward * Input.GetAxis("Longitudinal") * 22);
-            }
-            else
-            {
-                rb.AddForce(transform.forward * Input.GetAxis("Longitudinal") * 35);
-            }
-            Debug.Log("magnitudeLongi" + "\"" + magnitudeLongi + "\"");
-        }
-        //else here
-
-
-        // PERPENDICULAR 
-        if (Input.GetButton("Perpendicular"))
+        // ---------- LONGITUDINAL ----------
+        if (Input.GetButton("Longitudinal"))
         {
-            if (magnitudePerp < 10F)
-            {
-                rb.AddForce(transform.up * Input.GetAxis("Perpendicular") * 12);
-            }
-            else if (magnitudePerp >= 10F && magnitudePerp <= 20F)
-            {
-                rb.AddForce(transform.up * Input.GetAxis("Perpendicular") * 22);
-            }
+            if (timeLong > maxSpeed)
+            { timeLong = maxSpeed; }
             else
-            {
-                rb.AddForce(transform.up * Input.GetAxis("Perpendicular") * 35);
-            }
-            Debug.Log("magnitudePerp" + "\"" + magnitudePerp + "\"");
+            { timeLong += acceleration; }
         }
+        else
+        {
+            if (timeLong > 0)
+            { timeLong -= 10; }
+            else
+            { timeLong = 0; }
+        }
+        rb.AddForce(transform.forward * Input.GetAxis("Longitudinal") * timeLong);
 
-        // LATERAL
+        // ---------- LATERAL ----------
         if (Input.GetButton("Lateral"))
         {
-            if (magnitudeLat < 10F)
-            {
-                rb.AddForce(transform.right * Input.GetAxis("Lateral") * 12);
-            }
-            else if (magnitudeLat >= 10F && magnitudeLat <= 20F)
-            {
-                rb.AddForce(transform.right * Input.GetAxis("Lateral") * 22);
-            }
+            if (timeLat > maxSpeed)
+            { timeLat = maxSpeed; }
             else
-            {
-                rb.AddForce(transform.right * Input.GetAxis("Lateral") * 35);
-            }
+            { timeLat += acceleration; }
         }
+        else
+        {
+            if (timeLat > 0)
+            { timeLat -= 10; }
+            else
+            { timeLat = 0; }
+        }
+        rb.AddForce(transform.right * Input.GetAxis("Lateral") * timeLat);
 
-        // ROLL 
+        // ---------- PERPENDICULAR ----------
+        if (Input.GetButton("Perpendicular"))
+        {
+            if (timePerp > maxSpeed)
+            { timePerp = maxSpeed; }
+            else
+            { timePerp += acceleration; }
+        }
+        else
+        {
+            if (timePerp > 0)
+            { timePerp -= 10; }
+            else
+            { timePerp = 0; }
+        }
+        rb.AddForce(transform.up * Input.GetAxis("Perpendicular") * timePerp);
+
+        // ---------- ROLL ---------- 
         //TODO Change values of steps
         if (Input.GetButton("Roll"))
         {
-            if (magnitudeRoll < 10F)
-            {
-                rb.AddTorque(transform.forward * Input.GetAxis("Roll") * 0.50F);
-            }
-
-            /*
-             * else if (magnitudeRoll >= 10F && magnitudeRoll <= 20F)
-            {
-                rb.AddTorque(transform.forward * Input.GetAxis("Roll") * 5);
-            }
-            else
-            {
-                rb.AddTorque(transform.forward * Input.GetAxis("roll") * 10);
-            }
-            */
+            rb.AddTorque(transform.forward * Input.GetAxis("Roll") * RollSpeed);
         }
 
-        // Display
-        Debug.Log("LONG : " + magnitudeLongi);
-        Debug.Log("PERP : " + magnitudePerp);
-        Debug.Log("LATE : " + magnitudeLat);
-        Debug.Log("Roll : " + magnitudeRoll);
-        Debug.Log("--------------------------");
-
-
+        //DISPLAY
+        /*
+        Debug.Log("PERP" + timePerp);
+        Debug.Log("LAT" + timeLat);
+        Debug.Log("LONG" + timeLong);
+        */
 
         // http://answers.unity3d.com/questions/233850/rigidbody-making-drag-affect-only-horizontal-speed.html
+
+
+        //################################################################################
+        //#--------------------------------MOUSE INPUTS----------------------------------#
+        //################################################################################
+
+        float deadZoneRadius = Screen.width / 32.0F; //relative to screen width
+
+        float disToCenX = Input.mousePosition[0] - Screen.width / 2F;
+        float disToCenY = Input.mousePosition[1] - Screen.height / 2F;
+        Vector3 disToCen = new Vector3(disToCenX, disToCenY, 0);
+
+        if (Vector3.Magnitude(disToCen) > deadZoneRadius)
+        {
+            float rotateOnXAxis = -disToCenY * 2F / Screen.height;
+            float rotateOnYAxis = disToCenX * 2F / Screen.width;
+            transform.Rotate(rotateOnXAxis * pitchRate, rotateOnYAxis * yawRate, 0);
+        }
+
+        //Display
+        /*
+        Debug.Log("PITCH:" + disToCenX * 2F / Screen.width);
+        Debug.Log("YAW:" + disToCenY * 2F / Screen.height);
+        */
+
 
         //https://docs.unity3d.com/ScriptReference/Input-mousePosition.html
         //https://docs.unity3d.com/ScriptReference/Cursor.SetCursor.html
         //rotate cursor
 
         //For double tapping: http://answers.unity3d.com/questions/340593/how-do-i-make-a-double-tap-system-for-dashing.html
-
-
         //For launching missiles https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html
-
-        //Debug.Log("Velocity magnitude " + "\"" + rb.velocity.magnitude + "\"" );
-
-        //Debug.Log("Colinearity " + "\"" + Vector3.Dot(rb.velocity, transform.forward) + "\"");
     }
 }
