@@ -3,7 +3,14 @@ guid: 27ae1315ca7386c4380ea66773476fc4
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: CannonMedium
+    100002: //RootNode
+    400000: CannonMedium
+    400002: //RootNode
+    2300000: CannonMedium
+    3300000: CannonMedium
     4300000: CannonMedium
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3

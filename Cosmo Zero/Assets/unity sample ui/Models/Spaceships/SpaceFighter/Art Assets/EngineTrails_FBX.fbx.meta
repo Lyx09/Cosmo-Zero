@@ -3,7 +3,14 @@ guid: 58752080b7a2b014b984236fa50b1a31
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: EngineTrails
+    100002: //RootNode
+    400000: EngineTrails
+    400002: //RootNode
+    2300000: EngineTrails
+    3300000: EngineTrails
     4300000: EngineTrails
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3

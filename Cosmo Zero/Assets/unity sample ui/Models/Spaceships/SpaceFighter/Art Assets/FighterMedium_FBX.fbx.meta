@@ -3,7 +3,14 @@ guid: d5f02142fd614bc429559c3d9c05482c
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: FighterMedium
+    100002: //RootNode
+    400000: FighterMedium
+    400002: //RootNode
+    2300000: FighterMedium
+    3300000: FighterMedium
     4300000: FighterMedium
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3
