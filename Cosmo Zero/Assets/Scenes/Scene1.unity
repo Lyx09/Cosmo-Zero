@@ -902,6 +902,18 @@ MonoBehaviour:
   deceleration: 2.5
   pitchRate: 1.5
   yawRate: 1.5
+--- !u!64 &395988868
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 395988866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300008, guid: 6c11e79470dad4b4bb66b279d2660007, type: 3}
 --- !u!4 &395988870 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012864884532, guid: b1f98f3e83b90a94ca151d7158646f3f,
@@ -922,18 +934,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &395988872
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 395988866}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5979962, y: 0.3808817, z: 1.3004028}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &432622392
 GameObject:
   m_ObjectHideFlags: 0
