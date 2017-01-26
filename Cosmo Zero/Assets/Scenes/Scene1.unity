@@ -900,8 +900,8 @@ MonoBehaviour:
   RollSpeed: 0.3
   acceleration: 2.5
   deceleration: 2.5
-  pitchRate: 1.5
-  yawRate: 1.5
+  pitchRate: 2
+  yawRate: 2
 --- !u!64 &395988868
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -928,8 +928,8 @@ MonoBehaviour:
   maxlife: 20
   regenlife: 1
   LifeDisp: {fileID: 2123393351}
-  cdregen: 0
-  timeregen: 0
+  cdregen: 5
+  timeregen: 2
 --- !u!4 &395988870 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012864884532, guid: b1f98f3e83b90a94ca151d7158646f3f,
@@ -3931,7 +3931,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 5, y: -5}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 300, y: 90}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2123393351
 MonoBehaviour:
@@ -3965,7 +3965,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'HP
+
+    Money
+
+    XP'
 --- !u!222 &2123393352
 CanvasRenderer:
   m_ObjectHideFlags: 0

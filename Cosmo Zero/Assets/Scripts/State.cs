@@ -5,9 +5,11 @@ using System.Collections;
 public class State : MonoBehaviour {
     public int maxlife; //La vie max. Obvious comment is obvious
     public int regenlife; //Quantité de vie régen à chaque régen
-    public Text LifeDisp; //L'objet UI qui display les HP
+    public Text LifeDisp; //L'objet UI qui display TOUT
     public float cdregen; //Le temps qu'il faut passer hors combat avant de passer en mode régen
     public float timeregen; //Le temps entre chaque tips de régen
+    private int money;
+    private int xp;
     private int life; //Bah...
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
     private float cooldown; //Le temps à attendre avant le prochain gain de vie
@@ -15,6 +17,8 @@ public class State : MonoBehaviour {
 	void Start ()
     {
         life = maxlife;
+        money = 0;
+        xp = 0;
         UpLife();
         cooldown = 5.00F;
 	}
@@ -52,6 +56,6 @@ public class State : MonoBehaviour {
 
     void UpLife ()
     {
-        LifeDisp.text = "HP: " + life.ToString();
+        LifeDisp.text = " HP: " + life.ToString() + "\n Money: " + money.ToString() + "\n XP: " + xp.ToString() ;
     }
 }
