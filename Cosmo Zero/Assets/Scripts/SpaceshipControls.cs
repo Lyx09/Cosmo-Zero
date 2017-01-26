@@ -6,25 +6,27 @@ using UnityEngine.EventSystems;
 public class SpaceshipControls : MonoBehaviour
 {
     //https://gist.github.com/LotteMakesStuff/b8853a16de3e680dc1c326fe6f5ebd7e
-    //TODO: Warning HIGH MASS MAKE SPACESHIP IMPOSSIBLE TO CONTROL !
+    //TODO: Add speed level (Quick acceleration / slow deceleration ?)
 
     private Rigidbody rb;
 
-    //Keayboard controls
+    //Keyboard controls
     public float maxSpeed = 200;
-    public float RollSpeed = 0.30F;
+    public float RollSpeed = 0.5F;
     public float acceleration = 2.5F;
-    public float deceleration = 2.5F;
+    public float deceleration = 2.0F;
 
     private float timeLong = 0;
     private float timeLat = 0;
     private float timePerp = 0;
 
     //Mouse Controls
-    public float pitchRate = 1.5F;
-    public float yawRate = 1.5F;
+    public float pitchRate = 3F;
+    public float yawRate = 3F;
 
     //For doubleTap function
+    public bool dashUnlock = true;
+
     private int buttonCountA = 0;
     private int buttonCountE = 0;
     private int buttonCountZ = 0;
@@ -41,7 +43,8 @@ public class SpaceshipControls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.drag = rb.mass * deceleration;
+        rb.drag = deceleration;
+        rb.angularDrag = deceleration;
     }
 
 
@@ -53,8 +56,10 @@ public class SpaceshipControls : MonoBehaviour
 
         //TODO Make TapCooldown FOR EACH KEY PRESSED !
 
-        Debug.Log("Dash Cool Down:" + coolDownDash );
-        if (Input.anyKeyDown )
+        //DISPLAY
+        //Debug.Log("Dash Cool Down:" + coolDownDash );
+
+        if (Input.anyKeyDown && dashUnlock)
         {
 
             // A KEY
@@ -62,7 +67,7 @@ public class SpaceshipControls : MonoBehaviour
             {
                 if (coolDownDash <= 0 && buttonCountA == 1 && TapCooldown > 0)
                 {
-                    rb.AddTorque(transform.forward * dashIntensity);
+                    rb.AddTorque(transform.forward * dashIntensity * rb.mass);
                     coolDownDash = 5.0F;
                     buttonCountA = 0;
                 }
@@ -79,7 +84,7 @@ public class SpaceshipControls : MonoBehaviour
             {
                 if (coolDownDash <= 0 && buttonCountE == 1 && TapCooldown > 0)
                 {
-                    rb.AddTorque(-transform.forward * dashIntensity); 
+                    rb.AddTorque(-transform.forward * dashIntensity * rb.mass); 
                     coolDownDash = 5.0F;
                     buttonCountE = 0;
                 }
@@ -96,7 +101,7 @@ public class SpaceshipControls : MonoBehaviour
             {
                 if (coolDownDash <= 0 && buttonCountZ == 1 && TapCooldown > 0)
                 {
-                    rb.AddForce(transform.forward * dashIntensity);
+                    rb.AddForce(transform.forward * dashIntensity * rb.mass);
                     coolDownDash = 5.0F;
                     buttonCountZ = 0;
                 }
@@ -113,7 +118,7 @@ public class SpaceshipControls : MonoBehaviour
             {
                 if (coolDownDash <= 0 && buttonCountS == 1 && TapCooldown > 0)
                 {
-                    rb.AddForce(-transform.forward * dashIntensity);
+                    rb.AddForce(-transform.forward * dashIntensity * rb.mass);
                     coolDownDash = 5.0F;
                     buttonCountS = 0;
                 }
@@ -131,7 +136,7 @@ public class SpaceshipControls : MonoBehaviour
             {
                 if (coolDownDash <= 0 && buttonCountQ == 1 && TapCooldown > 0)
                 {
-                    rb.AddForce(-transform.right * dashIntensity);
+                    rb.AddForce(-transform.right * dashIntensity * rb.mass);
                     coolDownDash = 5.0F;
                     buttonCountQ = 0;
                 }
@@ -148,7 +153,7 @@ public class SpaceshipControls : MonoBehaviour
             {
                 if (coolDownDash <= 0 && buttonCountD == 1 && TapCooldown > 0)
                 {
-                    rb.AddForce(transform.right * dashIntensity);
+                    rb.AddForce(transform.right * dashIntensity * rb.mass);
                     coolDownDash = 5.0F;
                     buttonCountD = 0;
                 }
@@ -165,7 +170,7 @@ public class SpaceshipControls : MonoBehaviour
             {
                 if (coolDownDash <= 0 && buttonCountSpace == 1 && TapCooldown > 0)
                 {
-                    rb.AddForce(transform.up * dashIntensity);
+                    rb.AddForce(transform.up * dashIntensity * rb.mass);
                     coolDownDash = 5.0F;
                     buttonCountSpace = 0;
                 }
@@ -182,7 +187,7 @@ public class SpaceshipControls : MonoBehaviour
             {
                 if (coolDownDash <= 0 && buttonCountLCtrl == 1 && TapCooldown > 0)
                 {
-                    rb.AddForce(-transform.up * dashIntensity);
+                    rb.AddForce(-transform.up * dashIntensity * rb.mass);
                     coolDownDash = 5.0F;
                     buttonCountLCtrl = 0;
                 }
@@ -248,7 +253,7 @@ public class SpaceshipControls : MonoBehaviour
             else
             { timeLong = 0; }
         }
-        rb.AddForce(transform.forward * Input.GetAxis("Longitudinal") * timeLong);
+        rb.AddForce(transform.forward * Input.GetAxis("Longitudinal") * timeLong * rb.mass);
 
         // ---------- LATERAL ----------
         if (Input.GetButton("Lateral"))
@@ -265,7 +270,7 @@ public class SpaceshipControls : MonoBehaviour
             else
             { timeLat = 0; }
         }
-        rb.AddForce(transform.right * Input.GetAxis("Lateral") * timeLat);
+        rb.AddForce(transform.right * Input.GetAxis("Lateral") * timeLat * rb.mass);
 
         // ---------- PERPENDICULAR ----------
         if (Input.GetButton("Perpendicular"))
@@ -282,13 +287,14 @@ public class SpaceshipControls : MonoBehaviour
             else
             { timePerp = 0; }
         }
-        rb.AddForce(transform.up * Input.GetAxis("Perpendicular") * timePerp);
+        rb.AddForce(transform.up * Input.GetAxis("Perpendicular") * timePerp * rb.mass);
 
         // ---------- ROLL ---------- 
         //TODO Change values of steps
+        //TODO Add a maximum torque
         if (Input.GetButton("Roll"))
         {
-            rb.AddTorque(transform.forward * Input.GetAxis("Roll") * RollSpeed);
+            rb.AddTorque(transform.forward * Input.GetAxis("Roll") * RollSpeed * rb.mass);
         }
 
         //DISPLAY
@@ -313,16 +319,19 @@ public class SpaceshipControls : MonoBehaviour
 
         if (Vector3.Magnitude(disToCen) > deadZoneRadius)
         {
-            float rotateOnXAxis = -disToCenY * 2F / Screen.height;
-            float rotateOnYAxis = disToCenX * 2F / Screen.width;
+            float rotateOnXAxis = (-disToCenY * 2F - deadZoneRadius) / Screen.height ;
+            float rotateOnYAxis = (disToCenX * 2F - deadZoneRadius)/ Screen.width;
             transform.Rotate(rotateOnXAxis * pitchRate, rotateOnYAxis * yawRate, 0);
+
+            //Display
+            /*
+            Debug.Log("PITCH:" + rotateOnXAxis);
+            Debug.Log("YAW:" + rotateOnYAxis);
+            */    
         }
 
-        //Display
-        /*
-        Debug.Log("PITCH:" + disToCenX * 2F / Screen.width);
-        Debug.Log("YAW:" + disToCenY * 2F / Screen.height);
-        */
+        
+        
 
 
         //https://docs.unity3d.com/ScriptReference/Input-mousePosition.html
