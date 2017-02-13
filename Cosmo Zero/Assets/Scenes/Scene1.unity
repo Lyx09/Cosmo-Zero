@@ -2191,6 +2191,21 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000014002929488, guid: b1f98f3e83b90a94ca151d7158646f3f,
+        type: 2}
+      propertyPath: RollSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64000013052355808, guid: b1f98f3e83b90a94ca151d7158646f3f,
+        type: 2}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011023496478, guid: b1f98f3e83b90a94ca151d7158646f3f,
+        type: 2}
+      propertyPath: cd
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1f98f3e83b90a94ca151d7158646f3f, type: 2}
   m_IsPrefabParent: 0

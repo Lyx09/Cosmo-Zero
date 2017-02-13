@@ -11,7 +11,7 @@ public class State : MonoBehaviour
     public float timeregen; //Le temps entre chaque tips de régen
     private int money;
     private int xp;
-    protected int life; //Bah...
+    public int life; //Bah...
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
     private float cooldown; //Le temps à attendre avant le prochain gain de vie
 	// Use this for initialization

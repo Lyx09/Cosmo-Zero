@@ -29,8 +29,7 @@ public class Shooting : MonoBehaviour
     void Shoot()
     {
         GameObject test = Instantiate(bullet);
-        float z1 = rb.transform.position.z + 1;
-        Vector3 place = new Vector3(rb.transform.position.x, rb.transform.position.y, z1);
+        Vector3 place = new Vector3(rb.transform.position.x, rb.transform.position.y, rb.transform.position.z);
         test.transform.position = place;
         test.transform.rotation = rb.transform.rotation;
         Vector3 rot = new Vector3(90, 0, 0);
