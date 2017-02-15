@@ -6,6 +6,7 @@ public class Bulette : MonoBehaviour {
     private float creation;
     private Rigidbody rb;
     private GameObject sender;
+    public Vector3 speed;
     // Use this for initialization
     public void SetSender(GameObject go)
     {
@@ -15,12 +16,12 @@ public class Bulette : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
         creation = Time.time;
-        //rb.AddForce(transform.up * 50);
+        rb.AddForce(transform.up * 50);
     }
 
     void Update()
     {
-        if (Time.time > creation + 2.5F)
+        if (Time.time > creation + 1.0F)
         {
             gameObject.SetActive(false);
         }
@@ -29,7 +30,7 @@ public class Bulette : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddForce(transform.up * 20);
+        rb.velocity = speed;
     }
 
     void OnTriggerEnter(Collider other)
