@@ -20,7 +20,7 @@ public class Shooting : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if ((Input.GetKeyDown(KeyCode.P)) & Time.time >= timeavl)
+        if (Input.GetMouseButtonDown(0) & (Time.time >= timeavl))
         {
             timeavl = Time.time + cd;
             Shoot();

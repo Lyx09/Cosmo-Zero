@@ -13,6 +13,6 @@ public class BadTest : State {
 	void Update ()
     {
         if (life <= 0)
-            gameObject.SetActive(false);
+            Destroy(gameObject);
 	}
 }

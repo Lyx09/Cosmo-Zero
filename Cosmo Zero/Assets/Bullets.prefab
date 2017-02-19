@@ -23,7 +23,7 @@ GameObject:
   - 136: {fileID: 136000012464371188}
   - 23: {fileID: 23000010962092964}
   - 54: {fileID: 54000014106555026}
-  - 114: {fileID: 114000013206007708}
+  - 114: {fileID: 114000014127522322}
   m_Layer: 0
   m_Name: Bullets
   m_TagString: Untagged
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ebebe4d368a7e8748bd7762031691b43, type: 2}
+  - {fileID: 2100000, guid: badf991f76949024494055c54eadd8fc, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -95,7 +95,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114000013206007708
+--- !u!114 &114000014127522322
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011894750066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb6ea5f292ee53a40b4f0d83023bbf00, type: 3}
+  m_Script: {fileID: 11500000, guid: 992529110c6186c4b99b5ae6df213af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 0, y: 0, z: 0}

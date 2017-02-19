@@ -21,9 +21,9 @@ public class Bulette : MonoBehaviour {
 
     void Update()
     {
-        if (Time.time > creation + 1.0F)
+        if (Time.time > creation + 1.25F)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 
@@ -37,7 +37,6 @@ public class Bulette : MonoBehaviour {
     {
         if (other.CompareTag("Enemy"))
         {
-            gameObject.SetActive(false);
             BadTest enemysc = other.GetComponent<BadTest>();
             if (enemysc.life <= 1)
             {
@@ -45,7 +44,7 @@ public class Bulette : MonoBehaviour {
                 shooter.Kill();
             }
             enemysc.Hurt(1);
-            Object.Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }
