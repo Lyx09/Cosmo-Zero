@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 493160}
   - 33: {fileID: 3357748}
   - 23: {fileID: 2364362}
+  - 64: {fileID: 64000010205485636}
   m_Layer: 0
   m_Name: astre_3
   m_TagString: Untagged
@@ -77,3 +78,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 114474}
   m_IsPrefabParent: 1
+--- !u!64 &64000010205485636
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114474}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: dbfb640bcbcdb5e489c95d40666777bb, type: 3}
