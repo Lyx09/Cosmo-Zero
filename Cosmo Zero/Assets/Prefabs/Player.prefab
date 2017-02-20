@@ -43,8 +43,9 @@ GameObject:
   - 23: {fileID: 23000013494752854}
   - 54: {fileID: 54000010401271048}
   - 64: {fileID: 64000014171138572}
-  - 114: {fileID: 114000011071377532}
   - 114: {fileID: 114000011801114778}
+  - 114: {fileID: 114000010889022082}
+  - 114: {fileID: 114000010817971372}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -201,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000011071377532
+--- !u!114 &114000010817971372
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -209,15 +210,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012944804560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2604358e204d9d1468be637af1818482, type: 3}
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.04761905
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114000010889022082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012944804560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d87bbcf76b568549ac30879491798ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 200
   RollSpeed: 0.5
-  acceleration: 2.5
-  deceleration: 2.5
-  pitchRate: 1.5
-  yawRate: 1.5
+  acceleration: 1
+  deceleration: 2
+  pitchRate: 3
+  yawRate: 3
   dashUnlock: 1
 --- !u!114 &114000011801114778
 MonoBehaviour:
