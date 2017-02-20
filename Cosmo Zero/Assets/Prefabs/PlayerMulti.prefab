@@ -46,8 +46,10 @@ GameObject:
   - 114: {fileID: 114000011801114778}
   - 114: {fileID: 114000010889022082}
   - 114: {fileID: 114000010817971372}
+  - 114: {fileID: 114000010205896488}
+  - 114: {fileID: 114000011411724368}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerMulti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,6 +204,23 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000010205896488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012944804560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 759a999b14308e942a03027ded60f2a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxlife: 0
+  regenlife: 0
+  LifeDisp: {fileID: 0}
+  cdregen: 0
+  timeregen: 0
+  life: 0
 --- !u!114 &114000010817971372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,6 +259,20 @@ MonoBehaviour:
   pitchRate: 3
   yawRate: 3
   dashUnlock: 1
+--- !u!114 &114000011411724368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012944804560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7bb3b5af524e794e92fb5a97894017e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1000013030908276, guid: ba7b548afe6cbd24eb5af1dabdda0b76, type: 2}
+  cd: 0
+  damage: 1
 --- !u!114 &114000011801114778
 MonoBehaviour:
   m_ObjectHideFlags: 1
