@@ -212,15 +212,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012944804560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 759a999b14308e942a03027ded60f2a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 66d46c910f7302a4abfcc8224d604e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxlife: 0
-  regenlife: 0
-  LifeDisp: {fileID: 0}
-  cdregen: 0
-  timeregen: 0
-  life: 0
+  bullet: {fileID: 0}
+  cd: 0
+  damage: 0
 --- !u!114 &114000010817971372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,12 +264,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012944804560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7bb3b5af524e794e92fb5a97894017e, type: 3}
+  m_Script: {fileID: 11500000, guid: cbd61870123500241b970ba677f694e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1000013030908276, guid: ba7b548afe6cbd24eb5af1dabdda0b76, type: 2}
-  cd: 0
-  damage: 1
+  maxlife: 0
+  regenlife: 0
+  LifeDisp: {fileID: 0}
+  cdregen: 0
+  timeregen: 0
+  life: 0
 --- !u!114 &114000011801114778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,22 +287,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 183
-    i1: 244
-    i2: 171
-    i3: 205
-    i4: 120
-    i5: 125
-    i6: 50
-    i7: 20
-    i8: 107
-    i9: 171
-    i10: 153
-    i11: 86
-    i12: 244
-    i13: 241
-    i14: 180
-    i15: 36
+    i0: 191
+    i1: 140
+    i2: 222
+    i3: 36
+    i4: 15
+    i5: 12
+    i6: 159
+    i7: 116
+    i8: 88
+    i9: 21
+    i10: 166
+    i11: 41
+    i12: 231
+    i13: 51
+    i14: 152
+    i15: 1
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
 --- !u!124 &124000011453519716

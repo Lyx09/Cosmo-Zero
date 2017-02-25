@@ -45,7 +45,7 @@ GameObject:
   - 64: {fileID: 64000014171138572}
   - 114: {fileID: 114000010205896488}
   - 114: {fileID: 114000011411724368}
-  - 114: {fileID: 114000012816780162}
+  - 114: {fileID: 114000010011941392}
   m_Layer: 0
   m_Name: PlayerSolo
   m_TagString: Untagged
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000010205896488
+--- !u!114 &114000010011941392
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012944804560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 759a999b14308e942a03027ded60f2a8, type: 3}
+  m_Script: {fileID: 11500000, guid: cbd61870123500241b970ba677f694e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxlife: 0
@@ -219,21 +219,7 @@ MonoBehaviour:
   cdregen: 0
   timeregen: 0
   life: 0
---- !u!114 &114000011411724368
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012944804560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7bb3b5af524e794e92fb5a97894017e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1000013030908276, guid: ba7b548afe6cbd24eb5af1dabdda0b76, type: 2}
-  cd: 0
-  damage: 1
---- !u!114 &114000012816780162
+--- !u!114 &114000010205896488
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -251,6 +237,20 @@ MonoBehaviour:
   pitchRate: 3
   yawRate: 3
   dashUnlock: 1
+--- !u!114 &114000011411724368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012944804560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d46c910f7302a4abfcc8224d604e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 0}
+  cd: 0
+  damage: 0
 --- !u!124 &124000011453519716
 Behaviour:
   m_ObjectHideFlags: 1
