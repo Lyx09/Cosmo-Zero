@@ -37,6 +37,7 @@ public class Bulette : MonoBehaviour {
     {
         if (other.CompareTag("Enemy"))
         {
+            Destroy(gameObject);
             BadTest enemysc = other.GetComponent<BadTest>();
             if (enemysc.life <= 1)
             {
@@ -44,7 +45,6 @@ public class Bulette : MonoBehaviour {
                 shooter.Kill();
             }
             enemysc.Hurt(1);
-            Destroy(gameObject);
         }
     }
 }
