@@ -22,7 +22,7 @@ public class Bulette : MonoBehaviour {
 
     void Update()
     {
-        if (Time.time > creation + 2F)
+        if (Time.time > creation + 1F)
         {
             Destroy(gameObject);
         }

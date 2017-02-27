@@ -24,6 +24,7 @@ GameObject:
   - 23: {fileID: 23000013810716162}
   - 114: {fileID: 114000013475476938}
   - 54: {fileID: 54000011288375772}
+  - 96: {fileID: 96000010602377370}
   m_Layer: 0
   m_Name: Bullets
   m_TagString: Untagged
@@ -95,6 +96,56 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!96 &96000010602377370
+TrailRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013030908276}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 2759361bbfec3c14a8dfa4cf074924e0, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: 0.02
+  m_StartWidth: 0.02
+  m_EndWidth: 0.02
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 4278253853
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 4278255379
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 4278255379
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 4278386432
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 65331
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
 --- !u!114 &114000013475476938
 MonoBehaviour:
   m_ObjectHideFlags: 1

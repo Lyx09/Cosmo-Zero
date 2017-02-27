@@ -40,6 +40,9 @@ public class SpaceshipControls : MonoBehaviour
     private float TapCooldown = 0;
     public float dashIntensity = 5000;
 
+    public float deadZone = 64;
+    public bool deadZoneActive = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -311,23 +314,35 @@ public class SpaceshipControls : MonoBehaviour
         //#--------------------------------MOUSE INPUTS----------------------------------#
         //################################################################################
 
-        float deadZoneRadius = Screen.width / 32.0F; //relative to screen width
+        
 
         float disToCenX = Input.mousePosition[0] - Screen.width / 2F;
         float disToCenY = Input.mousePosition[1] - Screen.height / 2F;
         Vector3 disToCen = new Vector3(disToCenX, disToCenY, 0);
 
-        if (Vector3.Magnitude(disToCen) > deadZoneRadius)
+        if(deadZoneActive)
         {
-            float rotateOnXAxis = (-disToCenY * 2F - deadZoneRadius) / Screen.height ;
-            float rotateOnYAxis = (disToCenX * 2F - deadZoneRadius)/ Screen.width;
-            transform.Rotate(rotateOnXAxis * pitchRate, rotateOnYAxis * yawRate, 0);
+            float deadZoneRadius = Screen.width / deadZone; //relative to screen width
+            if (Vector3.Magnitude(disToCen) > deadZoneRadius)
+            {
+                float rotateOnXAxis = (-disToCenY * 2F - deadZoneRadius) / Screen.height;
+                float rotateOnYAxis = (disToCenX * 2F - deadZoneRadius) / Screen.width;
 
-            //Display
-            /*
-            Debug.Log("PITCH:" + rotateOnXAxis);
-            Debug.Log("YAW:" + rotateOnYAxis);
-            */    
+                transform.Rotate(rotateOnXAxis * pitchRate, rotateOnYAxis * yawRate, 0);
+
+                //Display
+                /*
+                Debug.Log("PITCH:" + rotateOnXAxis);
+                Debug.Log("YAW:" + rotateOnYAxis);
+                */
+            }
+        }
+        else
+        {
+            float rotateOnXAxis = (-disToCenY * 2F) / Screen.height;
+            float rotateOnYAxis = (disToCenX * 2F) / Screen.width;
+
+            transform.Rotate(rotateOnXAxis * pitchRate, rotateOnYAxis * yawRate, 0);
         }
 
         

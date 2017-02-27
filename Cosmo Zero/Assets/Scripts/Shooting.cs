@@ -42,7 +42,7 @@ public class Shooting : MonoBehaviour
         Rigidbody rb2 = test.GetComponent<Rigidbody>();
         Bulette bull = test.GetComponent<Bulette>();
         Vector3 speed = new Vector3();
-        speed = /*rb.velocity * 2 +*/ transform.forward * 70;
+        speed = /*rb.velocity * 2 +*/ transform.forward * 170;
         bull.speed = speed;
         rb2.velocity = speed;
         bull.SetSender(gameObject);
