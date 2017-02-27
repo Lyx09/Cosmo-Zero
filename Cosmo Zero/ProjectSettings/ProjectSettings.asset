@@ -12,7 +12,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: EleKtriK KaKtus
   productName: Cosmo Zero
-  defaultCursor: {fileID: 2800000, guid: a4d84809d865b914984c06e8b81d7b0e, type: 3}
+  defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenStyle: 0
   m_ShowUnitySplashScreen: 1
@@ -175,7 +175,7 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 2800000, guid: 6c93dd26dd40ddc48b572e4a33b6433c,
+  resolutionDialogBanner: {fileID: 2800000, guid: 0a3353039144d5046a3f6bbb9be7ab96,
     type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: 

@@ -55,9 +55,9 @@ public class State : MonoBehaviour
         UpLife();
     }
 
-    public void Kill()
+    public void Kill(int a)
     {
-        xp += 10;
+        xp += a;
         UpLife();
     }
 
