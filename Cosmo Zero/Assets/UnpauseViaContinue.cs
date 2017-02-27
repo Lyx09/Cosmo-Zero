@@ -3,17 +3,10 @@ using System.Collections;
 
 public class UnpauseViaContinue : MonoBehaviour {
 
-    public GameObject Canvas;
-    public GameObject Camera;
-    bool Paused = false;
-    void Start () {
-        Canvas.gameObject.SetActive(false);
-
-    }
-
-    void Update () {
+    public GameObject panel;
+    public void Unpause ()
+    {
         Time.timeScale = 1.0f;
-        Canvas.gameObject.SetActive(false);
-        Paused = false;
+        panel.gameObject.SetActive(false);
     }
 }

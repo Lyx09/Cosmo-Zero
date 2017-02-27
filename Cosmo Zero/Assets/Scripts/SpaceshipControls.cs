@@ -38,7 +38,7 @@ public class SpaceshipControls : MonoBehaviour
 
     private float coolDownDash = 5.0F;
     private float TapCooldown = 0;
-    private float dashIntensity = 10000;
+    public float dashIntensity = 5000;
 
     void Start()
     {
