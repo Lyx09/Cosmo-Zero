@@ -29,7 +29,7 @@ public class Shooting : MonoBehaviour
     void Shoot()
     {
         GameObject test = Instantiate(bullet);
-        test.transform.position = gameObject.transform.position;
+        test.transform.position = gameObject.transform.position + gameObject.transform.forward;
         test.transform.rotation = rb.transform.rotation;
         test.transform.Rotate(90, 0, 0);
         /*float deadZoneRadius = Screen.width / 25.0F; //relative to screen width
@@ -42,7 +42,7 @@ public class Shooting : MonoBehaviour
         Rigidbody rb2 = test.GetComponent<Rigidbody>();
         Bulette bull = test.GetComponent<Bulette>();
         Vector3 speed = new Vector3();
-        speed = (rb.velocity * 10) / 6 + transform.forward * 20;
+        speed = /*rb.velocity * 2 +*/ transform.forward * 70;
         bull.speed = speed;
         rb2.velocity = speed;
         bull.SetSender(gameObject);

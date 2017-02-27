@@ -14,6 +14,7 @@ public class Bulette : MonoBehaviour {
     }
     void Start()
     {
+
         rb = GetComponent<Rigidbody>();
         creation = Time.time;
         rb.AddForce(transform.up * 50);
@@ -21,7 +22,7 @@ public class Bulette : MonoBehaviour {
 
     void Update()
     {
-        if (Time.time > creation + 1.25F)
+        if (Time.time > creation + 2F)
         {
             Destroy(gameObject);
         }

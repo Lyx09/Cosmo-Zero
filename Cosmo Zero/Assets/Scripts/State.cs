@@ -31,7 +31,7 @@ public class State : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                Hurt(2);
+                Hurt(10);
             }
         }
         if (Time.time - chrono >= cooldown)
