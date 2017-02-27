@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BadTest : State {
-
+    public int xp;
 	// Use this for initialization
 	void Start ()
     {
