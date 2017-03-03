@@ -23,7 +23,6 @@ GameObject:
   - 92: {fileID: 92000011805585778}
   - 124: {fileID: 124000011453519716}
   - 81: {fileID: 81000013231996026}
-  - 114: {fileID: 114000010008061002}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -191,17 +190,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010058904038}
   m_Enabled: 1
---- !u!114 &114000010008061002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010058904038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000010011941392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,6 +225,9 @@ MonoBehaviour:
   pitchRate: 3
   yawRate: 3
   dashUnlock: 1
+  dashIntensity: 5000
+  deadZone: 64
+  deadZoneActive: 1
 --- !u!114 &114000011411724368
 MonoBehaviour:
   m_ObjectHideFlags: 1
