@@ -5,7 +5,20 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - New Tag
+  - Cannon
+  - ThrusterULF
+  - ThrusterULB
+  - ThrusterURF
+  - ThrusterURB
+  - ThrusterDLF
+  - ThrusterDLB
+  - ThrusterDRF
+  - ThrusterDRB
+  - Engine
+  - ThrusterRollUR
+  - ThrusterRollUL
+  - ThrusterRollDL
+  - ThrusterRollDR
   layers:
   - Default
   - TransparentFX
