@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Resources;
+using System.Security;
 
 public class ThrusterManager : MonoBehaviour
 {
-    private GameObject MainEngine;
-    private ParticleSystem ParticleEngine;
-    private Light LightEngine;
+    //TODO: Add flare to main engine
+
+    //Main engine
+    private GameObject mainEngine;
+    private ParticleSystem particleEngine;
+    private LensFlare lensFlare;
+    private Light lightEngine;
+
+    [Tooltip("Pleas indicate the maximum speed the ship can reach. Used for main engine")]
+    public float maxSpeed = 100f; // float topVelocity = ((addedForce.magnitude / rigidbody.drag) - Time.fixedDeltaTime * addedForce.magnitude) / rigidbody.mass;
 
     private Rigidbody playerrb;
     //Forward
@@ -102,25 +110,37 @@ public class ThrusterManager : MonoBehaviour
                     //Debug.Log("OK RollDR");
                     break;
                 case "Engine":
-                    MainEngine = child.gameObject;
+                    mainEngine = child.gameObject;
+                    //Debug.Log("OK Main Engine");
                     break;
             }
         }
 
-        //ParticleEngine = MainEngine.transform.Find("Particle System");
-        //LightEngine = MainEngine.transform.Find("Spotlight");
+        particleEngine =  mainEngine.GetComponent<ParticleSystem>();
+        lightEngine = mainEngine.GetComponent<Light>();
+        lensFlare = mainEngine.GetComponent<LensFlare>();
     }
+    
 
-    // Update is called once per frame
     void Update()
     {
+        Vector3 projected = Vector3.Project(playerrb.velocity, transform.forward);
+        float relativeSpeed = projected.magnitude/maxSpeed; //current speed compared to maxSpeed
+        //Debug.Log(Vector3.Angle(projected, transform.forward));
+
+        if (Vector3.Angle(projected, transform.forward) < 95) //Only works when going forward
+        {
+            AnimationCurve curve = new AnimationCurve();
+            curve.AddKey(1.0f, 0.0f);
+            curve.AddKey(0.0f, relativeSpeed);//max speed
+
+            var sol = particleEngine.sizeOverLifetime;
+            sol.size = new ParticleSystem.MinMaxCurve(1.5f, curve);
+
+            lightEngine.range = relativeSpeed * 10;
+            lensFlare.brightness = relativeSpeed / 2.2F;
+        }
         
-        //AnimationCurve curve = new AnimationCurve();
-        //curve.AddKey(1.0f, 0.0f);
-        //curve.AddKey(0.0f, playerrb.velocity/200f);
-        //ParticleEngine.sizeOverLifetime(curve);
-
-
         ULF = false;
         ULB = false;
         URF = false;
@@ -137,14 +157,14 @@ public class ThrusterManager : MonoBehaviour
         // ---------- LONGITUDINAL ----------
         if (Input.GetAxis("Longitudinal") > threshold)
         {
-            //Nothing here Engine already working on it
+            //Main Engine wrking on it
         }
         else if (Input.GetAxis("Longitudinal") < -threshold)
         {
             DLF = true;
             ULF = true;
             URF = true;
-            DLF = true;
+            DRF = true;
         }
 
 
@@ -154,7 +174,7 @@ public class ThrusterManager : MonoBehaviour
             ULF = true;
             ULB = true;
             DLB = true;
-            DLB = true;
+            DLF = true;
         }
         else if (Input.GetAxis("Lateral") < -threshold)
         {
@@ -228,14 +248,6 @@ public class ThrusterManager : MonoBehaviour
             DLF = false;
         }
 
-        if (RollDL && RollDR)
-        {
-            RollDR = false;
-            RollDR = false;
-            RollUL = false;
-            RollUR = false;
-        }
-
         ThrusterULB.SetActive(ULB);
         ThrusterDLF.SetActive(DLF);
         ThrusterDLB.SetActive(DLB);
@@ -249,6 +261,6 @@ public class ThrusterManager : MonoBehaviour
         ThrusterRollDR.SetActive(RollDR);
         ThrusterRollUL.SetActive(RollUL);
         ThrusterRollUR.SetActive(RollUR);
-
+      
     }
 }

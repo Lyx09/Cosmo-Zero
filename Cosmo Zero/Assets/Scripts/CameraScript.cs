@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 
 public class CameraScript : MonoBehaviour
 {
-    private Rigidbody ship;
+    //private Rigidbody ship;
 
     //[SerializeField]
     //private float maxMovement = 1F; //not used -> must be used to check camMov
@@ -48,7 +47,7 @@ public class CameraScript : MonoBehaviour
 
     void Start ()
 	{
-	    ship = GetComponentInParent<Rigidbody>();
+	    //ship = GetComponentInParent<Rigidbody>();
 	    Scontrols = GetComponentInParent<SpaceshipControls>();
     }
 	

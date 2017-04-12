@@ -367,9 +367,6 @@ public class SpaceshipControls : MonoBehaviour
 
         if (!blockRotation)
         {
-
-
-
             float disToCenX = Input.mousePosition[0] - Screen.width/2F;
             float disToCenY = Input.mousePosition[1] - Screen.height/2F;
             Vector3 disToCen = new Vector3(disToCenX, disToCenY, 0);
