@@ -15301,19 +15301,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 50
   threshold: 0.3
---- !u!114 &1509623049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1509623047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2baab0e6f1640564183600f5f185b009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Dialogue: {fileID: 309397197}
-  message: {fileID: 1618290468}
 --- !u!136 &1509623052
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15390,6 +15377,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Panel: {fileID: 724299531}
   Disp: {fileID: 1986941343}
+--- !u!114 &1509623061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509623047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2baab0e6f1640564183600f5f185b009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Dialogue: {fileID: 309397197}
+  message: {fileID: 1618290468}
 --- !u!1 &1510397467 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: aae85a00b8397cd4f822fbbc9cab8dfa, type: 3}
