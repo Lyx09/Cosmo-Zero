@@ -2,21 +2,21 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class TutoQuests : MonoBehaviour
+public class Tuto : MonoBehaviour
 {
     private int step;
     public GameObject Dialogue;
     public Text message;
 
-    void Start ()
+    void Start()
     {
         Dialogue.gameObject.SetActive(true);
         step = 0;
-	}
-	
-	void Update ()
+    }
+
+    void Update()
     {
-	    switch (step)
+        switch (step)
         {
             case 0:
                 message.text = "Hello, \nWelcome to the Cosmo Zero Tutorial!\n";
@@ -29,5 +29,6 @@ public class TutoQuests : MonoBehaviour
             default:
                 break;
         }
-	}
+    }
 }
+

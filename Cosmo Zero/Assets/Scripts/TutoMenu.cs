@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TabMenu : MonoBehaviour
+public class TutoMenu : MonoBehaviour
 {
     public GameObject Panel;
     public GameObject Disp;
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         Panel.gameObject.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         if (!Panel.gameObject.activeSelf)
         {
@@ -30,5 +30,5 @@ public class TabMenu : MonoBehaviour
                 Disp.gameObject.SetActive(true);
             }
         }
-	}
+    }
 }
