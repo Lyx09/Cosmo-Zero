@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TabMenu : MonoBehaviour
 {
+<<<<<<< HEAD
     public GameObject Panel;
     public GameObject Disp;
 	// Use this for initialization
@@ -20,14 +21,38 @@ public class TabMenu : MonoBehaviour
             {
                 Panel.gameObject.SetActive(true);
                 Disp.gameObject.SetActive(false);
+=======
+    public GameObject Canvas;
+    public GameObject Display;
+    void Start ()
+    {
+        Canvas.gameObject.SetActive(false);
+	}
+	
+	void Update ()
+    {
+	    if (Canvas.gameObject.activeSelf)
+        {
+            if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                Canvas.gameObject.SetActive(false);
+                Display.gameObject.SetActive(true);
+>>>>>>> origin/master
             }
         }
         else
         {
+<<<<<<< HEAD
             if (Input.GetKeyUp(KeyCode.Tab))
             {
                 Panel.gameObject.SetActive(false);
                 Disp.gameObject.SetActive(true);
+=======
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                Canvas.gameObject.SetActive(true);
+                Display.gameObject.SetActive(false);
+>>>>>>> origin/master
             }
         }
 	}
