@@ -161,10 +161,10 @@ public class ThrusterManager : MonoBehaviour
         }
         else if (Input.GetAxis("Longitudinal") < -threshold)
         {
-            DLF = true;
-            ULF = true;
-            URF = true;
-            DRF = true;
+            DLB = true;
+            ULB = true;
+            URB = true;
+            DRB = true;
         }
 
 
