@@ -19,7 +19,7 @@ public class TutoMenu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 Panel.gameObject.SetActive(true);
-                Disp.gameObject.SetActive(false);
+                //Disp.gameObject.SetActive(false);
 
             }
         }
@@ -28,7 +28,7 @@ public class TutoMenu : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Tab))
             {
                 Panel.gameObject.SetActive(false);
-                Disp.gameObject.SetActive(true);
+                //Disp.gameObject.SetActive(true);
             }
         }
     }
