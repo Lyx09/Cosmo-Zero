@@ -8,8 +8,8 @@ public class Tuto : MonoBehaviour
     public GameObject Dialogue;
     public Text message;
     public Text quest;
-    static private float BeginningZ, BeginningQ, BeginningS, BeginningD;
-    static private bool bz, bq, bs, bd, btab;
+    static private float BeginningZ, BeginningQ, BeginningS, BeginningD, BeginningSpace, BeginningCtrl, BeginningA, BeginningE;
+    static private bool bz, bq, bs, bd, btab, bspace, bctrl, ba, be;
 
     void Start()
     {
@@ -19,10 +19,14 @@ public class Tuto : MonoBehaviour
         BeginningQ = 0;
         BeginningS = 0;
         BeginningD = 0;
+        BeginningSpace = 0;
+        BeginningCtrl = 0;
         bq = false;
         bs = false;
         bd = false;
         btab = false;
+        bspace = false;
+        bctrl = false;
         quest.text = "";
     }
 
@@ -108,7 +112,37 @@ public class Tuto : MonoBehaviour
                     step = 8;
                 break;
             case 8:
-                Dialogue.gameObject.SetActive(false);
+                message.text = "You can also move up by pressing 'Space', and down by pressing 'Ctrl'\nTry it now!";
+                step = 9;
+                break;
+            case 9:
+                quest.text = "Current quest:\n-Move up by pressing 'Space' " + Done(bspace)
+                    + "\n-Move down by pressing 'Ctrl' " + Done(bctrl);
+                if (bspace && bctrl)
+                    step = 10;
+                if (!bspace)
+                    bspace = KeyPressed(ref BeginningSpace, KeyCode.Space);
+                if (!bctrl)
+                    bctrl = KeyPressed(ref BeginningCtrl, KeyCode.LeftControl);
+                break;
+            case 10:
+                Dialogue.gameObject.SetActive(true);
+                message.text = "Great!\nYou only have one last move to learn, and it's the coolest: Rolling!";
+                if (Input.anyKeyDown)
+                    step = 11;
+                break;
+            case 11:
+                message.text = "You can either roll to your left by pressing 'A', or roll to your right by pressing 'E'\nTry both now!";
+                if (ba && be)
+                    step = 12;
+                if (!ba)
+                    ba = KeyPressed(ref BeginningA, KeyCode.A);
+                if (!be)
+                    be = KeyPressed(ref BeginningE, KeyCode.E);
+                break;
+            case 12:
+                Dialogue.gameObject.SetActive(true);
+                message.text = "Excellent.\nNow you know all about piloting your spaceship.\nIt's time to get to the serious stuff";
                 break;
             default:
                 break;
