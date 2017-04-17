@@ -9,7 +9,7 @@ public class Tuto : MonoBehaviour
     public Text message;
     public Text quest;
     static private float BeginningZ, BeginningQ, BeginningS, BeginningD;
-    static private bool bq, bs, bd, btab;
+    static private bool bz, bq, bs, bd, btab;
 
     void Start()
     {
@@ -69,25 +69,10 @@ public class Tuto : MonoBehaviour
                 break;
             case 3:
                 quest.text = "Current quest:\n-Move forward by bressing 'Z' <color=red>(To do)</color>";
-                if (BeginningZ == 0)
-                {
-                    if (Input.GetKeyDown(KeyCode.Z))
-                    {
-                        Dialogue.gameObject.SetActive(false);
-                        BeginningZ = Time.time;
-                    }
-                    else if (Input.anyKeyDown)
-                        Dialogue.gameObject.SetActive(false);
-                }
+                if (!bz)
+                    bz = KeyPressed(ref BeginningZ, KeyCode.Z);
                 else
-                {
-                    if (Input.GetKeyUp(KeyCode.Z))
-                    {
-                        BeginningZ = 0;
-                    }
-                    else if (Time.time - BeginningZ >= 1.10)
-                        step = 4;
-                }
+                    step = 4;
                 break;
             case 4:
                 Dialogue.gameObject.SetActive(true);
@@ -106,62 +91,14 @@ public class Tuto : MonoBehaviour
                     + "\n-Move to your right by pressing 'D' " + Done(bd);
                 if (bq && bs && bd)
                     step = 7;
-                if (BeginningQ == 0)
-                {
-                    if (Input.GetKeyDown(KeyCode.Q))
-                    {
-                        Dialogue.gameObject.SetActive(false);
-                        BeginningQ = Time.time;
-                    }
-                    else if (Input.anyKeyDown)
-                        Dialogue.gameObject.SetActive(false);
-                }
                 else
                 {
-                    if (Input.GetKeyUp(KeyCode.Q))
-                    {
-                        BeginningQ = 0;
-                    }
-                    else if (Time.time - BeginningQ >= 0.75)
-                        bq = true;
-                }
-                if (BeginningS == 0)
-                {
-                    if (Input.GetKeyDown(KeyCode.S))
-                    {
-                        Dialogue.gameObject.SetActive(false);
-                        BeginningS = Time.time;
-                    }
-                    else if (Input.anyKeyDown)
-                        Dialogue.gameObject.SetActive(false);
-                }
-                else
-                {
-                    if (Input.GetKeyUp(KeyCode.S))
-                    {
-                        BeginningS = 0;
-                    }
-                    else if (Time.time - BeginningS >= 0.75)
-                        bs = true;
-                }
-                if (BeginningD == 0)
-                {
-                    if (Input.GetKeyDown(KeyCode.D))
-                    {
-                        Dialogue.gameObject.SetActive(false);
-                        BeginningD = Time.time;
-                    }
-                    else if (Input.anyKeyDown)
-                        Dialogue.gameObject.SetActive(false);
-                }
-                else
-                {
-                    if (Input.GetKeyUp(KeyCode.D))
-                    {
-                        BeginningD = 0;
-                    }
-                    else if (Time.time - BeginningD >= 0.75)
-                        bd = true;
+                    if (!bq)
+                        bq = KeyPressed(ref BeginningQ, KeyCode.Q);
+                    if (!bs)
+                        bs = KeyPressed(ref BeginningS, KeyCode.S);
+                    if (!bd)
+                        bd = KeyPressed(ref BeginningD, KeyCode.D);
                 }
                 break;
             case 7:
@@ -183,5 +120,30 @@ public class Tuto : MonoBehaviour
             return "<color=green>(Done)</color>";
         else
             return "<color=red>(To do)</color>";
+    }
+    public bool KeyPressed(ref float Beginning, KeyCode key)
+    {
+        if (Beginning == 0)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                Dialogue.gameObject.SetActive(false);
+                Beginning = Time.time;
+            }
+            else if (Input.anyKeyDown)
+                Dialogue.gameObject.SetActive(false);
+            return false;
+        }
+        else
+        {
+            if (Input.GetKeyUp(key))
+            {
+                Beginning = 0;
+                return false;
+            }
+            else if (Time.time - Beginning >= 1.10)
+                return true;
+            return false;
+        }
     }
 }
