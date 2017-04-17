@@ -8,8 +8,8 @@ public class Tuto : MonoBehaviour
     public GameObject Dialogue;
     public Text message;
     public Text quest;
-    private float BeginningZ, BeginningQ, BeginningS, BeginningD;
-    private bool bq, bs, bd, btab;
+    static private float BeginningZ, BeginningQ, BeginningS, BeginningD;
+    static private bool bq, bs, bd, btab;
 
     void Start()
     {
@@ -42,16 +42,19 @@ public class Tuto : MonoBehaviour
                 break;
             case -1:
                 message.text = "The first thing you should now is that there's a menu to help you through this tutoriel.\nYou can access it by pressing 'Tab'";
-                if (Input.anyKeyDown)
-                    step = -2;
+                step = -2;
                 break;
             case -2:
-                Dialogue.gameObject.SetActive(false);
                 quest.text = "Current quest:\n-Open the Help menu by pressing 'Tab' <color=green>(Done)</color>";
                 if (!btab)
                 {
                     if (Input.GetKeyDown(KeyCode.Tab))
+                    {
+                        Dialogue.gameObject.SetActive(false);
                         btab = true;
+                    }
+                    else if (Input.anyKeyDown)
+                        Dialogue.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -62,18 +65,19 @@ public class Tuto : MonoBehaviour
             case 2:
                 Dialogue.gameObject.SetActive(true);
                 message.text = "Good!\nNow try to move forward.\nIn order to do so, press 'Z'";
-                if (Input.anyKeyDown)
-                    step = 3;
+                step = 3;
                 break;
             case 3:
-                Dialogue.gameObject.SetActive(false);
                 quest.text = "Current quest:\n-Move forward by bressing 'Z' <color=red>(To do)</color>";
                 if (BeginningZ == 0)
                 {
                     if (Input.GetKeyDown(KeyCode.Z))
                     {
+                        Dialogue.gameObject.SetActive(false);
                         BeginningZ = Time.time;
                     }
+                    else if (Input.anyKeyDown)
+                        Dialogue.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -94,11 +98,9 @@ public class Tuto : MonoBehaviour
                 break;
             case 5:
                 message.text = "Now, try moving backward, to your left and to your right,\nby using the 'S','Q' and 'D' keys";
-                if (Input.anyKeyDown)
-                    step = 6;
+                step = 6;
                 break;
             case 6:
-                Dialogue.gameObject.SetActive(false);
                 quest.text = "Current quest:\n-Move backward by pressing 'S' " + Done(bs)
                     + "\n-Move to your left by pressing 'Q' " + Done(bq)
                     + "\n-Move to your right by pressing 'D' " + Done(bd);
@@ -107,7 +109,12 @@ public class Tuto : MonoBehaviour
                 if (BeginningQ == 0)
                 {
                     if (Input.GetKeyDown(KeyCode.Q))
+                    {
+                        Dialogue.gameObject.SetActive(false);
                         BeginningQ = Time.time;
+                    }
+                    else if (Input.anyKeyDown)
+                        Dialogue.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -121,7 +128,12 @@ public class Tuto : MonoBehaviour
                 if (BeginningS == 0)
                 {
                     if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        Dialogue.gameObject.SetActive(false);
                         BeginningS = Time.time;
+                    }
+                    else if (Input.anyKeyDown)
+                        Dialogue.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -135,7 +147,12 @@ public class Tuto : MonoBehaviour
                 if (BeginningD == 0)
                 {
                     if (Input.GetKeyDown(KeyCode.D))
+                    {
+                        Dialogue.gameObject.SetActive(false);
                         BeginningD = Time.time;
+                    }
+                    else if (Input.anyKeyDown)
+                        Dialogue.gameObject.SetActive(false);
                 }
                 else
                 {
