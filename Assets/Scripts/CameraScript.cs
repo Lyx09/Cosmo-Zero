@@ -40,7 +40,7 @@ public class CameraScript : MonoBehaviour
     public float camPitchRate = 2F;
     public float camYawRate = 2F;
 
-    private Vector3 currentPos;
+    public Vector3 currentPos;
     private bool cameraIsRear = false;
     //private float previousVelo = 0;
     //public float maxShipVelo = 68F;

@@ -13,7 +13,7 @@ public class ThrusterManager : MonoBehaviour
     private LensFlare lensFlare;
     private Light lightEngine;
 
-    [Tooltip("Pleas indicate the maximum speed the ship can reach. Used for main engine")]
+    [Tooltip("Please indicate the maximum speed the ship can reach. Used for main engine")]
     public float maxSpeed = 100f; // float topVelocity = ((addedForce.magnitude / rigidbody.drag) - Time.fixedDeltaTime * addedForce.magnitude) / rigidbody.mass;
 
     private Rigidbody playerrb;
@@ -53,8 +53,13 @@ public class ThrusterManager : MonoBehaviour
     [Range(0,1)]
     public float threshold = 0.1f;
 
+    [SerializeField] private Transform cameraTransform;
+    public CameraScript cameraScript;
+    private Vector3 originalCamPos;
+
     void Start()
     {
+        originalCamPos = cameraTransform.localPosition;
         playerrb = GetComponent<Rigidbody>();
 
         foreach (Transform child in transform)
@@ -127,6 +132,12 @@ public class ThrusterManager : MonoBehaviour
         Vector3 projected = Vector3.Project(playerrb.velocity, transform.forward);
         float relativeSpeed = projected.magnitude/maxSpeed; //current speed compared to maxSpeed
         //Debug.Log(Vector3.Angle(projected, transform.forward));
+        
+        if (relativeSpeed > 3 ) //prevents from being too bright
+        {
+            relativeSpeed = 3;
+        }
+        //Debug.Log(relativeSpeed);
 
         if (Vector3.Angle(projected, transform.forward) < 95) //Only works when going forward
         {
@@ -140,7 +151,17 @@ public class ThrusterManager : MonoBehaviour
             lightEngine.range = relativeSpeed * 10;
             lensFlare.brightness = relativeSpeed / 2.2F;
         }
-        
+
+        if (relativeSpeed > 0.15)
+        {
+            if (relativeSpeed > 0.3)
+            {
+                relativeSpeed = 0.3F;
+            }
+            Vector3 zero = Vector3.zero;
+            cameraTransform.localPosition = Vector3.SmoothDamp(cameraTransform.localPosition, cameraScript.currentPos + Random.insideUnitSphere * (relativeSpeed - 0.15F) * 0.2F , ref zero , 0.03F);
+        }
+
         ULF = false;
         ULB = false;
         URF = false;
@@ -184,8 +205,7 @@ public class ThrusterManager : MonoBehaviour
             DRF = true;
         }
 
-
-
+        
         // ---------- PERPENDICULAR ----------
         if (Input.GetAxis("Perpendicular") > threshold)
         {
