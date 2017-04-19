@@ -19,6 +19,8 @@ TagManager:
   - ThrusterRollUL
   - ThrusterRollDL
   - ThrusterRollDR
+  - Sphere
+  - New Tag
   layers:
   - Default
   - TransparentFX

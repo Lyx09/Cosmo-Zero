@@ -5,12 +5,15 @@ using System.Collections;
 public class TutoQuests : MonoBehaviour
 {
     private int step;
-    public GameObject Dialogue;
+    private static int collected;
+    public GameObject Dialogue, Cut, Ship;
     public Text message;
     public Text quest;
-    static private float BeginningZ, BeginningQ, BeginningS, BeginningD, BeginningSpace, BeginningCtrl, BeginningA, BeginningE;
+    static private float BeginningZ, BeginningQ, BeginningS, BeginningD, BeginningSpace, BeginningCtrl, BeginningA, BeginningE, StartPause;
     static private bool bz, bq, bs, bd, btab, bspace, bctrl, ba, be, btop, bbottom, bleft, bright;
     static private double lpart, rpart, tpart, bpart;
+    public GameObject Sphere1, Sphere2;
+    private Rigidbody Player;
 
     void Start()
     {
@@ -36,6 +39,8 @@ public class TutoQuests : MonoBehaviour
         bbottom = false;
         bleft = false;
         bright = false;
+        collected = 0;
+        Player = GetComponent<Rigidbody>();
         quest.text = "";
     }
 
@@ -165,6 +170,8 @@ public class TutoQuests : MonoBehaviour
                 message.text = "Put your cursor in the borders of the screen and see what happens!";
                 if (bleft && bright && btop && bbottom)
                     step = 14;
+                if (Input.anyKeyDown)
+                    Dialogue.gameObject.SetActive(false);
                 lpart = Screen.width * 0.2;
                 bleft = bleft || (Input.mousePosition[0] <= lpart);
                 rpart = Screen.width * 0.8;
@@ -175,8 +182,48 @@ public class TutoQuests : MonoBehaviour
                 bbottom = bbottom || (Input.mousePosition[1] <= bpart);
                 break;
             case 14:
+                Dialogue.gameObject.SetActive(true);
                 quest.text = "";
                 message.text = "Good!\n Now we can put in application what you just learned";
+                if (Input.anyKeyDown)
+                {
+                    Dialogue.gameObject.SetActive(false);
+                    StartPause = Time.time;
+                    Cut.gameObject.SetActive(true);
+                    step = 15;
+                }
+                break;
+            case 15:
+                if (Time.time - StartPause >= 0.6)
+                {
+                    Ship.transform.position = new Vector3(0, 0, 0);
+                    Ship.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    step = 16;
+                }
+                break;
+            case 16:
+                Cut.gameObject.SetActive(false);
+                Sphere1.gameObject.SetActive(true);
+                Player.GetComponent<Lock>().target = Sphere1.transform;
+                step = 17;
+                break;
+            case 17:
+                Dialogue.gameObject.SetActive(true);
+                message.text = "Collect five blue spheres";
+                quest.text = "Current quest:\n-Collect five blue spheres (" + collected.ToString() + "/5)";
+                if (Input.anyKeyDown)
+                    Dialogue.gameObject.SetActive(false);
+                if (collected == 1)
+                {
+                    step = 18;
+                    Sphere2.gameObject.SetActive(true);
+                    Player.GetComponent<Lock>().target = Sphere2.transform;
+                }
+                break;
+            case 18:
+                quest.text = "Current quest:\n-Collect five blue spheres (" + collected.ToString() + "/5)";
+                if (Input.anyKeyDown)
+                    Dialogue.gameObject.SetActive(false);
                 break;
             default:
                 break;
@@ -212,6 +259,14 @@ public class TutoQuests : MonoBehaviour
             else if (Time.time - Beginning >= 1.10)
                 return true;
             return false;
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Sphere"))
+        {
+            collected++;
+            Destroy(other.gameObject);
         }
     }
 }
