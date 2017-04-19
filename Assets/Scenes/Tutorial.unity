@@ -1308,6 +1308,7 @@ MonoBehaviour:
   smoothTime: 0.1
   camPitchRate: 2
   camYawRate: 2
+  currentPos: {x: 0, y: 0, z: 0}
 --- !u!20 &554020935 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20000014225234452, guid: 8d9c3735e0536d94789b65f6b71649ee,
@@ -2793,7 +2794,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 495060248
+  randomSeed: 1193768091
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -6343,7 +6344,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -75, y: -125}
-  m_SizeDelta: {x: 500, y: 200}
+  m_SizeDelta: {x: 500, y: 350}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &880995258
 MonoBehaviour:
@@ -6520,7 +6521,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 800793824
+  randomSeed: -1399580253
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -8338,7 +8339,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1824293000
+  randomSeed: 1606596530
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -15315,6 +15316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 50
   threshold: 0.3
+  cameraTransform: {fileID: 0}
+  cameraScript: {fileID: 0}
 --- !u!136 &1509623052
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17694,7 +17697,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 1980995312
+  randomSeed: 1815689855
   InitialModule:
     serializedVersion: 2
     enabled: 1

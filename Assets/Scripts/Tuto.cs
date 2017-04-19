@@ -9,7 +9,8 @@ public class Tuto : MonoBehaviour
     public Text message;
     public Text quest;
     static private float BeginningZ, BeginningQ, BeginningS, BeginningD, BeginningSpace, BeginningCtrl, BeginningA, BeginningE;
-    static private bool bz, bq, bs, bd, btab, bspace, bctrl, ba, be;
+    static private bool bz, bq, bs, bd, btab, bspace, bctrl, ba, be, btop, bbottom, bleft, bright;
+    static private double lpart, rpart, tpart, bpart;
 
     void Start()
     {
@@ -21,12 +22,20 @@ public class Tuto : MonoBehaviour
         BeginningD = 0;
         BeginningSpace = 0;
         BeginningCtrl = 0;
+        BeginningA = 0;
+        BeginningE = 0;
         bq = false;
         bs = false;
         bd = false;
         btab = false;
         bspace = false;
         bctrl = false;
+        ba = false;
+        be = false;
+        btop = false;
+        bbottom = false;
+        bleft = false;
+        bright = false;
         quest.text = "";
     }
 
@@ -37,7 +46,7 @@ public class Tuto : MonoBehaviour
             case 0:
                 message.text = "Hello, \nWelcome to the Cosmo Zero Tutorial!\n";
                 if (Input.anyKeyDown)
-                    step = -1;
+                    step = 1;
                 break;
             case 1:
                 message.text = "You're going to learn the basics of the game";
@@ -132,6 +141,8 @@ public class Tuto : MonoBehaviour
                     step = 11;
                 break;
             case 11:
+                quest.text = "Current quest:\n-Roll left by pressing 'A'" + Done(ba)
+                    + "\n-Roll right by pressing 'E'" + Done(be);
                 message.text = "You can either roll to your left by pressing 'A', or roll to your right by pressing 'E'\nTry both now!";
                 if (ba && be)
                     step = 12;
@@ -142,7 +153,30 @@ public class Tuto : MonoBehaviour
                 break;
             case 12:
                 Dialogue.gameObject.SetActive(true);
-                message.text = "Excellent.\nNow you know all about piloting your spaceship.\nIt's time to get to the serious stuff";
+                message.text = "Excellent.\nNow you can move in the direction you want.\nBut you may have also noticed that you can rotate your ship by moving your mouse around.";
+                if (Input.anyKeyDown)
+                    step = 13;
+                break;
+            case 13:
+                quest.text = "Current quest:\n-Put your cursor on the left part of your screen" + Done(bleft)
+                    + "\n-Put your cursor on the right part of your screen" + Done(bright)
+                    + "\n-Put your cursor on the top part of your screen" + Done(btop)
+                    + "\n-Put your cursor on the bottom part of your screen" + Done(bbottom);
+                message.text = "Put your cursor in the borders of the screen and see what happens!";
+                if (bleft && bright && btop && bbottom)
+                    step = 14;
+                lpart = Screen.width * 0.2;
+                bleft = bleft || (Input.mousePosition[0] <= lpart);
+                rpart = Screen.width * 0.8;
+                bright = bright || (Input.mousePosition[0] >= rpart);
+                tpart = Screen.height * 0.8;
+                btop = btop || (Input.mousePosition[1] >= tpart);
+                bpart = Screen.height * 0.2;
+                bbottom = bbottom || (Input.mousePosition[1] <= bpart);
+                break;
+            case 14:
+                quest.text = "";
+                message.text = "Good!\n Now we can put in application what you just learned";
                 break;
             default:
                 break;
