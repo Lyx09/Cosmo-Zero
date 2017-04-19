@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TutoMenu : MonoBehaviour
+public class TabMenu : MonoBehaviour
 {
     public GameObject Panel;
     public GameObject Disp;

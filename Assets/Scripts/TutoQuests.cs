@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Tuto : MonoBehaviour
+public class TutoQuests : MonoBehaviour
 {
     private int step;
     public GameObject Dialogue;
