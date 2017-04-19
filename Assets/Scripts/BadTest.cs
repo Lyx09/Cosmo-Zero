@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BadTest : State {
+public class BadTest : State
+{
+    public int xpvalue;
 	// Use this for initialization
 	void Start ()
     {

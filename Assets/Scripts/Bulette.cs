@@ -44,7 +44,7 @@ public class Bulette : MonoBehaviour
             if (enemysc.life <= 1)
             {
                 State shooter = sender.GetComponent<State>();
-                shooter.Kill(enemysc.xp);
+                shooter.Kill(enemysc.xpvalue);
             }
             enemysc.Hurt(1);
         }

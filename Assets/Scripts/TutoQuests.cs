@@ -12,7 +12,7 @@ public class TutoQuests : MonoBehaviour
     static private float BeginningZ, BeginningQ, BeginningS, BeginningD, BeginningSpace, BeginningCtrl, BeginningA, BeginningE, StartPause;
     static private bool bz, bq, bs, bd, btab, bspace, bctrl, ba, be, btop, bbottom, bleft, bright;
     static private double lpart, rpart, tpart, bpart;
-    public GameObject Sphere1, Sphere2;
+    public GameObject Sphere1, Sphere2, Sphere3, Sphere4, Sphere5, Targets;
     private Rigidbody Player;
 
     void Start()
@@ -59,7 +59,7 @@ public class TutoQuests : MonoBehaviour
                     step = -1;
                 break;
             case -1:
-                message.text = "The first thing you should now is that there's a menu to help you through this tutoriel.\nYou can access it by pressing 'Tab'";
+                message.text = "The first thing you should now is that there's a menu to help you through this tutorial.\nYou can access it by pressing 'Tab'";
                 step = -2;
                 break;
             case -2:
@@ -205,25 +205,108 @@ public class TutoQuests : MonoBehaviour
                 Cut.gameObject.SetActive(false);
                 Sphere1.gameObject.SetActive(true);
                 Player.GetComponent<Lock>().target = Sphere1.transform;
+                Dialogue.gameObject.SetActive(true);
                 step = 17;
                 break;
             case 17:
-                Dialogue.gameObject.SetActive(true);
-                message.text = "Collect five blue spheres";
-                quest.text = "Current quest:\n-Collect five blue spheres (" + collected.ToString() + "/5)";
+                message.text = "You are going to be targetting a blue sphere. Collect it!";
+                quest.text = "Current quest:\n-Collect the blue sphere";
                 if (Input.anyKeyDown)
                     Dialogue.gameObject.SetActive(false);
                 if (collected == 1)
                 {
+                    Dialogue.gameObject.SetActive(true);
                     step = 18;
                     Sphere2.gameObject.SetActive(true);
                     Player.GetComponent<Lock>().target = Sphere2.transform;
                 }
                 break;
             case 18:
-                quest.text = "Current quest:\n-Collect five blue spheres (" + collected.ToString() + "/5)";
+                message.text = "Good! Now do that 4 more times";
+                quest.text = "Current quest:\n-Collect four blue spheres (" + (collected - 1).ToString() + "/4)";
                 if (Input.anyKeyDown)
                     Dialogue.gameObject.SetActive(false);
+                if (collected == 2)
+                {
+                    step = 19;
+                    Sphere3.gameObject.SetActive(true);
+                    Player.GetComponent<Lock>().target = Sphere3.transform;
+                }
+                break;
+            case 19:
+                quest.text = "Current quest:\n-Collect four blue spheres (" + (collected - 1).ToString() + "/4)";
+                if (Input.anyKeyDown)
+                    Dialogue.gameObject.SetActive(false);
+                if (collected == 3)
+                {
+                    step = 20;
+                    Sphere4.gameObject.SetActive(true);
+                    Player.GetComponent<Lock>().target = Sphere4.transform;
+                }
+                break;
+            case 20:
+                quest.text = "Current quest:\n-Collect four blue spheres (" + (collected - 1).ToString() + "/4)";
+                if (Input.anyKeyDown)
+                    Dialogue.gameObject.SetActive(false);
+                if (collected == 4)
+                {
+                    step = 21;
+                    Sphere5.gameObject.SetActive(true);
+                    Player.GetComponent<Lock>().target = Sphere5.transform;
+                }
+                break;
+            case 21:
+                quest.text = "Current quest:\n-Collect four blue spheres (" + (collected - 1).ToString() + "/4)";
+                if (Input.anyKeyDown)
+                    Dialogue.gameObject.SetActive(false);
+                if (collected == 5)
+                {
+                    step = 22;
+                }
+                break;
+            case 22:
+                Dialogue.gameObject.SetActive(true);
+                message.text = "Good job.\nYou'll soon be ready for the real game";
+                if (Input.anyKeyDown)
+                    step = 23;
+                break;
+            case 23:
+                message.text = "The last important thing you have to learn is how to shoot";
+                if (Input.anyKeyDown)
+                {
+                    Dialogue.gameObject.SetActive(false);
+                    StartPause = Time.time;
+                    Cut.gameObject.SetActive(true);
+                    step = 24;
+                }
+                break;
+            case 24:
+                if (Time.time - StartPause >= 0.6)
+                {
+                    Ship.transform.position = new Vector3(0, 0, 0);
+                    Ship.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    step = 25;
+                }
+                break;
+            case 25:
+                message.text = "To complete this last quest,\nyou have to shoot 5 targets, by using your left click";
+                quest.text = "Current quest:\n-Shoot 5 targets (" + Player.GetComponent<State>().xp.ToString() + "/5)";
+                Cut.gameObject.SetActive(false);
+                Targets.gameObject.SetActive(true);
+                Dialogue.gameObject.SetActive(true);
+                step = 26;
+                break;
+            case 26:
+                quest.text = "Current quest:\n-Shoot 5 targets (" + Player.GetComponent<State>().xp.ToString() + "/5)";
+                if (Input.anyKeyDown)
+                    Dialogue.SetActive(false);
+                if (Player.GetComponent<State>().xp == 5)
+                    step = 27;
+                break;
+            case 27:
+                quest.text = "";
+                Dialogue.gameObject.SetActive(true);
+                message.text = "Well, looks like you've completed the tutorial.\nWell played";
                 break;
             default:
                 break;
