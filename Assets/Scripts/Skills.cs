@@ -256,5 +256,28 @@ public class Skills : MonoBehaviour {
 	    {
 	        timeCoolDown -= Time.deltaTime *(1/ Time.timeScale);
 	    }
+
+        //Back
+        /*
+         * 
+        private Vector3[] Pos;
+
+
+        Pos = new Vector3[60];
+        for (int i = 0; i < Pos.Length; i++)
+        {
+            Pos[i] = transform.position;
+        }
+
+
+        for (int i = 0; i < Pos.Length - 1; i++)
+        {
+            Pos[i] = Pos[i + 1];
+        }
+        Pos[Pos.Length - 1] = transform.position;
+
+
+
+    */
     }
 }

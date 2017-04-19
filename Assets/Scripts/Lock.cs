@@ -11,6 +11,11 @@ public class Lock : MonoBehaviour
     [Tooltip("Put the player's camera here")]
     public Camera camera;
     public Transform target;
+    public Text LockHP;
+    public Text LockName;
+    public RectTransform LockHPRect;
+    public RectTransform LockNameRect;
+
     public RectTransform arrowTransform;
     public RectTransform lockTransform;
     private Vector2 velocity = Vector2.zero;
@@ -18,6 +23,7 @@ public class Lock : MonoBehaviour
     public RectTransform XhairUI;
     public bool circle = false;
     public float radius = 200;
+
     [Tooltip("Take the closest enemy to the mouse position or closest to crosshair position")]
     public bool closestMouse = false;
 
@@ -30,13 +36,19 @@ public class Lock : MonoBehaviour
     void Start()
     {
         target = null;
-        lockTransform.anchorMin = new Vector2(0, 0);
-        lockTransform.anchorMax = new Vector2(0, 0);
+        LockHP.alignment = TextAnchor.MiddleCenter;
+        LockName.alignment = TextAnchor.MiddleCenter;
+        LockHPRect.anchorMin = Vector2.zero;
+        LockHPRect.anchorMax = Vector2.zero;
+        LockNameRect.anchorMin = Vector2.zero;
+        LockNameRect.anchorMax = Vector2.zero;
+        lockTransform.anchorMin = Vector2.zero;
+        lockTransform.anchorMax = Vector2.zero;
         lockTransform.anchoredPosition = camera.WorldToScreenPoint(XhairShip.position);
-        arrowTransform.anchorMin = new Vector2(0, 0);
-        arrowTransform.anchorMax = new Vector2(0, 0);
-        XhairUI.anchorMax = new Vector2(0, 0);
-        XhairUI.anchorMin = new Vector2(0, 0);
+        arrowTransform.anchorMin = Vector2.zero;
+        arrowTransform.anchorMax = Vector2.zero;
+        XhairUI.anchorMax = Vector2.zero;
+        XhairUI.anchorMin = Vector2.zero;
     }
 
     void Update()
@@ -48,6 +60,8 @@ public class Lock : MonoBehaviour
             //Smooth 
             lockTransform.anchoredPosition = Vector2.SmoothDamp(lockTransform.anchoredPosition, XhairUI.anchoredPosition - lockTransform.sizeDelta / 2, ref velocity, 0.3F);
             arrowTransform.anchoredPosition = new Vector2(-10, -10);
+            LockHP.text = "";
+            LockName.text = "";
         }
         else
         {
@@ -55,6 +69,8 @@ public class Lock : MonoBehaviour
             if (ScreenTargetPos.z > 0)
             {
                 lockTransform.anchoredPosition = (Vector2)ScreenTargetPos - lockTransform.sizeDelta / 2;
+                LockHPRect.anchoredPosition = (Vector2)ScreenTargetPos - new Vector2(0, lockTransform.sizeDelta.x  / 2 + 5);
+                LockNameRect.anchoredPosition = (Vector2) ScreenTargetPos + new Vector2(0,lockTransform.sizeDelta.x/2 + 5);
             }
             
             float posArrowX;
@@ -185,6 +201,16 @@ public class Lock : MonoBehaviour
             if (closestEnemy != null)
             {
                 target = closestEnemy.transform;
+                if (closestEnemy.tag == "Enemy" || closestEnemy.tag == "Player")
+                {
+                    LockHP.text = closestEnemy.GetComponent<State>().life.ToString();
+                    LockName.text = closestEnemy.name;
+                }
+                else
+                {
+                    
+                }
+                
             }
 
             //Maybe use a raycast to see in object is bloking the view ?
