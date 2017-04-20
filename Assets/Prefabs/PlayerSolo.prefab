@@ -45,6 +45,7 @@ GameObject:
   - 114: {fileID: 114000010205896488}
   - 114: {fileID: 114000011411724368}
   - 114: {fileID: 114000010011941392}
+  - 82: {fileID: 82000013544825658}
   m_Layer: 0
   m_Name: PlayerSolo
   m_TagString: Untagged
@@ -183,6 +184,80 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010058904038}
   m_Enabled: 1
+--- !u!82 &82000013544825658
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012944804560}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c1dabc6cf8e7f594fadbc347b30e0664, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.15
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!92 &92000011805585778
 Behaviour:
   m_ObjectHideFlags: 1
@@ -224,10 +299,12 @@ MonoBehaviour:
   deceleration: 2
   pitchRate: 3
   yawRate: 3
-  dashUnlock: 1
-  dashIntensity: 5000
   deadZone: 64
   deadZoneActive: 1
+  blockRotation: 0
+  blockMovement: 0
+  rotateOnXAxis: 0
+  rotateOnYAxis: 0
 --- !u!114 &114000011411724368
 MonoBehaviour:
   m_ObjectHideFlags: 1

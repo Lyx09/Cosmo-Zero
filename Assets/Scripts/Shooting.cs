@@ -9,12 +9,14 @@ public class Shooting : MonoBehaviour
     public float cd;
     public int damage;
     private float timeavl; //Moment at which next shoot will be available;
+    private AudioSource audioshoot;
 
 	// Use this for initialization
 	void Start ()
     {
         rb = GetComponent<Rigidbody>();
         timeavl = Time.time + cd;
+        audioshoot = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -23,6 +25,8 @@ public class Shooting : MonoBehaviour
         if (Input.GetButton("Fire1") & (Time.time >= timeavl))
         {
             timeavl = Time.time + cd;
+            audioshoot.Stop();
+            audioshoot.Play();
             Shoot();
         }
 	}
