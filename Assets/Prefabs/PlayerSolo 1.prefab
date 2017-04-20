@@ -916,6 +916,10 @@ MonoBehaviour:
   bullet: {fileID: 1000013030908276, guid: 730d02246058fb44eababcf09ba41997, type: 2}
   cd: 0.2
   damage: 1
+  Missile: {fileID: 1000012407779000, guid: 1f7a43b66b8de884494bef6f427df43f, type: 2}
+  missilecd: 5
+  missiledmg: 10
+  missileavl: 0
 --- !u!114 &114000012641068064
 MonoBehaviour:
   m_ObjectHideFlags: 1

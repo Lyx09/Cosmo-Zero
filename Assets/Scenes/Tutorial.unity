@@ -21387,6 +21387,22 @@ Prefab:
       propertyPath: m_Volume
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011411724368, guid: 8d9c3735e0536d94789b65f6b71649ee,
+        type: 2}
+      propertyPath: Missile
+      value: 
+      objectReference: {fileID: 1000012407779000, guid: 1f7a43b66b8de884494bef6f427df43f,
+        type: 2}
+    - target: {fileID: 114000011411724368, guid: 8d9c3735e0536d94789b65f6b71649ee,
+        type: 2}
+      propertyPath: missilecd
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011411724368, guid: 8d9c3735e0536d94789b65f6b71649ee,
+        type: 2}
+      propertyPath: missiledmg
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 64000014171138572, guid: 8d9c3735e0536d94789b65f6b71649ee, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8d9c3735e0536d94789b65f6b71649ee, type: 2}
