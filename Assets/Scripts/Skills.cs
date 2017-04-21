@@ -53,7 +53,6 @@ public class Skills : MonoBehaviour {
                 // A KEY
                 if (Input.GetAxis("Roll") > 0)
                 {
-                    Debug.Log(1);
                     if (coolDownDash <= 0 && buttonCountA == 1 && TapCooldown > 0)
                     {
                         rb.AddTorque(transform.forward * dashIntensity * rb.mass);

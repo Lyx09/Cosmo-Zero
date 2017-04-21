@@ -1,18 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AIBehaviour : MonoBehaviour
+public class AIBehaviour3 : MonoBehaviour
 {
-    [SerializeField] float speed = 3F;
-    [SerializeField] float arrival_slow_radius = 20F;
-    [SerializeField] float rotation_speed = 2F;
-    [SerializeField] float min_distance = 5F;
-    [SerializeField] float safe_distance = 50F;
-    [SerializeField] float w1_time_target_change = 3F;
-    [SerializeField] float w1_max_random = 20F;
-    [SerializeField] float w1_min_random = 15F;
-    [SerializeField] float max_velocity = 15F;
-    [SerializeField] State slef_state;
+    [SerializeField]
+    float speed = 3F;
+    [SerializeField]
+    float arrival_slow_radius = 20F;
+    [SerializeField]
+    float rotation_speed = 2F;
+    [SerializeField]
+    float min_distance = 5F;
+    [SerializeField]
+    float safe_distance = 50F;
+    [SerializeField]
+    float w1_time_target_change = 3F;
+    [SerializeField]
+    float w1_max_random = 20F;
+    [SerializeField]
+    float w1_min_random = 15F;
+    [SerializeField]
+    float max_velocity = 15F;
+    [SerializeField]
+    State slef_state;
 
     private int predict_ahead = 30;
 
@@ -24,34 +34,34 @@ public class AIBehaviour : MonoBehaviour
     private Vector3 target_velocity;
     private Vector3 target_pos = Vector3.zero;
 
-    void Start ()
-	{
+    void Start()
+    {
         target_velocity = Vector3.zero;
         self_transfo = GetComponent<Transform>();
-	    self_rb = GetComponent<Rigidbody>();
-	}
-	
-	void Update ()
-	{
-	    Vector3 pos = self_transfo.position;
+        self_rb = GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        Vector3 pos = self_transfo.position;
         Pursuit();
-	    //Debug.DrawLine(transform.position,transform.position+self_rb.velocity);
-	}
+        //Debug.DrawLine(transform.position,transform.position+self_rb.velocity);
+    }
 
     void Seek(Vector3 target_pos)
     {
         //attack if close enough
 
         Vector3 direction = target_pos - self_transfo.position;
-        self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotation_speed*Time.deltaTime);
-        
+        self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotation_speed * Time.deltaTime);
+
         self_transfo.position += direction.normalized * speed * Time.deltaTime;
     }
 
     void Flee(Vector3 target_pos)
     {
-        Vector3 direction = - target_pos + self_transfo.position;
-        
+        Vector3 direction = -target_pos + self_transfo.position;
+
         if (direction.magnitude < safe_distance)
         {
             self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotation_speed * Time.deltaTime);
