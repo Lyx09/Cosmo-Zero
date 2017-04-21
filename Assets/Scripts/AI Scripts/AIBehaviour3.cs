@@ -22,7 +22,7 @@ public class AIBehaviour3 : MonoBehaviour
     [SerializeField]
     float max_velocity = 15F;
     [SerializeField]
-    State slef_state;
+    State self_state;
 
     private int predict_ahead = 30;
 
@@ -34,6 +34,10 @@ public class AIBehaviour3 : MonoBehaviour
     private Vector3 target_velocity;
     private Vector3 target_pos = Vector3.zero;
 
+    //delete this
+    public bool ok = true;
+
+
     void Start()
     {
         target_velocity = Vector3.zero;
@@ -44,39 +48,47 @@ public class AIBehaviour3 : MonoBehaviour
     void Update()
     {
         Vector3 pos = self_transfo.position;
-        Pursuit();
-        //Debug.DrawLine(transform.position,transform.position+self_rb.velocity);
+        if (ok)
+        {
+            self_transfo.position += Seek(target_transform.position);
+        }
+        else
+        {
+            self_transfo.position += Pursuit();
+        }
+        
     }
 
-    void Seek(Vector3 target_pos)
+    Vector3 Seek(Vector3 target_pos)
     {
-        //attack if close enough
-
         Vector3 direction = target_pos - self_transfo.position;
         self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotation_speed * Time.deltaTime);
-
-        self_transfo.position += direction.normalized * speed * Time.deltaTime;
+        return direction.normalized * speed * Time.deltaTime;
     }
 
-    void Flee(Vector3 target_pos)
+    Vector3 Flee(Vector3 target_pos)
     {
         Vector3 direction = -target_pos + self_transfo.position;
 
         if (direction.magnitude < safe_distance)
         {
             self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotation_speed * Time.deltaTime);
-            self_transfo.position += direction.normalized * speed * Time.deltaTime;
+            return direction.normalized * speed * Time.deltaTime;
+        }
+        else
+        {
+            return Vector3.zero;
         }
     }
 
-    void Arrival()
+    Vector3 Arrival()
     {
         Vector3 direction = target_transform.position - self_transfo.position;
         self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotation_speed * Time.deltaTime);
 
         if (direction.magnitude > arrival_slow_radius)
         {
-            self_transfo.position += direction.normalized * Time.deltaTime * speed;
+            return direction.normalized * Time.deltaTime * speed;
         }
         else
         {
@@ -87,11 +99,11 @@ public class AIBehaviour3 : MonoBehaviour
                 new_speed = 0;
             }
 
-            self_transfo.position += direction.normalized * Time.deltaTime * new_speed;
+            return direction.normalized * Time.deltaTime * new_speed;
         }
     }
 
-    void Wander1()
+    Vector3 Wander1()
     {
         self_time += Time.deltaTime;
         if (self_time >= w1_time_target_change)
@@ -99,32 +111,32 @@ public class AIBehaviour3 : MonoBehaviour
             w1_random_pos = self_transfo.position + Random.insideUnitSphere.normalized * Random.Range(w1_min_random, w1_max_random);
             self_time = 0F;
         }
-        else
-        {
-            Seek(w1_random_pos);
-        }
+        return Seek(w1_random_pos);
     }
 
-    void Wander2()
+    Vector3 Wander()
     {
         //https://gamedev.stackexchange.com/questions/106737/wander-steering-behaviour-in-3d
+        return Vector3.zero;
     }
 
-    void Pursuit()
+
+    //Recqlculate velocity target
+    Vector3 Pursuit()
     {
         target_velocity = target_pos - target_transform.position;
         predict_ahead = (int)((target_transform.position - self_transfo.position).magnitude / max_velocity);
         Vector3 future_target_pos = target_transform.position + target_velocity * predict_ahead;
-        Seek(future_target_pos);
         target_pos = target_transform.position;
+        return Seek(future_target_pos);
     }
 
-    void Evade()
+    Vector3 Evade()
     {
         target_velocity = target_pos - target_transform.position;
         predict_ahead = (int)((target_transform.position - self_transfo.position).magnitude / max_velocity);
         Vector3 future_target_pos = target_transform.position + target_velocity * predict_ahead;
-        Flee(future_target_pos);
         target_pos = target_transform.position;
+        return Flee(future_target_pos);
     }
 }
