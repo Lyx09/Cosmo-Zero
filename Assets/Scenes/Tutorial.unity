@@ -15926,6 +15926,12 @@ CapsuleCollider:
   m_Height: 0.65
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -0.33}
+--- !u!114 &1509623053 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010205896488, guid: 8d9c3735e0536d94789b65f6b71649ee,
+    type: 2}
+  m_PrefabInternal: {fileID: 1889344624}
+  m_Script: {fileID: 11500000, guid: 2604358e204d9d1468be637af1818482, type: 3}
 --- !u!4 &1509623055 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012272362632, guid: 8d9c3735e0536d94789b65f6b71649ee,
@@ -16007,6 +16013,7 @@ MonoBehaviour:
   Dialogue: {fileID: 309397197}
   Cut: {fileID: 1406837062}
   Ship: {fileID: 1509623047}
+  TargetedSphere: {fileID: 0}
   message: {fileID: 1618290468}
   quest: {fileID: 880995258}
   Sphere1: {fileID: 2104266468}
@@ -16015,6 +16022,25 @@ MonoBehaviour:
   Sphere4: {fileID: 1571297816}
   Sphere5: {fileID: 1990136179}
   Targets: {fileID: 1084089917}
+--- !u!114 &1509623063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509623047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996df8c9c0ca8114b8fe3b93da655d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceShipControls: {fileID: 1509623053}
+  dashUnlock: 1
+  maxCoolDownDash: 3
+  dashIntensity: 5000
+  timeControl: 1
+  timeFactor: 0.5
+  maxTimeUseTime: 5
+  maxTimeCoolDown: 30
 --- !u!1 &1510397467 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: aae85a00b8397cd4f822fbbc9cab8dfa, type: 3}

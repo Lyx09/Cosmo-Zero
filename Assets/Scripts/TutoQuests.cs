@@ -5,8 +5,9 @@ using System.Collections;
 public class TutoQuests : MonoBehaviour
 {
     private int step;
-    private static int collected;
-    public GameObject Dialogue, Cut, Ship;
+    private static int spheresdone;
+    private static bool collected;
+    public GameObject Dialogue, Cut, Ship, TargetedSphere;
     public Text message;
     public Text quest;
     static private float BeginningZ, BeginningQ, BeginningS, BeginningD, BeginningSpace, BeginningCtrl, BeginningA, BeginningE, StartPause;
@@ -39,7 +40,8 @@ public class TutoQuests : MonoBehaviour
         bbottom = false;
         bleft = false;
         bright = false;
-        collected = 0;
+        collected = false;
+        spheresdone = 0;
         Player = GetComponent<Rigidbody>();
         quest.text = "";
     }
@@ -205,6 +207,7 @@ public class TutoQuests : MonoBehaviour
                 Cut.gameObject.SetActive(false);
                 Sphere1.gameObject.SetActive(true);
                 Player.GetComponent<Lock>().target = Sphere1.transform;
+                TargetedSphere = Sphere1;
                 Dialogue.gameObject.SetActive(true);
                 step = 17;
                 break;
@@ -213,54 +216,66 @@ public class TutoQuests : MonoBehaviour
                 quest.text = "Current quest:\n-Collect the blue sphere";
                 if (Input.anyKeyDown)
                     Dialogue.gameObject.SetActive(false);
-                if (collected == 1)
+                if (collected)
                 {
                     Dialogue.gameObject.SetActive(true);
                     step = 18;
                     Sphere2.gameObject.SetActive(true);
+                    TargetedSphere = Sphere2;
+                    collected = false;
                     Player.GetComponent<Lock>().target = Sphere2.transform;
                 }
                 break;
             case 18:
                 message.text = "Good! Now do that 4 more times";
-                quest.text = "Current quest:\n-Collect four blue spheres (" + (collected - 1).ToString() + "/4)";
+                quest.text = "Current quest:\n-Collect four blue spheres (" + (spheresdone).ToString() + "/4)";
                 if (Input.anyKeyDown)
                     Dialogue.gameObject.SetActive(false);
-                if (collected == 2)
+                if (collected)
                 {
+                    spheresdone++;
                     step = 19;
                     Sphere3.gameObject.SetActive(true);
                     Player.GetComponent<Lock>().target = Sphere3.transform;
+                    collected = false;
+                    TargetedSphere = Sphere3;
                 }
                 break;
             case 19:
-                quest.text = "Current quest:\n-Collect four blue spheres (" + (collected - 1).ToString() + "/4)";
+                quest.text = "Current quest:\n-Collect four blue spheres (" + (spheresdone).ToString() + "/4)";
                 if (Input.anyKeyDown)
                     Dialogue.gameObject.SetActive(false);
-                if (collected == 3)
+                if (collected)
                 {
+                    spheresdone++;
                     step = 20;
                     Sphere4.gameObject.SetActive(true);
                     Player.GetComponent<Lock>().target = Sphere4.transform;
+                    collected = false;
+                    TargetedSphere = Sphere4;
                 }
                 break;
             case 20:
-                quest.text = "Current quest:\n-Collect four blue spheres (" + (collected - 1).ToString() + "/4)";
+                quest.text = "Current quest:\n-Collect four blue spheres (" + (spheresdone).ToString() + "/4)";
                 if (Input.anyKeyDown)
                     Dialogue.gameObject.SetActive(false);
-                if (collected == 4)
+                if (collected)
                 {
+                    spheresdone++;
                     step = 21;
                     Sphere5.gameObject.SetActive(true);
                     Player.GetComponent<Lock>().target = Sphere5.transform;
+                    collected = false;
+                    TargetedSphere = Sphere5;
                 }
                 break;
             case 21:
-                quest.text = "Current quest:\n-Collect four blue spheres (" + (collected - 1).ToString() + "/4)";
+                quest.text = "Current quest:\n-Collect four blue spheres (" + (spheresdone).ToString() + "/4)";
                 if (Input.anyKeyDown)
                     Dialogue.gameObject.SetActive(false);
-                if (collected == 5)
+                if (collected)
                 {
+                    spheresdone++;
                     step = 22;
                 }
                 break;
@@ -346,9 +361,9 @@ public class TutoQuests : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Sphere"))
+        if (other.gameObject == TargetedSphere)
         {
-            collected++;
+            collected = true;
             Destroy(other.gameObject);
         }
     }

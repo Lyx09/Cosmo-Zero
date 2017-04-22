@@ -32,7 +32,8 @@ public class MissileBehaviour : MonoBehaviour
             if (enemysc.life <= dmg)
             {
                 State shooter = sender.GetComponent<State>();
-                shooter.Kill(enemysc.xp);
+                shooter.Kill(enemysc.xpvalue);
+                Debug.Log("ok");
             }
             enemysc.Hurt(dmg);
         }
