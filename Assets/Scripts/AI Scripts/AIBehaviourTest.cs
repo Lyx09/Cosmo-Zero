@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO;
 
-public class AIBehaviour2 : MonoBehaviour
+public class AIBehaviourTest : MonoBehaviour
 {
     public float max_velocity = 10F;
     public float max_speed = 10F;

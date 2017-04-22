@@ -34,7 +34,7 @@ public class Radar : MonoBehaviour
 	        int counter = 0;
 	        while (counter < list_actual.Count && add) //Test if collider is already in the radar
 	        {
-	            if (list_actual[counter].name == collider1.name) //maybe find another unique property
+	            if (list_actual[counter].name == collider1.name || list_actual[counter].tag == "Player") //maybe find another unique property
 	            {
                     add = false;
 	            }
@@ -66,7 +66,8 @@ public class Radar : MonoBehaviour
         }
 	    for (int i = 0; i < list_radar.Count; i++) //updates the elements in the radar
 	    {
-	        list_radar[i].localPosition = (list_actual[i].localPosition - radar_center.localPosition) * transform.localScale.x /radius_radar; //* transform.localScale.x is used to put in the radar sphere
+	        list_radar[i].localPosition = radar_center.TransformPoint(list_actual[i].localPosition) * transform.localScale.x/radius_radar; //FIXME
+	        //(list_actual[i].position - radar_center.position) * transform.localScale.x /radius_radar; //* transform.localScale.x is used to put in the radar sphere
 	    }
 
     }
