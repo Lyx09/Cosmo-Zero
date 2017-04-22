@@ -20,7 +20,8 @@ public class AIBehaviour3 : MonoBehaviour
     [SerializeField]
     float w1_min_random = 15F;
     [SerializeField]
-    float max_velocity = 15F;
+    [Tooltip("can be lower than one, Max velocity the target can achieve")]
+    float max_velocity_target = 0.2F;
     [SerializeField]
     State self_state;
 
@@ -34,9 +35,6 @@ public class AIBehaviour3 : MonoBehaviour
     private Vector3 target_velocity;
     private Vector3 target_pos = Vector3.zero;
 
-    //delete this
-    public bool ok = true;
-
 
     void Start()
     {
@@ -47,15 +45,6 @@ public class AIBehaviour3 : MonoBehaviour
 
     void Update()
     {
-        Vector3 pos = self_transfo.position;
-        if (ok)
-        {
-            self_transfo.position += Seek(target_transform.position);
-        }
-        else
-        {
-            self_transfo.position += Pursuit();
-        }
         
     }
 
@@ -121,12 +110,15 @@ public class AIBehaviour3 : MonoBehaviour
     }
 
 
-    //Recqlculate velocity target
+    //Recalculate velocity target
     Vector3 Pursuit()
     {
-        target_velocity = target_pos - target_transform.position;
-        predict_ahead = (int)((target_transform.position - self_transfo.position).magnitude / max_velocity);
+        target_velocity = target_transform.position - target_pos;
+        //Debug.Log(target_velocity.magnitude);
+        predict_ahead = (int)((target_transform.position - self_transfo.position).magnitude / max_velocity_target);
+        //Debug.Log(predict_ahead);
         Vector3 future_target_pos = target_transform.position + target_velocity * predict_ahead;
+        //Debug.DrawLine(transform.position, future_target_pos);
         target_pos = target_transform.position;
         return Seek(future_target_pos);
     }
@@ -134,7 +126,7 @@ public class AIBehaviour3 : MonoBehaviour
     Vector3 Evade()
     {
         target_velocity = target_pos - target_transform.position;
-        predict_ahead = (int)((target_transform.position - self_transfo.position).magnitude / max_velocity);
+        predict_ahead = (int)((target_transform.position - self_transfo.position).magnitude / max_velocity_target);
         Vector3 future_target_pos = target_transform.position + target_velocity * predict_ahead;
         target_pos = target_transform.position;
         return Flee(future_target_pos);
