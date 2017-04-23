@@ -426,7 +426,7 @@ InputManager:
     descriptiveName: Time Control
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: t
+    positiveButton: m
     altNegativeButton: 
     altPositiveButton: 
     gravity: 2

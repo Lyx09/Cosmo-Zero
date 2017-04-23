@@ -42,7 +42,7 @@ public class Shooting : MonoBehaviour
             SendMissile();
         }
 	}
-    void Shoot()
+    public void Shoot()
     {
         GameObject test = Instantiate(bullet);
         test.transform.position = gameObject.transform.position + gameObject.transform.forward;

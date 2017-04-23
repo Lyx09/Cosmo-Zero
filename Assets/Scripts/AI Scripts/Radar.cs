@@ -66,9 +66,10 @@ public class Radar : MonoBehaviour
         }
 	    for (int i = 0; i < list_radar.Count; i++) //updates the elements in the radar
 	    {
-	        list_radar[i].localPosition = radar_center.TransformPoint(list_actual[i].localPosition) * transform.localScale.x/radius_radar; //FIXME
-	        //(list_actual[i].position - radar_center.position) * transform.localScale.x /radius_radar; //* transform.localScale.x is used to put in the radar sphere
-	    }
+	        list_radar[i].localPosition = (list_actual[i].position - radar_center.position) * transform.localScale.x / radius_radar;
+            //radar_center.TransformPoint(list_actual[i].localPosition) * transform.localScale.x/radius_radar; //FIXME
+            // //* transform.localScale.x is used to put in the radar sphere
+        }
 
     }
 }

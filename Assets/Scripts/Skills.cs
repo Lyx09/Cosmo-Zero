@@ -27,7 +27,7 @@ public class Skills : MonoBehaviour {
     public bool timeControl = true; //Should not be used in multiplayer
     [SerializeField] private float timeFactor = 0.5F;
     [SerializeField] private float maxTimeUseTime = 5F;
-    [SerializeField] private float maxTimeCoolDown = 30F;
+    [SerializeField] private float maxTimeCoolDown = 10F;
     private float timeUseLeft = 0F;
     private float timeCoolDown = 0F;
 

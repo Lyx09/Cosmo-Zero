@@ -9,10 +9,16 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
     [SerializeField]
     private float self_size = 3F;
     [SerializeField]
+    private float attack_range = 10F;
+    [SerializeField]
+    private float safe_range = 10F;
+    [SerializeField]
     float rotation_speed = 2F;
     [SerializeField]
     State self_state;
-    
+    [SerializeField]
+    Shooting self_shooting;
+
     private Vector3 w1_random_pos;
     private Vector3 target_prevpos = Vector3.zero;
     private float self_time = 0F;
@@ -24,14 +30,49 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
     void Start()
     {
         self_transfo = GetComponent<Transform>();
+        self_state = GetComponent<State>();
+        self_shooting = GetComponent<Shooting>();
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        self_state.life -= (int)collision.relativeVelocity.magnitude;
+        Debug.Log(collision.relativeVelocity.magnitude);
+    }
+
 
     void Update()
     {
         // APPLY FORCES HERE
-        Seek(target_transform.position);
+
+        if (target_transform == null)
+        {
+            Wander1();
+            //Check if ennemy is visible
+        }
+        else if (self_state.life <= self_state.maxlife/4)
+        {
+            if ((target_transform.position - self_transfo.position).magnitude > safe_range)
+            {
+                Wander1();
+            }
+            else
+            {
+                Evade(target_transform.position);
+            }
+        }
+        else
+        {
+            Pursuit(target_transform.position);
+            if ((target_transform.position - self_transfo.position).magnitude < attack_range)
+            {
+                self_shooting.Shoot();
+            }
+        }
+
         Avoid(target_transform.position);
         self_transfo.position += Vector3.ClampMagnitude(steering,max_speed); //make mass matter
+        steering = Vector3.zero;
     }
 
     //####################### BEHAVIORS ##############################
@@ -56,7 +97,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
         steering += doWander();
     }
 
-    void Pursuit(Vector3 target_pos, float max_velocity_target = 0.2F)
+    void Pursuit(Vector3 target_pos, float max_velocity_target = 1F)
     {
         steering += doPursuit(target_pos, max_velocity_target);
     }
@@ -135,7 +176,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
         //Debug.Log(target_velocity.magnitude);
         //Debug.Log(predict_ahead);
-        //Debug.DrawLine(transform.position, future_target_pos);
+        Debug.DrawLine(transform.position, future_target_pos);
 
         return doSeek(future_target_pos);
     }
@@ -154,12 +195,12 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
         return doFlee(future_target_pos);
     }
 
-    Vector3 doAvoid(Vector3 target_pos, float max_see_ahead = 5F)
+    Vector3 doAvoid(Vector3 target_pos, float max_see_ahead = 10F)
     {
         //Vector3 ahead = self_transfo.position + self_transfo.forward * max_see_ahead;
         RaycastHit hit;
         Vector3 avoidance = Vector3.zero;
-        if (Physics.SphereCast(self_transfo.position, self_size / 2F, self_transfo.forward, out hit, max_see_ahead))
+        if (Physics.SphereCast(self_transfo.position, self_size / 2F, self_transfo.forward, out hit, max_see_ahead) && hit.transform.name != target_transform.name)
         {
             avoidance = hit.normal;
             Debug.DrawLine(hit.point,hit.point + hit.normal * 3);
