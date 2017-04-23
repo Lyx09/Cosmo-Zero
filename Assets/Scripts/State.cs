@@ -10,7 +10,7 @@ public class State : MonoBehaviour
     public float cdregen; //Le temps qu'il faut passer hors combat avant de passer en mode régen
     public float timeregen; //Le temps entre chaque tips de régen
     private int money;
-    public int xp { get; private set;}
+    public int xp;
     public float life; //Bah...
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
     private float cooldown; //Le temps à attendre avant le prochain gain de vie

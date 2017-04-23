@@ -39,14 +39,16 @@ public class Bulette : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
             BadTest enemysc = other.gameObject.GetComponent<BadTest>();
+            if (enemysc == null)
+                return;
             if (enemysc.life <= 1)
             {
                 State shooter = sender.GetComponent<State>();
                 shooter.Kill(enemysc.xpvalue);
             }
             enemysc.Hurt(1);
+            Destroy(gameObject);
         }
     }
 }
