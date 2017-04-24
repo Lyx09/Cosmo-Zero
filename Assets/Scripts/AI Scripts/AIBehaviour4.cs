@@ -3,11 +3,12 @@ using System.Collections;
 
 public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 {
+    //https://gamedevelopment.tutsplus.com/series/understanding-steering-behaviors--gamedev-12732
     [SerializeField]
     float speed = 3F;
     [SerializeField] private float max_speed = 5F;
     [SerializeField]
-    private float self_size = 3F;
+    private float self_size = 5F;
     [SerializeField]
     private float attack_range = 10F;
     [SerializeField]
@@ -24,6 +25,8 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
     private float self_time = 0F;
     private Transform self_transfo;
     public Transform target_transform;
+    private  Vector3 self_prevpos = Vector3.zero;
+    public Transform sphereCast_origin; //Make it automatic Find child with name
 
     private Vector3 steering;
 
@@ -34,7 +37,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
         self_shooting = GetComponent<Shooting>();
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision) //TODO
     {
         self_state.life -= (int)collision.relativeVelocity.magnitude;
         Debug.Log(collision.relativeVelocity.magnitude);
@@ -44,7 +47,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
     void Update()
     {
         // APPLY FORCES HERE
-
+        /*
         if (target_transform == null)
         {
             Wander1();
@@ -69,9 +72,13 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
                 self_shooting.Shoot();
             }
         }
+        */
 
+        Seek(target_transform.position);
         Avoid(target_transform.position);
-        self_transfo.position += Vector3.ClampMagnitude(steering,max_speed); //make mass matter
+
+        self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(steering), rotation_speed * Time.deltaTime);
+        self_transfo.position += Vector3.ClampMagnitude(steering, max_speed); //make mass matter
         steering = Vector3.zero;
     }
 
@@ -112,12 +119,17 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
         steering += doAvoid(target_pos, max_see_ahead);
     }
 
+    void Avoid2(Vector3 target_pos)
+    {
+        steering += doAvoid2(target_pos);
+    }
+
     //########################################################################
 
     Vector3 doSeek(Vector3 target_pos , float slowingRadius = 20F, float min_distance = 5F)
     {
         Vector3 direction = target_pos - self_transfo.position;
-        self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotation_speed * Time.deltaTime);
+        //self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotation_speed * Time.deltaTime);
         if (direction.magnitude > slowingRadius)
         {
             return direction.normalized * Time.deltaTime * speed;
@@ -200,16 +212,37 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
         //Vector3 ahead = self_transfo.position + self_transfo.forward * max_see_ahead;
         RaycastHit hit;
         Vector3 avoidance = Vector3.zero;
-        if (Physics.SphereCast(self_transfo.position, self_size / 2F, self_transfo.forward, out hit, max_see_ahead) && hit.transform.name != target_transform.name)
+        Debug.DrawLine(self_transfo.position, self_transfo.position + self_transfo.forward * max_see_ahead, Color.cyan);
+        if (Physics.SphereCast(sphereCast_origin.position, self_size / 2F, self_transfo.forward, out hit, max_see_ahead) && hit.transform.name != target_transform.name && hit.transform.name != self_transfo.name)
         {
             avoidance = hit.normal;
-            Debug.DrawLine(hit.point,hit.point + hit.normal * 3);
             avoidance *= hit.distance * 0.01F; //Change 0.1F
-            Debug.Log(avoidance.magnitude);
-            Debug.DrawLine(self_transfo.position, self_transfo.position + avoidance);
             self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(avoidance), rotation_speed * Time.deltaTime);
+            Debug.Log("###" + hit.transform.name);
         }
         
         return avoidance;
     }
+
+    Vector3 doAvoid2(Vector3 target_pos)
+    {
+        RaycastHit hit;
+        Vector3 avoidance = Vector3.zero;
+        float dynamic_length = 10F; //(self_prevpos - self_transfo.position).magnitude / speed;
+
+        Debug.Log("DYN LENGTH" + dynamic_length);
+
+        if (Physics.SphereCast(sphereCast_origin.position, self_size / 2F, self_transfo.forward, out hit, dynamic_length ) && hit.transform.name != target_transform.name && hit.transform.name != self_transfo.name)
+        {
+            avoidance = (transform.forward * dynamic_length - hit.transform.position).normalized; // hit.point - hit.transform.position;
+            Debug.DrawLine(hit.transform.position, transform.position + transform.forward * dynamic_length, Color.blue);
+            Debug.Log("###" + hit.transform.name);
+        }
+        Debug.Log("AVOIDANCE" + avoidance.magnitude);
+
+        self_prevpos = self_transfo.position;
+        return avoidance;
+    }
+
+    //Function rotation ?
 }
