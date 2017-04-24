@@ -121,4 +121,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 20
   minespeed: 3
-  dammages: 150
+  dammages: 50

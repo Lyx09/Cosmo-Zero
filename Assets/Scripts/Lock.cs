@@ -71,6 +71,7 @@ public class Lock : MonoBehaviour
                 lockTransform.anchoredPosition = (Vector2)ScreenTargetPos - lockTransform.sizeDelta / 2;
                 LockHPRect.anchoredPosition = (Vector2)ScreenTargetPos - new Vector2(0, lockTransform.sizeDelta.x  / 2 + 5);
                 LockNameRect.anchoredPosition = (Vector2) ScreenTargetPos + new Vector2(0,lockTransform.sizeDelta.x/2 + 5);
+                LockHP.text = target.GetComponent<State>().life.ToString();
             }
             
             float posArrowX;

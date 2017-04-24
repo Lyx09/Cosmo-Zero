@@ -44,7 +44,7 @@ GameObject:
   - 54: {fileID: 54000011411223666}
   m_Layer: 0
   m_Name: heal
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,5 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 20
-  minespeed: 0.01
+  minespeed: 3
   dammages: -50

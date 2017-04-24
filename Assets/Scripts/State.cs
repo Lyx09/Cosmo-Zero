@@ -49,7 +49,8 @@ public class State : MonoBehaviour
 
     public void Hurt (float power) //A appeler quand le vaisseau est touché
     {
-        life -= power;
+        if (life - power <= maxlife)
+            life -= power;
         chrono = Time.time;
         cooldown = cdregen;
         UpLife();

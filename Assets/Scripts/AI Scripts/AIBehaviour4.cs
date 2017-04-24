@@ -19,6 +19,8 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
     State self_state;
     [SerializeField]
     Shooting self_shooting;
+    [SerializeField]
+    Transform target2_transform;
 
     private Vector3 w1_random_pos;
     private Vector3 target_prevpos = Vector3.zero;
@@ -27,6 +29,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
     public Transform target_transform;
     private  Vector3 self_prevpos = Vector3.zero;
     public Transform sphereCast_origin; //Make it automatic Find child with name
+    private KeyCode variable;
 
     private Vector3 steering;
 
@@ -35,6 +38,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
         self_transfo = GetComponent<Transform>();
         self_state = GetComponent<State>();
         self_shooting = GetComponent<Shooting>();
+        variable = KeyCode.Alpha0;
     }
 
     void OnCollisionEnter(Collision collision) //TODO
@@ -46,6 +50,44 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+            variable = KeyCode.Alpha0;
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+            variable = KeyCode.Alpha1;
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+            variable = KeyCode.Alpha2;
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+            variable = KeyCode.Alpha3;
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+            variable = KeyCode.Alpha4;
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+            variable = KeyCode.Alpha5;
+
+        switch (variable)
+        {
+            case KeyCode.Alpha0:
+                Seek(target_transform.position);
+                break;
+            case KeyCode.Alpha1:
+                Flee(target_transform.position);
+                break;
+            case KeyCode.Alpha2:
+                Pursuit(target_transform.position);
+                break;
+            case KeyCode.Alpha3:
+                Evade(target_transform.position);
+                break;
+            case KeyCode.Alpha4:
+                Wander1();
+                break;
+            case KeyCode.Alpha5:
+                Seek(target_transform.position);
+                Flee(target2_transform.position);
+                break;
+            default:
+                Seek(target_transform.position);
+                break;
+        }
         // APPLY FORCES HERE
         /*
         if (target_transform == null)
@@ -73,9 +115,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
             }
         }
         */
-
-        Seek(target_transform.position);
-        Avoid(target_transform.position);
+        
 
         self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(steering), rotation_speed * Time.deltaTime);
         self_transfo.position += Vector3.ClampMagnitude(steering, max_speed); //make mass matter
@@ -202,7 +242,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
         //Debug.Log(target_velocity.magnitude);
         //Debug.Log(predict_ahead);
-        //Debug.DrawLine(transform.position, future_target_pos);
+        Debug.DrawLine(transform.position, future_target_pos);
 
         return doFlee(future_target_pos);
     }
