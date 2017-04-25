@@ -19,7 +19,7 @@ public class TutoQuests : MonoBehaviour
     void Start()
     {
         Dialogue.gameObject.SetActive(true);
-        step = 22;
+        step = 12;
         BeginningZ = 0;
         BeginningQ = 0;
         BeginningS = 0;
@@ -359,7 +359,7 @@ public class TutoQuests : MonoBehaviour
             return false;
         }
     }
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == TargetedSphere)
         {
