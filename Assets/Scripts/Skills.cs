@@ -24,7 +24,7 @@ public class Skills : MonoBehaviour {
     public float dashIntensity = 5000;
 
     // For TimeControl
-    public bool timeControl = true; //Should not be used in multiplayer
+    public bool timeControl = false; //Should not be used in multiplayer
     [SerializeField] private float timeFactor = 0.5F;
     [SerializeField] private float maxTimeUseTime = 5F;
     [SerializeField] private float maxTimeCoolDown = 10F;
@@ -43,15 +43,13 @@ public class Skills : MonoBehaviour {
         //################################################################################
         
         //DISPLAY
-        //Debug.Log("Dash Cool Down:" + coolDownDash );
+        Debug.Log("Dash Cool Down:" + coolDownDash );
         if (!spaceShipControls.blockMovement)
         {
-
-
             if (Input.anyKeyDown && dashUnlock)
             {
                 // A KEY
-                if (Input.GetAxis("Roll") > 0)
+                if (Input.GetKeyDown(KeyCode.A))
                 {
                     if (coolDownDash <= 0 && buttonCountA == 1 && TapCooldown > 0)
                     {
@@ -70,7 +68,7 @@ public class Skills : MonoBehaviour {
                 }
 
                 // E KEY
-                if (Input.GetAxis("Roll") < 0)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     if (coolDownDash <= 0 && buttonCountE == 1 && TapCooldown > 0)
                     {
@@ -89,7 +87,7 @@ public class Skills : MonoBehaviour {
                 }
 
                 // Z KEY
-                if (Input.GetAxis("Longitudinal") > 0)
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
                     if (coolDownDash <= 0 && buttonCountZ == 1 && TapCooldown > 0)
                     {
@@ -108,7 +106,7 @@ public class Skills : MonoBehaviour {
                 }
 
                 // S KEY
-                if (Input.GetAxis("Longitudinal") < 0)
+                if (Input.GetKeyDown(KeyCode.S))
                 {
                     if (coolDownDash <= 0 && buttonCountS == 1 && TapCooldown > 0)
                     {
@@ -128,7 +126,7 @@ public class Skills : MonoBehaviour {
                 }
 
                 // Q KEY
-                if (Input.GetAxis("Lateral") < 0)
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
                     if (coolDownDash <= 0 && buttonCountQ == 1 && TapCooldown > 0)
                     {
@@ -147,7 +145,7 @@ public class Skills : MonoBehaviour {
                 }
 
                 // D KEY
-                if (Input.GetAxis("Lateral") > 0)
+                if (Input.GetKeyDown(KeyCode.D))
                 {
                     if (coolDownDash <= 0 && buttonCountD == 1 && TapCooldown > 0)
                     {
@@ -166,7 +164,7 @@ public class Skills : MonoBehaviour {
                 }
 
                 // SPACE
-                if (Input.GetAxis("Perpendicular") > 0)
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     if (coolDownDash <= 0 && buttonCountSpace == 1 && TapCooldown > 0)
                     {
@@ -185,7 +183,7 @@ public class Skills : MonoBehaviour {
                 }
 
                 // LEFT CONTROL
-                if (Input.GetAxis("Perpendicular") < 0)
+                if (Input.GetKeyDown(KeyCode.LeftControl))
                 {
                     if (coolDownDash <= 0 && buttonCountLCtrl == 1 && TapCooldown > 0)
                     {
@@ -205,6 +203,7 @@ public class Skills : MonoBehaviour {
             }
         }
 
+        /*
 	    if (timeControl)
 	    {
 	        if (Input.GetButton("Time Control") && timeCoolDown <= 0F)
@@ -219,6 +218,7 @@ public class Skills : MonoBehaviour {
 	            Time.timeScale = 1f;
 	        }
 	    }
+        */
 
         //UPDATING TIMERS
 

@@ -75,7 +75,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
                 Pursuit(target_transform.position);
                 break;
             case KeyCode.Alpha3:
-                Evade(target_transform.position);
+                Evade(target_transform.position,0.5F);
                 break;
             case KeyCode.Alpha4:
                 Wander1();
@@ -144,7 +144,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
         steering += doWander();
     }
 
-    void Pursuit(Vector3 target_pos, float max_velocity_target = 1F)
+    void Pursuit(Vector3 target_pos, float max_velocity_target = 0.2F)
     {
         steering += doPursuit(target_pos, max_velocity_target);
     }
@@ -235,7 +235,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
     Vector3 doEvade(Vector3 target_pos, float max_velocity_target = 0.2F)
     {
-        Vector3 target_velocity = target_prevpos - target_pos;
+        Vector3 target_velocity = target_pos - target_prevpos;
         float predict_ahead = (target_pos - self_transfo.position).magnitude / max_velocity_target;
         Vector3 future_target_pos = target_pos + target_velocity * predict_ahead;
         target_prevpos = target_pos;
