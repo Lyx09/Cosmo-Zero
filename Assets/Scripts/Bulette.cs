@@ -39,7 +39,7 @@ public class Bulette : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            BadTest enemysc = other.gameObject.GetComponent<BadTest>();
+            EnemyScript enemysc = other.gameObject.GetComponent<EnemyScript>();
             if (enemysc == null)
                 return;
             if (enemysc.life <= 1)

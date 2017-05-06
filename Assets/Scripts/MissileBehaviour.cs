@@ -28,7 +28,7 @@ public class MissileBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
-            BadTest enemysc = other.gameObject.GetComponent<BadTest>();
+            EnemyScript enemysc = other.gameObject.GetComponent<EnemyScript>();
             if (enemysc.life <= dmg)
             {
                 State shooter = sender.GetComponent<State>();

@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000012931950966}
   - 136: {fileID: 136000011616665982}
   - 23: {fileID: 23000010008788138}
-  - 114: {fileID: 114000010333446922}
+  - 114: {fileID: 114000012007637982}
   m_Layer: 0
   m_Name: Target
   m_TagString: Enemy
@@ -79,7 +79,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012423097656}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114000010333446922
+--- !u!114 &114000012007637982
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -87,15 +87,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012423097656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d20b4e2f0df5b6449929717701d2c077, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fdcd4ef1ff7dc3449cef7ba3ccd058d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxlife: 1
-  regenlife: 0
-  LifeDisp: {fileID: 0}
-  cdregen: 0
-  timeregen: 0
-  xp: 0
   life: 1
   xpvalue: 1
 --- !u!136 &136000011616665982

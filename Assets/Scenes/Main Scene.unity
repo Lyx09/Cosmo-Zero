@@ -2265,18 +2265,15 @@ Prefab:
       propertyPath: m_Name
       value: Angry Cube (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: maxlife
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: life
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: xpvalue
       value: 10
       objectReference: {fileID: 0}
@@ -3878,18 +3875,15 @@ Prefab:
       propertyPath: m_Name
       value: Angry Cube (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: maxlife
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: life
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: xpvalue
       value: 10
       objectReference: {fileID: 0}
@@ -4996,18 +4990,15 @@ Prefab:
       propertyPath: m_Name
       value: Angry Cube
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: maxlife
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: life
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013023208266, guid: 709be502facbcf740ae102a6f5c651be,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: xpvalue
       value: 10
       objectReference: {fileID: 0}
@@ -5024,7 +5015,8 @@ Prefab:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 709be502facbcf740ae102a6f5c651be, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1392326748 stripped
