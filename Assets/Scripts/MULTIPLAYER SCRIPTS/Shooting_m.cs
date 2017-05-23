@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class Shooting_m : MonoBehaviour
+public class Shooting_m : NetworkBehaviour
 {
 
     private Rigidbody rb;
-    public GameObject bullet;
     public float cd;
     public int damage;
     private float timeavl; //Moment at which next shoot will be available;
@@ -16,8 +16,14 @@ public class Shooting_m : MonoBehaviour
     public float missileavl;
     private AudioSource audioshoot;
 
-	// Use this for initialization
-	void Start ()
+
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
+    public float bulletSpeed = 20F;
+    public float lifeTime = 1F;
+
+    // Use this for initialization
+    void Start ()
     {
         rb = GetComponent<Rigidbody>();
         timeavl = Time.time + cd;
@@ -28,40 +34,38 @@ public class Shooting_m : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         if (Input.GetButton("Fire1") && (Time.time >= timeavl))
         {
             timeavl = Time.time + cd;
             audioshoot.Stop();
             audioshoot.Play();
-            Shoot();
+            CmdShoot();
         }
-        if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock>().target != null)
+        if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock_m>().target != null)
         {
             target = GetComponent<Lock>().target;
             missileavl = Time.time + missilecd;
             SendMissile();
         }
 	}
-    public void Shoot()
+
+    [Command]
+    public void CmdShoot()
     {
-        GameObject test = Instantiate(bullet);
-        test.transform.position = gameObject.transform.position + gameObject.transform.forward;
-        test.transform.rotation = rb.transform.rotation;
-        test.transform.Rotate(90, 0, 0);
-        /*float deadZoneRadius = Screen.width / 25.0F; //relative to screen width
-        float disToCenX = Input.mousePosition[0] - Screen.width / 2F;
-        float disToCenY = Input.mousePosition[1] - Screen.height / 2F;
-        Vector3 disToCen = new Vector3(disToCenX, disToCenY, 0);
-        float rotateOnXAxis = -disToCenY * 2F / Screen.height;
-        float rotateOnYAxis = disToCenX * 2F / Screen.width;
-        test.transform.Rotate(rb.transform.rotation.x * rotateOnXAxis * 1000, rb.transform.rotation.y * rotateOnYAxis * 1000, 0);*/
-        Rigidbody rb2 = test.GetComponent<Rigidbody>();
-        Bulette bull = test.GetComponent<Bulette>();
-        Vector3 speed = new Vector3();
-        speed = /*rb.velocity * 2 +*/ transform.forward * 120;
-        bull.speed = speed;
-        rb2.velocity = speed;
-        bull.SetSender(gameObject);
+        var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position , bulletSpawn.rotation);
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed + rb.velocity;
+        bullet.GetComponent<Bullet_m>().SetSender(gameObject);
+
+
+        // Spawn the bullet on the Clients
+        NetworkServer.Spawn(bulletPrefab);
+
+        Destroy(bullet, lifeTime);
     }
     void SendMissile()
     {

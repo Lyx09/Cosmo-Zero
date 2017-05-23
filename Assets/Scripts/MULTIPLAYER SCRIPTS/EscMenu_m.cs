@@ -1,32 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class EscMenu_m : MonoBehaviour
+public class EscMenu_m : NetworkBehaviour
 {
 
     public GameObject EscapePanel;
     public ShipCtrls_multi Controls;
+    private bool isEscape = false;
 
     void Start()
     {
-        EscapePanel.gameObject.SetActive(false);
+        isEscape = false;
     }
 
     void Update()
     {
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown("escape"))
         {
-            if (EscapePanel.gameObject.activeSelf) //check tqhat
-            {
-                Controls.blockRotation = true;
-                Controls.blockMovement = true;
-            }
-            else
-            {
-                Controls.blockRotation = false;
-                Controls.blockMovement = false;
-            }
-            EscapePanel.gameObject.SetActive(!EscapePanel.gameObject.activeSelf);
+            isEscape = !isEscape;
+            Controls.isInMenu = isEscape;
+
         }
     }
 }

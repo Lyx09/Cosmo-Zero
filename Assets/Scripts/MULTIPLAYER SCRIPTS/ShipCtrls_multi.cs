@@ -62,15 +62,9 @@ public class ShipCtrls_multi : NetworkBehaviour
         //################################################################################
         //#------------------------------KEYBOARD INPUTS---------------------------------#
         //################################################################################
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            isInMenu = !isInMenu;
-        }
 
         blockMovement = isInMenu;
         blockRotation = isInMenu;
-
-
 
         if (!blockMovement)
         {
@@ -217,4 +211,5 @@ public class ShipCtrls_multi : NetworkBehaviour
         //For double tapping: http://answers.unity3d.com/questions/340593/how-do-i-make-a-double-tap-system-for-dashing.html
         //For launching missiles https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html
     }
+    
 }
