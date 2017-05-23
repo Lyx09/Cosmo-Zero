@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class Lock : MonoBehaviour
+public class Lock_m : MonoBehaviour
 {
     //The code needs to be simplified
     //NOTE: There exist a dead center when locking a target it is located at the exact oposite of the target.

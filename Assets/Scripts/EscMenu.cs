@@ -4,26 +4,26 @@ using System.Collections;
 public class EscMenu : MonoBehaviour
 {
 
-    public GameObject Canvas;
+    public GameObject EscapePanel;
 
     void Start()
     {
-        Canvas.gameObject.SetActive(false);
+        EscapePanel.gameObject.SetActive(false);
     }
 
     void Update()
     {
         if (Input.GetKeyDown("escape"))
         {
-            if (Canvas.gameObject.activeSelf)
+            if (EscapePanel.gameObject.activeSelf)
             {
                 Time.timeScale = 1.0f;
-                Canvas.gameObject.SetActive(false);
+                EscapePanel.gameObject.SetActive(false);
             }
             else
             {
                 Time.timeScale = 0.0f;
-                Canvas.gameObject.SetActive(true);
+                EscapePanel.gameObject.SetActive(true);
             }
         }
     }

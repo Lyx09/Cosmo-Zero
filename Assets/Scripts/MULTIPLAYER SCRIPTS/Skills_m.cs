@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Skills : MonoBehaviour {
+public class Skills_m : MonoBehaviour {
 
     private Rigidbody rb;
-    [SerializeField] private SpaceshipControls spaceShipControls;
+    [SerializeField] private ShipCtrls_multi spaceShipControls;
 
     //For doubleTap function
     public bool dashUnlock = true;
