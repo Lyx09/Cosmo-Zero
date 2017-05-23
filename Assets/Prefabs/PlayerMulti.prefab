@@ -76,13 +76,14 @@ GameObject:
   - 114: {fileID: 114000012759456730}
   - 114: {fileID: 114000012293257264}
   - 114: {fileID: 114000011676975174}
-  - 114: {fileID: 114000010870937650}
   - 114: {fileID: 114000011276130058}
   - 114: {fileID: 114000010221458714}
   - 114: {fileID: 114000010260811530}
   - 114: {fileID: 114000013358506798}
   - 114: {fileID: 114000011425323024}
   - 114: {fileID: 114000011997157232}
+  - 82: {fileID: 82000010017217582}
+  - 114: {fileID: 114000013184088272}
   m_Layer: 0
   m_Name: PlayerMulti
   m_TagString: Player
@@ -339,7 +340,7 @@ GameObject:
   - 92: {fileID: 92000010381006190}
   - 124: {fileID: 124000011634729534}
   - 81: {fileID: 81000010598717774}
-  - 114: {fileID: 114000012095635420}
+  - 114: {fileID: 114000010973482670}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -745,6 +746,80 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013536736600}
   m_Enabled: 1
+--- !u!82 &82000010017217582
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011378575436}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!92 &92000010381006190
 Behaviour:
   m_ObjectHideFlags: 1
@@ -792,12 +867,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011378575436}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02dc93a732c63d549bc7c94d5bacd754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_cursorTexture: {fileID: 0}
+  m_cursorTexture: {fileID: 2800000, guid: 60aa3e566d36ac241bbe5371226979aa, type: 3}
 --- !u!114 &114000010260811530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -816,21 +891,41 @@ MonoBehaviour:
   timeregen: 5
   xp: 0
   life: 100
---- !u!114 &114000010870937650
+--- !u!114 &114000010973482670
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011378575436}
+  m_GameObject: {fileID: 1000013536736600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57bcc3bcae7ee6546b87613d0fb531c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 45302e68c4417584395e3697a62dd7c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 100
-  threshold: 0.1
-  cameraTransform: {fileID: 4000010211832378}
-  cameraScript: {fileID: 114000012095635420}
+  cameraVelocity: 3
+  cameraRollVelocity: 20
+  cameraMainPos: {fileID: 4000010429814942}
+  cameraRearPos: {fileID: 4000011288182242}
+  inputFactX: 1
+  inputFactY: 0.1
+  inputFactZ: 1
+  inputFactRoll: 1
+  inputMaxX: 1
+  inputMaxY: 0.5
+  inputMaxZ: 1
+  inputMaxRoll: 1
+  inputMinX: -1
+  inputMinY: -0.5
+  inputMinZ: -1
+  inputMinRoll: -1
+  invertCamMovX: 1
+  invertCamMovY: 1
+  invertCamMovZ: 1
+  invertCamMovRoll: 0
+  smoothTime: 0.1
+  camPitchRate: 2
+  camYawRate: 2
+  currentPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011237986666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -842,12 +937,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4828b0c008ec4c40820df04d3442ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_particleScaleRange: {x: 0, y: 0}
-  m_positionSmooth: 0
-  m_rotatoionSmooth: 0
-  m_target: {fileID: 0}
-  m_rb: {fileID: 0}
-  SpeedFactor: 0
+  m_particleScaleRange: {x: -1, y: -200}
+  m_positionSmooth: 50
+  m_rotatoionSmooth: 50
+  m_target: {fileID: 4000013093610760}
+  m_rb: {fileID: 54000011328512514}
+  SpeedFactor: 0.02
 --- !u!114 &114000011276130058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -897,7 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1000013030908276, guid: 730d02246058fb44eababcf09ba41997, type: 2}
-  cd: 0
+  cd: 0.1
   damage: 1
   Missile: {fileID: 1000012407779000, guid: 1f7a43b66b8de884494bef6f427df43f, type: 2}
   missilecd: 0
@@ -922,41 +1017,6 @@ MonoBehaviour:
   timeFactor: 0.5
   maxTimeUseTime: 5
   maxTimeCoolDown: 10
---- !u!114 &114000012095635420
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013536736600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23d419cb7e31f85498a3b6ff2bd0435b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraVelocity: 3
-  cameraRollVelocity: 20
-  cameraMainPos: {fileID: 4000010429814942}
-  cameraRearPos: {fileID: 4000011288182242}
-  inputFactX: 1
-  inputFactY: 0.1
-  inputFactZ: 1
-  inputFactRoll: 1
-  inputMaxX: 1
-  inputMaxY: 0.5
-  inputMaxZ: 1
-  inputMaxRoll: 1
-  inputMinX: -1
-  inputMinY: -0.5
-  inputMinZ: -1
-  inputMinRoll: -1
-  invertCamMovX: 1
-  invertCamMovY: 1
-  invertCamMovZ: 1
-  invertCamMovRoll: 0
-  smoothTime: 0.1
-  camPitchRate: 2
-  camYawRate: 2
-  currentPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114000012293257264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1009,6 +1069,21 @@ MonoBehaviour:
     i15: 144
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114000013184088272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011378575436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d85beffe4c216045b94c037f770d902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 100
+  threshold: 0.1
+  cameraTransform: {fileID: 4000010211832378}
+  cameraScript: {fileID: 114000010973482670}
 --- !u!114 &114000013358506798
 MonoBehaviour:
   m_ObjectHideFlags: 1

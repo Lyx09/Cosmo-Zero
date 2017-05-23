@@ -64,6 +64,9 @@ public class State_m : MonoBehaviour
 
     void UpLife ()
     {
-        LifeDisp.text = " HP: " + ((int)life).ToString() + "\n Money: " + money.ToString() + "\n XP: " + xp.ToString() ;
+        if (LifeDisp != null)
+        {
+            LifeDisp.text = " HP: " + ((int)life).ToString() + "\n Money: " + money.ToString() + "\n XP: " + xp.ToString();
+        }
     }
 }
