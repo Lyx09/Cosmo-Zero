@@ -17,11 +17,13 @@ public class MissileBehaviour : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        GetComponent<Rigidbody>().transform.LookAt(target);
+        
     }
     void FixedUpdate()
     {
-        rb.velocity = rb.transform.forward * 50;
+        transform.Translate(Vector3.forward * Time.deltaTime * 35);
+        var rotation = Quaternion.LookRotation(target.position - transform.position);
+        rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, 5));
     }
     void OnCollisionEnter(Collision other)
     {

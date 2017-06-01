@@ -67,15 +67,10 @@ public class Shooting : MonoBehaviour
     {
         GameObject mymissile = Instantiate(Missile);
         mymissile.transform.position = gameObject.transform.position + gameObject.transform.forward;
-        mymissile.transform.LookAt(target);
+        mymissile.transform.rotation = gameObject.transform.rotation;
         MissileBehaviour mb = mymissile.GetComponent<MissileBehaviour>();
-        Rigidbody msrb = mymissile.GetComponent<Rigidbody>();
         mb.target = target;
         mb.sender = gameObject;
-        Vector3 missilespeed = new Vector3();
-        missilespeed = msrb.transform.forward * 50;
-        msrb.velocity = missilespeed;
-        mb.speed = missilespeed;
         mb.dmg = missiledmg;
     }
 }
