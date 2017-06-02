@@ -56,7 +56,7 @@ public class CameraScript_m : MonoBehaviour
 	{
         if (Input.GetButton("Camera unlock"))
         {
-            Scontrols.blockRotation = true;
+            //Scontrols.blockRotation = true;
 
             float disToCenX = Input.mousePosition[0] - Screen.width / 2F;
             float disToCenY = Input.mousePosition[1] - Screen.height / 2F;

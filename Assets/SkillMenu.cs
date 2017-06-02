@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EscMenu : MonoBehaviour
+public class SkillMenu : MonoBehaviour
 {
 
     public GameObject EscapePanel;
     public SpaceshipControls movements;
-
 
     void Start()
     {
@@ -16,7 +15,7 @@ public class EscMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown("l"))
         {
             if (EscapePanel.gameObject.activeSelf)
             {
@@ -26,7 +25,6 @@ public class EscMenu : MonoBehaviour
             }
             else
             {
-
                 movements.blockMovement = false;
                 movements.blockRotation = false;
                 EscapePanel.gameObject.SetActive(true);
