@@ -41,9 +41,10 @@ public class Shooting_m : NetworkBehaviour
 
         if (Input.GetButton("Fire1") && (Time.time >= timeavl))
         {
+            Debug.Log("clic");
             timeavl = Time.time + cd;
-            audioshoot.Stop();
-            audioshoot.Play();
+            //audioshoot.Stop();
+           // audioshoot.Play();
             CmdShoot();
         }
         if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock_m>().target != null)
@@ -58,7 +59,7 @@ public class Shooting_m : NetworkBehaviour
     public void CmdShoot()
     {
         var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position , bulletSpawn.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed + rb.velocity;
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6.0f /*bulletSpeed + rb.velocity*/;
         bullet.GetComponent<Bullet_m>().SetSender(gameObject);
 
 
