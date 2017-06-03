@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class TutoQuests : MonoBehaviour
 {
+    private bool sounded = false;
     private int step;
     private static int spheresdone;
     private static bool collected;
@@ -15,11 +17,12 @@ public class TutoQuests : MonoBehaviour
     static private double lpart, rpart, tpart, bpart;
     public GameObject Sphere1, Sphere2, Sphere3, Sphere4, Sphere5, Targets;
     private Rigidbody Player;
+    public AudioSource next;
 
     void Start()
     {
         Dialogue.gameObject.SetActive(true);
-        step = 12;
+        step = 0;
         BeginningZ = 0;
         BeginningQ = 0;
         BeginningS = 0;
@@ -53,12 +56,18 @@ public class TutoQuests : MonoBehaviour
             case 0:
                 message.text = "Hello, \nWelcome to the Cosmo Zero Tutorial!\n";
                 if (Input.anyKeyDown)
+                {
+                    next.Play();
                     step = 1;
+                }
                 break;
             case 1:
                 message.text = "You're going to learn the basics of the game";
                 if (Input.anyKeyDown)
+                {
+                    next.Play();
                     step = -1;
+                }
                 break;
             case -1:
                 message.text = "The first thing you should now is that there's a menu to help you through this tutorial.\nYou can access it by pressing 'Tab'";
@@ -70,11 +79,17 @@ public class TutoQuests : MonoBehaviour
                 {
                     if (Input.GetKeyDown(KeyCode.Tab))
                     {
+                        if (!sounded)
+                            next.Play();
                         Dialogue.gameObject.SetActive(false);
                         btab = true;
                     }
                     else if (Input.anyKeyDown)
+                    {
+                        next.Play();
+                        sounded = true;
                         Dialogue.gameObject.SetActive(false);
+                    }
                 }
                 else
                 {
@@ -83,6 +98,7 @@ public class TutoQuests : MonoBehaviour
                 }
                 break;
             case 2:
+                sounded = false;
                 Dialogue.gameObject.SetActive(true);
                 message.text = "Good!\nNow try to move forward.\nIn order to do so, press 'Z'";
                 step = 3;
@@ -95,11 +111,15 @@ public class TutoQuests : MonoBehaviour
                     step = 4;
                 break;
             case 4:
+                sounded = false;
                 Dialogue.gameObject.SetActive(true);
                 quest.text = "";
                 message.text = "Well played";
                 if (Input.anyKeyDown)
+                {
+                    next.Play();
                     step = 5;
+                }
                 break;
             case 5:
                 message.text = "Now, try moving backward, to your left and to your right,\nby using the 'S','Q' and 'D' keys";
@@ -122,10 +142,14 @@ public class TutoQuests : MonoBehaviour
                 }
                 break;
             case 7:
+                sounded = false;
                 Dialogue.gameObject.SetActive(true);
                 message.text = "Nice!";
                 if (Input.anyKeyDown)
+                {
+                    next.Play();
                     step = 8;
+                }
                 break;
             case 8:
                 message.text = "You can also move up by pressing 'Space', and down by pressing 'Ctrl'\nTry it now!";
@@ -142,10 +166,14 @@ public class TutoQuests : MonoBehaviour
                     bctrl = KeyPressed(ref BeginningCtrl, KeyCode.LeftControl);
                 break;
             case 10:
+                sounded = false;
                 Dialogue.gameObject.SetActive(true);
                 message.text = "Great!\nYou only have one last move to learn, and it's the coolest: Rolling!";
                 if (Input.anyKeyDown)
+                {
+                    next.Play();
                     step = 11;
+                }
                 break;
             case 11:
                 quest.text = "Current quest:\n-Roll left by pressing 'A'" + Done(ba)
@@ -159,10 +187,15 @@ public class TutoQuests : MonoBehaviour
                     be = KeyPressed(ref BeginningE, KeyCode.E);
                 break;
             case 12:
+                sounded = false;
                 Dialogue.gameObject.SetActive(true);
                 message.text = "Excellent.\nNow you can move in the direction you want.\nBut you may have also noticed that you can rotate your ship by moving your mouse around.";
                 if (Input.anyKeyDown)
+                {
+                    next.Play();
                     step = 13;
+                    sounded = false;
+                }
                 break;
             case 13:
                 quest.text = "Current quest:\n-Put your cursor on the left part of your screen" + Done(bleft)
@@ -173,7 +206,14 @@ public class TutoQuests : MonoBehaviour
                 if (bleft && bright && btop && bbottom)
                     step = 14;
                 if (Input.anyKeyDown)
+                {
+                    if (!sounded)
+                    {
+                        next.Play();
+                        sounded = true;
+                    }
                     Dialogue.gameObject.SetActive(false);
+                }
                 lpart = Screen.width * 0.2;
                 bleft = bleft || (Input.mousePosition[0] <= lpart);
                 rpart = Screen.width * 0.8;
@@ -189,6 +229,7 @@ public class TutoQuests : MonoBehaviour
                 message.text = "Good!\n Now we can put in application what you just learned";
                 if (Input.anyKeyDown)
                 {
+                    next.Play();
                     Dialogue.gameObject.SetActive(false);
                     StartPause = Time.time;
                     Cut.gameObject.SetActive(true);
@@ -209,13 +250,21 @@ public class TutoQuests : MonoBehaviour
                 Player.GetComponent<Lock>().target = Sphere1.transform;
                 TargetedSphere = Sphere1;
                 Dialogue.gameObject.SetActive(true);
+                sounded = false;
                 step = 17;
                 break;
             case 17:
                 message.text = "You are going to be targetting a blue sphere. Collect it!";
                 quest.text = "Current quest:\n-Collect the blue sphere";
                 if (Input.anyKeyDown)
+                {
+                    if (!sounded)
+                    {
+                        next.Play();
+                        sounded = true;
+                    }
                     Dialogue.gameObject.SetActive(false);
+                }
                 if (collected)
                 {
                     Dialogue.gameObject.SetActive(true);
@@ -224,13 +273,21 @@ public class TutoQuests : MonoBehaviour
                     TargetedSphere = Sphere2;
                     collected = false;
                     Player.GetComponent<Lock>().target = Sphere2.transform;
+                    sounded = false;
                 }
                 break;
             case 18:
                 message.text = "Good! Now do that 4 more times";
                 quest.text = "Current quest:\n-Collect four blue spheres (" + (spheresdone).ToString() + "/4)";
                 if (Input.anyKeyDown)
+                {
+                    if (!sounded)
+                    {
+                        next.Play();
+                        sounded = true;
+                    }
                     Dialogue.gameObject.SetActive(false);
+                }
                 if (collected)
                 {
                     spheresdone++;
@@ -244,7 +301,14 @@ public class TutoQuests : MonoBehaviour
             case 19:
                 quest.text = "Current quest:\n-Collect four blue spheres (" + (spheresdone).ToString() + "/4)";
                 if (Input.anyKeyDown)
+                {
+                    if (!sounded)
+                    {
+                        next.Play();
+                        sounded = true;
+                    }
                     Dialogue.gameObject.SetActive(false);
+                }
                 if (collected)
                 {
                     spheresdone++;
@@ -258,7 +322,14 @@ public class TutoQuests : MonoBehaviour
             case 20:
                 quest.text = "Current quest:\n-Collect four blue spheres (" + (spheresdone).ToString() + "/4)";
                 if (Input.anyKeyDown)
+                {
+                    if (!sounded)
+                    {
+                        next.Play();
+                        sounded = true;
+                    }
                     Dialogue.gameObject.SetActive(false);
+                }
                 if (collected)
                 {
                     spheresdone++;
@@ -272,7 +343,14 @@ public class TutoQuests : MonoBehaviour
             case 21:
                 quest.text = "Current quest:\n-Collect four blue spheres (" + (spheresdone).ToString() + "/4)";
                 if (Input.anyKeyDown)
+                {
+                    if (!sounded)
+                    {
+                        next.Play();
+                        sounded = true;
+                    }
                     Dialogue.gameObject.SetActive(false);
+                }
                 if (collected)
                 {
                     spheresdone++;
@@ -283,12 +361,17 @@ public class TutoQuests : MonoBehaviour
                 Dialogue.gameObject.SetActive(true);
                 message.text = "Good job.\nYou'll soon be ready for the real game";
                 if (Input.anyKeyDown)
+                {
+                    next.Play();
                     step = 23;
+                    sounded = false;
+                }
                 break;
             case 23:
                 message.text = "The last important thing you have to learn is how to shoot";
                 if (Input.anyKeyDown)
                 {
+                    next.Play();
                     Dialogue.gameObject.SetActive(false);
                     StartPause = Time.time;
                     Cut.gameObject.SetActive(true);
@@ -309,12 +392,20 @@ public class TutoQuests : MonoBehaviour
                 Cut.gameObject.SetActive(false);
                 Targets.gameObject.SetActive(true);
                 Dialogue.gameObject.SetActive(true);
+                sounded = false;
                 step = 26;
                 break;
             case 26:
                 quest.text = "Current quest:\n-Shoot 5 targets (" + Player.GetComponent<State>().xp.ToString() + "/5)";
                 if (Input.anyKeyDown)
+                {
+                    if (!sounded)
+                    {
+                        next.Play();
+                        sounded = true;
+                    }
                     Dialogue.SetActive(false);
+                }
                 if (Player.GetComponent<State>().xp == 5)
                     step = 27;
                 break;
@@ -322,6 +413,11 @@ public class TutoQuests : MonoBehaviour
                 quest.text = "";
                 Dialogue.gameObject.SetActive(true);
                 message.text = "Well, looks like you've completed the tutorial.\nWell played";
+                if (Input.anyKeyDown)
+                {
+                    next.Play();
+                    SceneManager.LoadScene(0);
+                }
                 break;
             default:
                 break;
@@ -340,11 +436,23 @@ public class TutoQuests : MonoBehaviour
         {
             if (Input.GetKeyDown(key))
             {
+                if (!sounded)
+                {
+                    next.Play();
+                    sounded = true;
+                }
                 Dialogue.gameObject.SetActive(false);
                 Beginning = Time.time;
             }
             else if (Input.anyKeyDown)
+            {
+                if (!sounded)
+                {
+                    next.Play();
+                    sounded = true;
+                }
                 Dialogue.gameObject.SetActive(false);
+            }
             return false;
         }
         else

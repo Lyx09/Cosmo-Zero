@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TabMenu : MonoBehaviour
 {
     public GameObject Panel;
     public GameObject Disp;
+    public Image HealthBar;
+    public Image HealthFill;
     // Use this for initialization
     void Start()
     {
@@ -19,8 +22,9 @@ public class TabMenu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 Panel.gameObject.SetActive(true);
-                //Disp.gameObject.SetActive(false);
-
+                Disp.gameObject.SetActive(false);
+                HealthBar.gameObject.SetActive(false);
+                HealthFill.gameObject.SetActive(false);
             }
         }
         else
@@ -28,7 +32,9 @@ public class TabMenu : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Tab))
             {
                 Panel.gameObject.SetActive(false);
-                //Disp.gameObject.SetActive(true);
+                Disp.gameObject.SetActive(true);
+                HealthBar.gameObject.SetActive(true);
+                HealthFill.gameObject.SetActive(true);
             }
         }
     }
