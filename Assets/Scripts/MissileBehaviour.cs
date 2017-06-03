@@ -8,6 +8,7 @@ public class MissileBehaviour : MonoBehaviour
     public Vector3 speed;
     private Rigidbody rb;
     public int dmg;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -35,7 +36,6 @@ public class MissileBehaviour : MonoBehaviour
             {
                 State shooter = sender.GetComponent<State>();
                 shooter.Kill(enemysc.xpvalue);
-                Debug.Log("ok");
             }
             enemysc.Hurt(dmg);
         }

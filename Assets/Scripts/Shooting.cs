@@ -3,18 +3,21 @@ using System.Collections;
 
 public class Shooting : MonoBehaviour
 {
-
+    public AudioSource audioshoot;
     private Rigidbody rb;
     public GameObject bullet;
-    public float cd;
-    public int damage;
+    public float bulletspeed = 57.0f;
+    public float cd = 0.1f;
+    public int damage = 1;
     private float timeavl; //Moment at which next shoot will be available;
+    public float bulletspan = 2.0f;
+
     public GameObject Missile;
     public static Transform target;
-    public float missilecd;
-    public int missiledmg;
+    public float missilecd = 5.0f;
+    public int missiledmg = 7;
     public float missileavl;
-    private AudioSource audioshoot;
+    public float missilespan = 4.5f;
 
 	// Use this for initialization
 	void Start ()
@@ -22,7 +25,6 @@ public class Shooting : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         timeavl = Time.time + cd;
         missileavl = Time.time + missilecd;
-        audioshoot = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -44,24 +46,13 @@ public class Shooting : MonoBehaviour
 	}
     public void Shoot()
     {
-        GameObject test = Instantiate(bullet);
-        test.transform.position = gameObject.transform.position + gameObject.transform.forward;
-        test.transform.rotation = rb.transform.rotation;
-        test.transform.Rotate(90, 0, 0);
-        /*float deadZoneRadius = Screen.width / 25.0F; //relative to screen width
-        float disToCenX = Input.mousePosition[0] - Screen.width / 2F;
-        float disToCenY = Input.mousePosition[1] - Screen.height / 2F;
-        Vector3 disToCen = new Vector3(disToCenX, disToCenY, 0);
-        float rotateOnXAxis = -disToCenY * 2F / Screen.height;
-        float rotateOnYAxis = disToCenX * 2F / Screen.width;
-        test.transform.Rotate(rb.transform.rotation.x * rotateOnXAxis * 1000, rb.transform.rotation.y * rotateOnYAxis * 1000, 0);*/
-        Rigidbody rb2 = test.GetComponent<Rigidbody>();
-        Bulette bull = test.GetComponent<Bulette>();
-        Vector3 speed = new Vector3();
-        speed = /*rb.velocity * 2 +*/ transform.forward * 120;
-        bull.speed = speed;
-        rb2.velocity = speed;
-        bull.SetSender(gameObject);
+        GameObject newbull = Instantiate(bullet);
+        newbull.transform.position = gameObject.transform.position + gameObject.transform.forward;
+        newbull.transform.rotation = rb.transform.rotation;
+        newbull.transform.Rotate(90, 0, 0);
+        newbull.GetComponent<Bulette>().SetSender(gameObject);
+        newbull.GetComponent<Rigidbody>().velocity = newbull.transform.up * bulletspeed;
+        Destroy(newbull, bulletspan);
     }
     void SendMissile()
     {
@@ -72,5 +63,6 @@ public class Shooting : MonoBehaviour
         mb.target = target;
         mb.sender = gameObject;
         mb.dmg = missiledmg;
+        Destroy(mymissile, missilespan);
     }
 }

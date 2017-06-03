@@ -242,7 +242,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
         //Debug.Log(target_velocity.magnitude);
         //Debug.Log(predict_ahead);
-        Debug.DrawLine(transform.position, future_target_pos);
+        //Debug.DrawLine(transform.position, future_target_pos);
 
         return doFlee(future_target_pos);
     }
