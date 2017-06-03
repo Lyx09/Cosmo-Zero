@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class TabMenu : MonoBehaviour
+public class TutoMenu : MonoBehaviour
 {
     public GameObject Panel;
     public GameObject Disp;
