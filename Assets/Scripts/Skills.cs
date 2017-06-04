@@ -24,7 +24,7 @@ public class Skills : MonoBehaviour {
     public float dashIntensity = 5000;
 
     // For TimeControl
-    public bool timeControl = true; //Should not be used in multiplayer
+    public bool timeControl = false; //Should not be used in multiplayer
     [SerializeField] private float timeFactor = 0.5F;
     [SerializeField] private float maxTimeUseTime = 5F;
     [SerializeField] private float maxTimeCoolDown = 10F;
@@ -202,7 +202,7 @@ public class Skills : MonoBehaviour {
                 }
             }
         }
-
+        /*
         
 	    if (timeControl)
 	    {
@@ -218,7 +218,7 @@ public class Skills : MonoBehaviour {
 	            Time.timeScale = 1f;
 	        }
 	    }
-        
+        */  
 
         //UPDATING TIMERS
 

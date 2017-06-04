@@ -41,7 +41,6 @@ public class SpaceshipControls : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("omelette du fromage" + blockRotation);
 
         //TODO set project control settings
         //CANDO Different speed for the 3 axes
