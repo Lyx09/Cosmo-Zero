@@ -10,7 +10,7 @@ public class Shooting_m : NetworkBehaviour
     public Transform bulletSpawn;
     public float bulletSpeed = 57.0f;
     public float bulletcd = 0.1f;
-    public int bulletDamage = 1;
+    public float bulletDamage = 1;
     private float timeavl; //Moment at which next shoot will be available;
     public float bulletLifeSpan = 2.0f;
 
@@ -18,7 +18,7 @@ public class Shooting_m : NetworkBehaviour
     public Transform missileSpawn;
     public static Transform target;
     public float missilecd = 5.0f;
-    public int missileDamage = 7;
+    public float missileDamage = 7;
     public float missileavl;
     public float missileLifeSpan = 4.5f;
     
@@ -59,7 +59,8 @@ public class Shooting_m : NetworkBehaviour
     public void CmdShoot()
     {
         var bullet = (GameObject)Instantiate(bulletPrefab,bulletSpawn.position,bulletSpawn.rotation);
-        bullet.GetComponent<Bullet_m>().SetSender(gameObject);
+        bullet.GetComponent<Bullet_m>().Initialize(gameObject, bulletDamage);
+        Debug.Log(2);
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
         NetworkServer.Spawn(bullet); //add in network manager
         Destroy(bullet, bulletLifeSpan);
