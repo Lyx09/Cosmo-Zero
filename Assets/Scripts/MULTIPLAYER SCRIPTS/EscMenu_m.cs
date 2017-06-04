@@ -6,7 +6,7 @@ public class EscMenu_m : NetworkBehaviour
 {
 
     public GameObject EscapePanel;
-    public ShipCtrls_multi Controls;
+    public SpaceshipControls_m Controls;
     private bool isEscape = false;
 
     void Start()

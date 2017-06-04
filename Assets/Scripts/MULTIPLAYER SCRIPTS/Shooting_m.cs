@@ -4,35 +4,35 @@ using UnityEngine.Networking;
 
 public class Shooting_m : NetworkBehaviour
 {
-
-    private Rigidbody rb;
-    public float cd;
-    public int damage;
-    private float timeavl; //Moment at which next shoot will be available;
-    public GameObject Missile;
-    public static Transform target;
-    public float missilecd;
-    public int missiledmg;
-    public float missileavl;
-    private AudioSource audioshoot;
-
-
+    public AudioSource audioshoot;
+    
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float bulletSpeed = 20F;
-    public float lifeTime = 1F;
+    public float bulletSpeed = 57.0f;
+    public float bulletcd = 0.1f;
+    public int bulletDamage = 1;
+    private float timeavl; //Moment at which next shoot will be available;
+    public float bulletLifeSpan = 2.0f;
 
-    // Use this for initialization
-    void Start ()
+    public GameObject missilePrefab;
+    public Transform missileSpawn;
+    public static Transform target;
+    public float missilecd = 5.0f;
+    public int missileDamage = 7;
+    public float missileavl;
+    public float missileLifeSpan = 4.5f;
+    
+    void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        timeavl = Time.time + cd;
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        timeavl = Time.time + bulletcd;
         missileavl = Time.time + missilecd;
-        audioshoot = GetComponent<AudioSource>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+    
+    void Update()
     {
         if (!isLocalPlayer)
         {
@@ -41,46 +41,41 @@ public class Shooting_m : NetworkBehaviour
 
         if (Input.GetButton("Fire1") && (Time.time >= timeavl))
         {
-            Debug.Log("clic");
-            timeavl = Time.time + cd;
-            //audioshoot.Stop();
-           // audioshoot.Play();
+            timeavl = Time.time + bulletcd;
+            audioshoot.Stop();
+            audioshoot.Play();
             CmdShoot();
         }
-        if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock_m>().target != null)
+
+        if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock>().target != null)
         {
             target = GetComponent<Lock>().target;
             missileavl = Time.time + missilecd;
-            SendMissile();
+            CmdShootMissile();
         }
-	}
+    }
 
     [Command]
     public void CmdShoot()
     {
-        var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position , bulletSpawn.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6.0f /*bulletSpeed + rb.velocity*/;
+        var bullet = (GameObject)Instantiate(bulletPrefab,bulletSpawn.position,bulletSpawn.rotation);
         bullet.GetComponent<Bullet_m>().SetSender(gameObject);
-
-
-        // Spawn the bullet on the Clients
-        NetworkServer.Spawn(bulletPrefab);
-
-        Destroy(bullet, lifeTime);
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
+        NetworkServer.Spawn(bullet); //add in network manager
+        Destroy(bullet, bulletLifeSpan);
     }
-    void SendMissile()
+
+    [Command]
+    void CmdShootMissile()
     {
-        GameObject mymissile = Instantiate(Missile);
-        mymissile.transform.position = gameObject.transform.position + gameObject.transform.forward;
-        mymissile.transform.LookAt(target);
-        MissileBehaviour mb = mymissile.GetComponent<MissileBehaviour>();
-        Rigidbody msrb = mymissile.GetComponent<Rigidbody>();
+        var missile = (GameObject)Instantiate(missilePrefab, missileSpawn.position, missileSpawn.rotation);
+
+        MissileBehaviour mb = missile.GetComponent<MissileBehaviour>();
         mb.target = target;
         mb.sender = gameObject;
-        Vector3 missilespeed = new Vector3();
-        missilespeed = msrb.transform.forward * 50;
-        msrb.velocity = missilespeed;
-        mb.speed = missilespeed;
-        mb.dmg = missiledmg;
+        mb.dmg = missileDamage;
+
+        NetworkServer.Spawn(missile); //add in network manager
+        Destroy(missile, missileLifeSpan);
     }
 }

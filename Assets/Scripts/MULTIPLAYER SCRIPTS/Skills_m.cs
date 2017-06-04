@@ -4,7 +4,7 @@ using System.Collections;
 public class Skills_m : MonoBehaviour {
 
     private Rigidbody rb;
-    [SerializeField] private ShipCtrls_multi spaceShipControls;
+    [SerializeField] private SpaceshipControls_m spaceShipControls;
 
     //For doubleTap function
     public bool dashUnlock = true;

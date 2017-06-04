@@ -12,7 +12,7 @@ public class CameraScript_m : MonoBehaviour
     public Transform cameraMainPos;
     public Transform cameraRearPos;
 
-    private ShipCtrls_multi Scontrols;
+    private SpaceshipControls_m Scontrols;
 
     //These 3 values must be consistent with the Gravity and Sensitivity of the 3 axis input (Perp, Lat, Long)
     public float inputFactX = 1F;
@@ -48,12 +48,21 @@ public class CameraScript_m : MonoBehaviour
     void Start ()
 	{
 	    //ship = GetComponentInParent<Rigidbody>();
-	    Scontrols = GetComponentInParent<ShipCtrls_multi>();
+	    Scontrols = GetComponentInParent<SpaceshipControls_m>();
+
+	    if (!Scontrols.isCurrentPlayer)
+	    {
+	        Destroy(gameObject);
+	    }
     }
 	
 
 	void Update ()
 	{
+	    if (!Scontrols.isCurrentPlayer)
+	    {
+	        return;
+	    }
         if (Input.GetButton("Camera unlock"))
         {
             Scontrols.blockRotation = true;
