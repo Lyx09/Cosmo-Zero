@@ -31,8 +31,21 @@ public class Skills : MonoBehaviour {
     private float timeUseLeft = 0F;
     private float timeCoolDown = 0F;
 
-    void Start () {
+    //Shield
+    public bool shieldUnlock;
+    private float block = 150;
+    private float shieldcd = 60.0f; //Cooldown between two uses of the shield
+    private float shieldavl; //Time at which the shield will be available
+    private float shieldspan = 20.0f; //Time the shield lasts
+    private float shieldend; //Time at which the shield will end
+
+    public bool stealthUnlock;
+    public bool missileUnlock;
+
+    void Start ()
+    {
         rb = GetComponent<Rigidbody>();
+        shieldavl = Time.time;
     }
 	
 	// Update is called once per frame
@@ -278,5 +291,23 @@ public class Skills : MonoBehaviour {
 
 
     */
+        if (shieldUnlock)
+        {
+            if (Time.time >= shieldavl)
+            {
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    shieldavl = Time.time + shieldcd;
+                    shieldend = Time.time + shieldspan;
+                    GetComponent<State>().shield.SetActive(true);
+                    GetComponent<State>().shieldblock = block;
+                }
+            }
+            if (Time.time >= shieldend)
+            {
+                GetComponent<State>().shield.SetActive(false);
+                GetComponent<State>().shieldblock = 0;
+            }
+        }
     }
 }
