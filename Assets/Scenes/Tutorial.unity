@@ -708,7 +708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &309397198
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2255,7 +2255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &724299532
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2881,6 +2881,9 @@ MonoBehaviour:
   Sphere5: {fileID: 1990136179}
   Targets: {fileID: 1084089917}
   next: {fileID: 1822479633}
+  Health1: {fileID: 1368193574}
+  Health2: {fileID: 933612738}
+  Display: {fileID: 164788801}
 --- !u!114 &893288453
 MonoBehaviour:
   m_ObjectHideFlags: 0

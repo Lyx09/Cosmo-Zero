@@ -18,6 +18,8 @@ public class TutoQuests : MonoBehaviour
     public GameObject Sphere1, Sphere2, Sphere3, Sphere4, Sphere5, Targets;
     private Rigidbody Player;
     public AudioSource next;
+    public Image Health1, Health2;
+    public Text Display;
 
     void Start()
     {
@@ -232,6 +234,9 @@ public class TutoQuests : MonoBehaviour
                     next.Play();
                     Dialogue.gameObject.SetActive(false);
                     StartPause = Time.time;
+                    Health1.gameObject.SetActive(false);
+                    Health2.gameObject.SetActive(false);
+                    Display.gameObject.SetActive(false);
                     Cut.gameObject.SetActive(true);
                     step = 15;
                 }
@@ -245,6 +250,9 @@ public class TutoQuests : MonoBehaviour
                 }
                 break;
             case 16:
+                Health1.gameObject.SetActive(true);
+                Health2.gameObject.SetActive(true);
+                Display.gameObject.SetActive(true);
                 Cut.gameObject.SetActive(false);
                 Sphere1.gameObject.SetActive(true);
                 Player.GetComponent<Lock>().target = Sphere1.transform;
@@ -374,6 +382,9 @@ public class TutoQuests : MonoBehaviour
                     next.Play();
                     Dialogue.gameObject.SetActive(false);
                     StartPause = Time.time;
+                    Health1.gameObject.SetActive(false);
+                    Health2.gameObject.SetActive(false);
+                    Display.gameObject.SetActive(false);
                     Cut.gameObject.SetActive(true);
                     step = 24;
                 }
@@ -389,6 +400,9 @@ public class TutoQuests : MonoBehaviour
             case 25:
                 message.text = "To complete this last quest,\nyou have to shoot 5 targets, by using your left click";
                 quest.text = "Current quest:\n-Shoot 5 targets (" + Player.GetComponent<State>().xp.ToString() + "/5)";
+                Health1.gameObject.SetActive(true);
+                Health2.gameObject.SetActive(true);
+                Display.gameObject.SetActive(true);
                 Cut.gameObject.SetActive(false);
                 Targets.gameObject.SetActive(true);
                 Dialogue.gameObject.SetActive(true);
