@@ -21,6 +21,7 @@ TagManager:
   - ThrusterRollDR
   - Sphere
   - New Tag
+  - LawShield
   layers:
   - Default
   - TransparentFX

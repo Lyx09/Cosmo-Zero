@@ -265,7 +265,80 @@ public class FullSolo : MonoBehaviour
                     speaker.color = Color.grey;
                     GetComponent<Lock>().target = Lawson.transform;
                     ChangeDialogue("<i>Dashboard</i>", "New quest:\nGo find Sgt Lawson");
+                    quest.text = "Go find Sgt Lawson";
                     step = 21;
+                }
+                break;
+            case 21:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                }
+                break;
+            case 22:
+                quest.text = "";
+                speaker.color = Color.green;
+                ChangeDialogue("Pilot", "Lawson?\nCan you hear me?\nWhat happened to you?");
+                step = 23;
+                break;
+            case 23:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.blue;
+                    ChangeDialogue("Sgt Lawson", "...");
+                    step = 24;
+                }
+                break;
+            case 24:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "Please answer me");
+                    step = 25;
+                }
+                break;
+            case 25:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.blue;
+                    ChangeDialogue("Sgt Lawson", "Urh...\nMy head hurts so much\nWhere am I?");
+                    step = 26;
+                }
+                break;
+            case 26:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "Lawson, you're alive! I'm so relieved!\nI'm not alone, and you're not either");
+                    step = 27;
+                }
+                break;
+            case 27:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.blue;
+                    ChangeDialogue("Sgt Lawson", "What's going on?\n What happened?");
+                    step = 28;
+                }
+                break;
+            case 28:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "I actually came here to ask you these questions...\nI had left a message to myself, telling me to find you");
+                    step = 29;
                 }
                 break;
             default:
@@ -346,4 +419,13 @@ public class FullSolo : MonoBehaviour
             return false;
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("LawShield") && step == 21)
+        {
+            SkipDialogue();
+            sounded = false;
+            step = 22;
+        }
     }
+}
