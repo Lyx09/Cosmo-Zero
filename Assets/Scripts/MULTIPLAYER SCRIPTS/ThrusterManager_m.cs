@@ -187,6 +187,14 @@ public class ThrusterManager_m : MonoBehaviour
             URB = true;
             DRB = true;
         }
+        else
+        {
+            DLB = false;
+            ULB = false;
+            URB = false;
+            DRB = false;
+        }
+        
 
 
         // ---------- LATERAL ----------
@@ -203,6 +211,17 @@ public class ThrusterManager_m : MonoBehaviour
             URB = true;
             DRB = true;
             DRF = true;
+        }
+        else
+        {
+            URF = false;
+            URB = false;
+            DRB = false;
+            DRF = false;
+            ULF = false;
+            ULB = false;
+            DLB = false;
+            DLF = false;
         }
 
         
@@ -227,6 +246,24 @@ public class ThrusterManager_m : MonoBehaviour
             RollUL = true;
             RollUR = true;
         }
+        else
+        {
+            DLF = false;
+            DLB = false;
+            DRB = false;
+            DRF = false;
+
+            RollDL = false;
+            RollDR = false;
+
+            ULF = false;
+            ULB = false;
+            URB = false;
+            URF = false;
+
+            RollUL = false;
+            RollUR = false;
+        }
 
 
         // ---------- ROLL ---------- 
@@ -240,6 +277,13 @@ public class ThrusterManager_m : MonoBehaviour
         {
             RollDL = true;
             RollUR = true;
+        }
+        else
+        {
+            RollDL = false;
+            RollUR = false;
+            RollDR = false;
+            RollUL = false;
         }
 
 
