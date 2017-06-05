@@ -47,13 +47,21 @@ public class Skills : MonoBehaviour {
     private float stealthspan = 15.0f;
     private float stealthend;
 
+    //Missile
     public bool missileUnlock;
+    public GameObject Missile;
+    public static Transform target;
+    public float missilecd = 5.0f;
+    public int missiledmg = 7;
+    public float missileavl;
+    public float missilespan = 4.5f;
 
     void Start ()
     {
         rb = GetComponent<Rigidbody>();
         shieldavl = Time.time;
         stealthavl = Time.time;
+        missileavl = Time.time + missilecd;
     }
 	
 	// Update is called once per frame
@@ -335,5 +343,25 @@ public class Skills : MonoBehaviour {
                 stealth.SetActive(false);
             }
         }
+        if (missileUnlock)
+        {
+            if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock>().target != null)
+            {
+                target = GetComponent<Lock>().target;
+                missileavl = Time.time + missilecd;
+                SendMissile();
+            }
+        }
+    }
+    void SendMissile()
+    {
+        GameObject mymissile = Instantiate(Missile);
+        mymissile.transform.position = gameObject.transform.position + gameObject.transform.forward;
+        mymissile.transform.rotation = gameObject.transform.rotation;
+        MissileBehaviour mb = mymissile.GetComponent<MissileBehaviour>();
+        mb.target = target;
+        mb.sender = gameObject;
+        mb.dmg = missiledmg;
+        Destroy(mymissile, missilespan);
     }
 }
