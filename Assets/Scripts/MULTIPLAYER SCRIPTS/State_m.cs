@@ -9,8 +9,9 @@ public class State_m : NetworkBehaviour
 
     [SyncVar(hook = "UpdateDisplay")] public float currentHealth = 1000;
 
+    public bool destroyOnDeath = false;
+
     public float regenlife;
-    
     public float cdregen; //Le temps qu'il faut passer hors combat avant de passer en mode régen
     public float timeregen; //Le temps entre chaque tick de régen
 
@@ -18,18 +19,23 @@ public class State_m : NetworkBehaviour
     public int deaths = 0;
 
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
-    private float cooldown; //Le temps à attendre avant le prochain gain de vie
+    private float cooldown = 5.0F; //Le temps à attendre avant le prochain gain de vie
 
     public Text LifeDisp;
     public Image foreground;
+    private NetworkStartPosition[] spawnPoints;
 
     void Start ()
     {
         currentHealth = maxHealth;
         kills = 0;
         deaths = 0;
-        cooldown = 5.00F;
-	}
+
+        if (isLocalPlayer)
+        {
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        }
+    }
 	
 	void Update ()
     {
@@ -55,8 +61,15 @@ public class State_m : NetworkBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            currentHealth = maxHealth; //waiting time
-            RpcRespawn();
+            if (destroyOnDeath)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                currentHealth = maxHealth; //waiting time
+                RpcRespawn();
+            }
         }
 
         chrono = Time.time;
@@ -82,7 +95,17 @@ public class State_m : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            transform.position = Vector3.zero;
+            // Set the spawn point to origin as a default value
+            Vector3 spawnPoint = Vector3.zero;
+
+            // If there is a spawn point array and the array is not empty, pick one at random
+            if (spawnPoints != null && spawnPoints.Length > 0)
+            {
+                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+            }
+
+            // Set the player’s position to the chosen spawn point
+            transform.position = spawnPoint;
         }
     }
 }
