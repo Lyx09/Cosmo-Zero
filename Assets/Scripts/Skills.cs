@@ -34,18 +34,26 @@ public class Skills : MonoBehaviour {
     //Shield
     public bool shieldUnlock;
     private float block = 150;
-    private float shieldcd = 60.0f; //Cooldown between two uses of the shield
+    private float shieldcd = 75.0f; //Cooldown between two uses of the shield
     private float shieldavl; //Time at which the shield will be available
-    private float shieldspan = 20.0f; //Time the shield lasts
+    private float shieldspan = 15.0f; //Time the shield lasts
     private float shieldend; //Time at which the shield will end
 
+    //Stealth
     public bool stealthUnlock;
+    public GameObject stealth;
+    private float stealthcd = 75.0f;
+    private float stealthavl;
+    private float stealthspan = 15.0f;
+    private float stealthend;
+
     public bool missileUnlock;
 
     void Start ()
     {
         rb = GetComponent<Rigidbody>();
         shieldavl = Time.time;
+        stealthavl = Time.time;
     }
 	
 	// Update is called once per frame
@@ -295,7 +303,7 @@ public class Skills : MonoBehaviour {
         {
             if (Time.time >= shieldavl)
             {
-                if (Input.GetKeyDown(KeyCode.C))
+                if (Input.GetKeyDown(KeyCode.W))
                 {
                     shieldavl = Time.time + shieldcd;
                     shieldend = Time.time + shieldspan;
@@ -307,6 +315,24 @@ public class Skills : MonoBehaviour {
             {
                 GetComponent<State>().shield.SetActive(false);
                 GetComponent<State>().shieldblock = 0;
+            }
+        }
+        if (stealthUnlock)
+        {
+            if (Time.time >+ stealthavl)
+            {
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    stealthavl = Time.time + stealthavl;
+                    stealthend = Time.time + stealthspan;
+                    GetComponent<MeshRenderer>().enabled = false;
+                    stealth.SetActive(true);
+                }
+            }
+            if (Time.time >= stealthend)
+            {
+                GetComponent<MeshRenderer>().enabled = true;
+                stealth.SetActive(false);
             }
         }
     }

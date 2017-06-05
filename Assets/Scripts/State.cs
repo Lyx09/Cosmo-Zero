@@ -6,7 +6,7 @@ public class State : MonoBehaviour
 {
     //Display
     public Text LifeDisp; //L'objet UI qui display TOUT
-    public float life; //Bah...
+    public float life = 100; //Bah...
     public float maxlife; //La vie max. Obvious comment is obvious
     private int money;
     public int xp;
@@ -32,7 +32,6 @@ public class State : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Hurt(0.5f);
         if (Time.time - chrono >= cooldown)
         {
             chrono = Time.time;

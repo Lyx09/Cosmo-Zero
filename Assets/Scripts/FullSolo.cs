@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Threading;
 using System.Collections;
 
 public class FullSolo : MonoBehaviour
@@ -32,6 +33,16 @@ public class FullSolo : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        if (GetComponent<State>().life <= 0)
+        {
+            GetComponent<State>().life = GetComponent<State>().maxlife;
+            step = 0;
+            quest.text = "";
+            SkipDialogue();
+            Cutter(true);
+            transform.position = new Vector3(0, 0, 0);
+            Cutter(false);
+        }
 	    switch (step)
         {
             case 0:
