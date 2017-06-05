@@ -60,7 +60,6 @@ public class Shooting_m : NetworkBehaviour
     {
         var bullet = (GameObject)Instantiate(bulletPrefab,bulletSpawn.position,bulletSpawn.rotation);
         bullet.GetComponent<Bullet_m>().Initialize(gameObject, bulletDamage);
-        Debug.Log(2);
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
         NetworkServer.Spawn(bullet); //add in network manager
         Destroy(bullet, bulletLifeSpan);

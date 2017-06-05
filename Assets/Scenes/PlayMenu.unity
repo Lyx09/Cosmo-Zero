@@ -435,7 +435,6 @@ GameObject:
   - 33: {fileID: 108571160}
   - 23: {fileID: 108571159}
   - 54: {fileID: 108571158}
-  - 114: {fileID: 108571152}
   - 114: {fileID: 108571148}
   m_Layer: 0
   m_Name: PlayMenuSpaceS
@@ -457,22 +456,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: {x: 5, y: 0, z: 0}
   speed: 1
---- !u!114 &108571152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114000014158815538, guid: 7a049160acdc8034ca433e97b0d191d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 108571147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57bcc3bcae7ee6546b87613d0fb531c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 50
-  threshold: 0.3
-  cameraTransform: {fileID: 0}
-  cameraScript: {fileID: 0}
 --- !u!54 &108571158
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7033,8 +7016,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  intensity: 1.4
-  chromaticAberration: 1
+  intensity: 0.184
+  chromaticAberration: 1.12
   axialAberration: 0.5
   blur: 0
   blurSpread: 0.75
@@ -14274,7 +14257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &2026078614
 MeshRenderer:
   m_ObjectHideFlags: 0
