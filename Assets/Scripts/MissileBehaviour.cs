@@ -13,6 +13,10 @@ public class MissileBehaviour : MonoBehaviour
 	void Start ()
     {
         rb = GetComponent<Rigidbody>();
+        if (target.GetComponent<State>() != null)
+        {
+            target.GetComponent<State>().enemy = gameObject;
+        }
 	}
 	
 	// Update is called once per frame
@@ -24,9 +28,17 @@ public class MissileBehaviour : MonoBehaviour
     {
         if (target != null)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * 35);
-            var rotation = Quaternion.LookRotation(target.position - transform.position);
-            rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, 5));
+            if (Vector3.Distance(transform.position, target.transform.position) < 10)
+            {
+                transform.LookAt(target.transform);
+                transform.Translate(Vector3.forward * Time.fixedDeltaTime * 20);
+            }
+            else
+            {
+                transform.Translate(Vector3.forward * Time.fixedDeltaTime * 20);
+                var rotation = Quaternion.LookRotation(target.position - transform.position);
+                rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, 5));
+            }
         }
     }
     void OnCollisionEnter(Collision other)

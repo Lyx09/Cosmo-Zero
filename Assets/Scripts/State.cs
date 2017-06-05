@@ -16,9 +16,13 @@ public class State : MonoBehaviour
     public float timeregen; //Le temps entre chaque tips de régen
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
     private float cooldown = 5.0f; //Le temps à attendre avant le prochain gain de vie
-
+    //Shield
     public float shieldblock = 0;
     public GameObject shield;
+    //Warning
+    public GameObject enemy;
+    public AudioSource warning;
+
 
     // Use this for initialization
     void Start ()
@@ -32,6 +36,24 @@ public class State : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        if (enemy != null)
+        {
+            if (enemy.GetComponent<MissileBehaviour>() != null)
+            {
+                if (enemy.GetComponent<MissileBehaviour>().target == transform)
+                {
+                    if (!warning.isPlaying)
+                    {
+                        warning.Play();
+                        Debug.Log(1);
+                    }
+                }
+                else
+                {
+                    warning.Stop();
+                }
+            }
+        }
         if (Time.time - chrono >= cooldown)
         {
             chrono = Time.time;
