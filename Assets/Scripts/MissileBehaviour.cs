@@ -22,9 +22,12 @@ public class MissileBehaviour : MonoBehaviour
     }
     void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * 35);
-        var rotation = Quaternion.LookRotation(target.position - transform.position);
-        rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, 5));
+        if (target != null)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * 35);
+            var rotation = Quaternion.LookRotation(target.position - transform.position);
+            rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, 5));
+        }
     }
     void OnCollisionEnter(Collision other)
     {

@@ -22,6 +22,8 @@ TagManager:
   - Sphere
   - New Tag
   - LawShield
+  - Fire
+  - Lure
   layers:
   - Default
   - TransparentFX

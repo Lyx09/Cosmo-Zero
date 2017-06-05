@@ -53,8 +53,15 @@ public class Skills : MonoBehaviour {
     public static Transform target;
     public float missilecd = 5.0f;
     public int missiledmg = 7;
-    public float missileavl;
+    private float missileavl;
     public float missilespan = 4.5f;
+
+    //Lure
+    public bool lureUnlock;
+    public GameObject lure;
+    public float lurecd = 15.0f;
+    private float lureavl;
+    public float lurespan = 2.0f;
 
     void Start ()
     {
@@ -62,6 +69,7 @@ public class Skills : MonoBehaviour {
         shieldavl = Time.time;
         stealthavl = Time.time;
         missileavl = Time.time + missilecd;
+        lureavl = Time.time;
     }
 	
 	// Update is called once per frame
@@ -350,6 +358,18 @@ public class Skills : MonoBehaviour {
                 target = GetComponent<Lock>().target;
                 missileavl = Time.time + missilecd;
                 SendMissile();
+            }
+        }
+        if (lureUnlock)
+        {
+            if (Input.GetKeyDown(KeyCode.L) && Time.time >= lureavl)
+            {
+                lureavl = Time.time + lurecd;
+                GameObject mylure = Instantiate(lure);
+                mylure.transform.position = transform.position;
+                mylure.transform.rotation = transform.rotation;
+                mylure.GetComponent<Rigidbody>().velocity = -transform.forward * 5;
+                Destroy(mylure, lurespan);
             }
         }
     }
