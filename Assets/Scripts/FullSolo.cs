@@ -23,6 +23,7 @@ public class FullSolo : MonoBehaviour
     public GameObject min1, min2, min3, min4;
     public GameObject Lawson;
     public GameObject HQ;
+    private int initialmoney;
 
     // Use this for initialization
     void Start ()
@@ -111,6 +112,7 @@ public class FullSolo : MonoBehaviour
                     GetComponent<State>().money += 500;
                     GetComponent<State>().xp += 750;
                     speaker.color = Color.grey;
+                    quest.text = "";
                     ChangeDialogue("<i>Dashboard</i>", "Quest completed");
                     sounded = false;
                     step = -1;
@@ -508,11 +510,81 @@ public class FullSolo : MonoBehaviour
                 if (Input.anyKeyDown)
                 {
                     SkipDialogue();
-                    ChangeDialogue("Ship", "Last entry: 70 hours ago\n\"Squad has stumbled upon an unexpected threat\nGetting ready to defend itself if necessary\"");
+                    sounded = false;
+                    ChangeDialogue("Ship", "Last entry: 70 hours ago, near Ixal\n\"Squad has stumbled upon an unexpected threat\nGetting ready to defend itself if necessary\"");
                     step = 40;
                 }
                 break;
             case 40:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "I need to go to Ixal discover exactly what happened\nBut I need to prepare for this trip...");
+                    step = 41;
+                }
+                break;
+            case 41:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.grey;
+                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nUnlock a skill in you skill tree (T)\n<color=purple>Reward: 500 XP</color>");
+                    quest.text = "Unlock a skill in you skill tree (T)\n<color=purple>Reward: 500 XP</color>";
+                    step = 42;
+                }
+                break;
+            case 42:
+                Skills sk = GetComponent<Skills>();
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                }
+                if (sk.dashUnlock || sk.lureUnlock || sk.missileUnlock || sk.stealthUnlock || sk.shieldUnlock || sk.timeControl)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.grey;
+                    GetComponent<State>().xp += 500;
+                    quest.text = "";
+                    ChangeDialogue("<i>Dashboard</i>", "Quest completed");
+                    step = 43;
+                }
+                break;
+            case 43:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    initialmoney = GetComponent<State>().money;
+                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nBuy something in the shop\n<color=purple>Reward: 1000$</color>");
+                    quest.text = "Buy something in the shop\n<color=purple>Reward: 1000$</color>";
+                    step = 44;
+                }
+                break;
+            case 44:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                }
+                if (GetComponent<State>().money < initialmoney)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    GetComponent<State>().money += 1000;
+                    quest.text = "";
+                    ChangeDialogue("<i>Dashboard</i>", "Quest completed");
+                    step = 45;
+                }
+                break;
+            case 45:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                }
                 break;
             default:
                 break;
