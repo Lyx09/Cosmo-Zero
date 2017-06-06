@@ -28,6 +28,8 @@ public class FullSolo : MonoBehaviour
     {
         Player = GetComponent<Rigidbody>();
         Cutter(true);
+        GetComponent<SpaceshipControls>().blockMovement = true;
+        GetComponent<SpaceshipControls>().blockRotation = true;
     }
 	
 	// Update is called once per frame
@@ -52,7 +54,7 @@ public class FullSolo : MonoBehaviour
                     Cutter(false);
                     Cut.color = Color.black;
                     speaker.color = Color.red;
-                    ChangeDialogue("Ship" , "WARNING\nDamaged ship. Awaiting pilot's instructions\nLast interaction: 67 hours ago");
+                    ChangeDialogue("Ship" , "WARNING\nDamaged ship. IA in standby\nAwaiting pilot's instructions\nLast interaction: 67 hours ago");
                 }
                 else if (!bug.isPlaying)
                 {
@@ -87,6 +89,8 @@ public class FullSolo : MonoBehaviour
                     sounded = false;
                     speaker.color = Color.grey;
                     ChangeDialogue("<i>Dashboard</i>", "New quest:\nPress Tab to access it");
+                    GetComponent<SpaceshipControls>().blockMovement = false;
+                    GetComponent<SpaceshipControls>().blockRotation = false;
                     step = 4;
                 }
                 break;
@@ -165,10 +169,14 @@ public class FullSolo : MonoBehaviour
                     speaker.color = Color.grey;
                     ChangeDialogue("<i>Dashboard</i>", "New quest:\nFind resources and shoot them to collect them");
                     quest.text = "Find resources and shoot them to collect them (0/4)";
-                    Instantiate(min1, new Vector3(transform.position.x - 25, transform.position.y), transform.rotation);
-                    Instantiate(min2, new Vector3(transform.position.x + 25, transform.position.y), transform.rotation);
-                    Instantiate(min2, new Vector3(transform.position.x, transform.position.y - 25), transform.rotation);
-                    Instantiate(min2, new Vector3(transform.position.x, transform.position.y + 25), transform.rotation);
+                    Vector3 first = transform.position + transform.forward * 20 + transform.right * 8;
+                    Vector3 second = transform.position + transform.forward * 20 + transform.right * (-8);
+                    Vector3 third = transform.position + transform.forward * 20 + transform.up * 8;
+                    Vector3 fourth = transform.position + transform.forward * 20 + transform.up * (-8);
+                    Instantiate(min1,first, transform.rotation);
+                    Instantiate(min2, second, transform.rotation);
+                    Instantiate(min3, third, transform.rotation);
+                    Instantiate(min4, fourth, transform.rotation);
                     step = 11;
                 }
                 break;
@@ -350,6 +358,93 @@ public class FullSolo : MonoBehaviour
                     speaker.color = Color.green;
                     ChangeDialogue("Pilot", "I actually came here to ask you these questions...\nI had left a message to myself, telling me to find you");
                     step = 29;
+                }
+                break;
+            case 29:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "According to my ship, I've been unconscious for 67 hours\nI can't remeber what happened at this moment");
+                    step = 30;
+                }
+                break;
+            case 30:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.blue;
+                    ChangeDialogue("Sgt Lawson", "My ship's data seems to indicate that an unexpected threat appeared 70 hours ago\nOur whole squad was moving in a zone supposed to be safe\nI'm afraid we've been attacked");
+                    step = 31;
+                }
+                break;
+            case 31:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "We need to find the other members of the squad then!\nLet me try to locate them");
+                    step = 32;
+                }
+                break;
+            case 32:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "...");
+                    step = 33;
+                }
+                break;
+            case 33:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "I did not manage to find anyone\nHow is it possible? I hope they are fine");
+                    step = 34;
+                }
+                break;
+            case 34:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.blue;
+                    ChangeDialogue("Sgt Lawson", "Listen.. My ship's been badly damaged, I don't think it can move\nBut you can find out what happened\nYou should go to our headquarters");
+                    step = 35;
+                }
+                break;
+            case 35:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.grey;
+                    ChangeDialogue("<i>Dashboard</i>", "New quest:Go to your squad's headquarters");
+                    quest.text = "Go to your squad's headquarters";
+                    step = 36;
+                }
+                break;
+            case 36:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "Alright\n");
+                    step = 37;
+                }
+                break;
+            case 37:
+                if (Input.anyKeyDown)
+                {
+                    
                 }
                 break;
             default:
