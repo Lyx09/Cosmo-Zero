@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class SkillMenu : MonoBehaviour
+public class MarketMenu : MonoBehaviour
 {
 
     public GameObject SkillMenuPanel;
@@ -14,28 +14,28 @@ public class SkillMenu : MonoBehaviour
 
     void Start()
     {
-        SkillMenuPanel.gameObject.SetActive(false);
+        MarketPanel.gameObject.SetActive(false);
         movements = GetComponent<SpaceshipControls>();
     }
 
     void Update()
     {
         State s = player.GetComponent<State>();
-        text.text = "SKILLTREE \n REMAINING SKILLPOINTS : " + s.skillpoints.ToString();
+        text.text = "MARKET \n MONEY : " + s.skillpoints.ToString();
 
-        if (Input.GetKeyDown("t"))
+        if (Input.GetKeyDown("y"))
         {
-            if (SkillMenuPanel.gameObject.activeSelf)
+            if (MarketPanel.gameObject.activeSelf)
             {
                 movements.blockMovement = false;
                 movements.blockRotation = false;
-                SkillMenuPanel.gameObject.SetActive(false);
+                MarketPanel.gameObject.SetActive(false);
             }
-            else if(!MarketPanel.gameObject.activeSelf && !EscapeMenuPanel.gameObject.activeSelf)
+            else if (!SkillMenuPanel.gameObject.activeSelf && !EscapeMenuPanel.gameObject.activeSelf)
             {
                 movements.blockMovement = true;
                 movements.blockRotation = true;
-                SkillMenuPanel.gameObject.SetActive(true);
+                MarketPanel.gameObject.SetActive(true);
             }
         }
     }

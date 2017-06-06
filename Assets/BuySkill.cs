@@ -9,6 +9,7 @@ public class BuySkill : MonoBehaviour
     public int Hommingmissilecost;
     public int stealthcost;
     public int shieldcost;
+    public int Lurecost;
     public GameObject player;
     public GameObject button;
 
@@ -38,10 +39,44 @@ public class BuySkill : MonoBehaviour
     public void UnlockHommingMissil()
     {
         State s = player.GetComponent<State>();
-        Shooting sh = player.GetComponent<Shooting>();
-        if (s.skillpoints > Dashcost)
+        Skills sk = player.GetComponent<Skills>();
+        if (s.skillpoints >= Hommingmissilecost)
         {
-            s.skillpoints -= Dashcost;
+            s.skillpoints -= Hommingmissilecost;
+            sk.missileUnlock = true;
+            button.GetComponent<Button>().interactable = false;
+        }
+    }
+    public void UnlockStealthMode()
+    {
+        State s = player.GetComponent<State>();
+        Skills sk = player.GetComponent<Skills>();
+        if (s.skillpoints >= stealthcost)
+        {
+            s.skillpoints -= Timefreezecost;
+            sk.stealthUnlock = true;
+            button.GetComponent<Button>().interactable = false;
+        }
+    }
+    public void UnlockShield()
+    {
+        State s = player.GetComponent<State>();
+        Skills sk = player.GetComponent<Skills>();
+        if (s.skillpoints >= shieldcost)
+        {
+            s.skillpoints -= shieldcost;
+            sk.shieldUnlock = true;
+            button.GetComponent<Button>().interactable = false;
+        }
+    }
+    public void Unlocklures()
+    {
+        State s = player.GetComponent<State>();
+        Skills sk = player.GetComponent<Skills>();
+        if (s.skillpoints >= Lurecost)
+        {
+            s.skillpoints -= Lurecost;
+            sk.lureUnlock = true;
             button.GetComponent<Button>().interactable = false;
         }
     }

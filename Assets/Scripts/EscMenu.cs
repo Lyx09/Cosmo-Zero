@@ -5,7 +5,9 @@ public class EscMenu : MonoBehaviour
 {
 
     public GameObject EscapePanel;
-    public SpaceshipControls movements;
+    public GameObject SkillMenuPanel;
+    public GameObject MarketPanel;
+    private SpaceshipControls movements;
 
 
     void Start()
@@ -24,7 +26,7 @@ public class EscMenu : MonoBehaviour
                 movements.blockRotation = true;
                 EscapePanel.gameObject.SetActive(false);
             }
-            else
+            else if (!MarketPanel.gameObject.activeSelf && !SkillMenuPanel.gameObject.activeSelf)
             {
 
                 movements.blockMovement = false;

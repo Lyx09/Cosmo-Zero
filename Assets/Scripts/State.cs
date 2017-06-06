@@ -10,7 +10,7 @@ public class State : MonoBehaviour
     public Text LifeDisp; //L'objet UI qui display TOUT
     public float life = 100; //Bah...
     public float maxlife; //La vie max. Obvious comment is obvious
-    private int money;
+    public int money;
     public int xp;
     //Regen
     public float regenlife; //Quantité de vie régen à chaque régen
@@ -40,6 +40,8 @@ public class State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("b"))
+            xp += (int)(250 * Mathf.Pow(2, level-1));
         if (xp >= 250 * Mathf.Pow(2,level))
             xp = levelup(xp);
         if (enemy != null)
