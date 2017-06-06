@@ -14,19 +14,24 @@ public class State : MonoBehaviour
     public float life; //Bah...
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
     private float cooldown; //Le temps à attendre avant le prochain gain de vie
+    public int level = 1;
+    public int skillpoints;
 	// Use this for initialization
 	void Start ()
     {
         life = maxlife;
         money = 0;
-        xp = 0;
+        xp = 10000;
         UpLife();
         cooldown = 5.00F;
+        level = 1;
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
+        if (xp > 250 * Mathf.Pow(2,level))
+            xp = levelup(xp);
         if (Input.anyKeyDown)
         {
             if (Input.GetKeyDown(KeyCode.T))
@@ -45,7 +50,17 @@ public class State : MonoBehaviour
             cooldown = timeregen;
         }
         UpLife();
-	}
+    }
+
+
+
+    public int levelup (int xp)
+    {        
+        level += 1;
+        skillpoints += 1;
+        xp -= 250* (int)Mathf.Pow(2, level);
+        return xp;
+    }
 
     public void Hurt (float power) //A appeler quand le vaisseau est touché
     {
@@ -64,6 +79,6 @@ public class State : MonoBehaviour
 
     void UpLife ()
     {
-        LifeDisp.text = " HP: " + ((int)life).ToString() + " / " + ((int)maxlife).ToString() +"\n Money: " + money.ToString() + "\n XP: " + xp.ToString() ;
+        LifeDisp.text = " HP: " + ((int)life).ToString() + " / " + ((int)maxlife).ToString() +"\n Money: " + money.ToString() + "\n XP: " + xp.ToString() + "\n Level: " + level.ToString();
     }
 }

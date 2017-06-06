@@ -1,37 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class BuySkill : MonoBehaviour {
+public class BuySkill : MonoBehaviour
+{
     public int Dashcost;
     public int Timefreezecost;
+    public int Hommingmissilecost;
+    public int stealthcost;
+    public int shieldcost;
     public GameObject player;
     public GameObject button;
 
-    void Start()
-    {
-    }
-    void Unlockdash()
+
+    public void Unlockdash()
     {
         State s = player.GetComponent<State>();
         Skills sk = player.GetComponent<Skills>();
-        int xp = s.xp;
-        if (xp > Dashcost)
+        if (s.skillpoints >= Dashcost)
         {
-            xp -= Dashcost;
-            button.SetActive(false);
+            s.skillpoints -= Dashcost;
             sk.dashUnlock = true;
+            button.GetComponent<Button>().interactable = false;
         }
     }
-    void UnlockTimefreeze()
+    public void UnlockTimefreeze()
     {
         State s = player.GetComponent<State>();
         Skills sk = player.GetComponent<Skills>();
-        int xp = s.xp;
-        if (xp > Timefreezecost)
+        if (s.skillpoints >= Timefreezecost)
         {
-            xp -= Timefreezecost;
-            button.SetActive(false);
+            s.skillpoints -= Timefreezecost;
             sk.timeControl = true;
+            button.GetComponent<Button>().interactable = false;
+        }
+    }
+    public void UnlockHommingMissil()
+    {
+        State s = player.GetComponent<State>();
+        Shooting sh = player.GetComponent<Shooting>();
+        if (s.skillpoints > Dashcost)
+        {
+            s.skillpoints -= Dashcost;
+            button.GetComponent<Button>().interactable = false;
         }
     }
 }
