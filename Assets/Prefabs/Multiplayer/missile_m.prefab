@@ -21,11 +21,11 @@ GameObject:
   - 4: {fileID: 4000010467217520}
   - 33: {fileID: 33000013777195696}
   - 23: {fileID: 23000010621816838}
-  - 114: {fileID: 114000012533274752}
   - 54: {fileID: 54000010078422930}
   - 136: {fileID: 136000011298709676}
   - 114: {fileID: 114000012977739422}
   - 114: {fileID: 114000010271385668}
+  - 114: {fileID: 114000014242812510}
   m_Layer: 0
   m_Name: missile_m
   m_TagString: Untagged
@@ -117,21 +117,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &114000012533274752
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012407779000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae84957db1b12c4b9110fbc707e3490, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  sender: {fileID: 0}
-  speed: {x: 0, y: 0, z: 0}
-  dmg: 10
 --- !u!114 &114000012977739422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,6 +149,21 @@ MonoBehaviour:
     i15: 186
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114000014242812510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012407779000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c3a4e9d1fd84942910fd420cd6e020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  sender: {fileID: 0}
+  speed: {x: 0, y: 0, z: 0}
+  dmg: 5
 --- !u!136 &136000011298709676
 CapsuleCollider:
   m_ObjectHideFlags: 1
