@@ -21,7 +21,7 @@ public class State : MonoBehaviour
     {
         life = maxlife;
         money = 0;
-        xp = 10000;
+        xp = 0;
         UpLife();
         cooldown = 5.00F;
         level = 1;
@@ -30,7 +30,7 @@ public class State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (xp > 250 * Mathf.Pow(2,level))
+        if (xp >= 250 * Mathf.Pow(2,level))
             xp = levelup(xp);
         if (Input.anyKeyDown)
         {
@@ -58,7 +58,7 @@ public class State : MonoBehaviour
     {        
         level += 1;
         skillpoints += 1;
-        xp -= 250* (int)Mathf.Pow(2, level);
+        xp -= 125 * (int)Mathf.Pow(2, level);
         return xp;
     }
 
@@ -79,6 +79,6 @@ public class State : MonoBehaviour
 
     void UpLife ()
     {
-        LifeDisp.text = " HP: " + ((int)life).ToString() + " / " + ((int)maxlife).ToString() +"\n Money: " + money.ToString() + "\n XP: " + xp.ToString() + "\n Level: " + level.ToString();
+        LifeDisp.text = " HP: " + ((int)life).ToString() + " / " + ((int)maxlife).ToString() +"\n Money: " + money.ToString() + "\n XP: " + xp.ToString() + " / " + (250 * Mathf.Pow(2, level)).ToString() + "\n Level: " + level.ToString();
     }
 }

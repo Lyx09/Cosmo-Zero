@@ -2588,6 +2588,11 @@ Prefab:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011702470406, guid: 709be502facbcf740ae102a6f5c651be,
+        type: 2}
+      propertyPath: xpvalue
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 709be502facbcf740ae102a6f5c651be, type: 2}
   m_IsPrefabParent: 0
@@ -4699,6 +4704,11 @@ Prefab:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011702470406, guid: 709be502facbcf740ae102a6f5c651be,
+        type: 2}
+      propertyPath: xpvalue
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 709be502facbcf740ae102a6f5c651be, type: 2}
   m_IsPrefabParent: 0
@@ -5965,6 +5975,11 @@ Prefab:
     - target: {fileID: 1000012857461552, guid: 709be502facbcf740ae102a6f5c651be, type: 2}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011702470406, guid: 709be502facbcf740ae102a6f5c651be,
+        type: 2}
+      propertyPath: xpvalue
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -8566,7 +8581,9 @@ MonoBehaviour:
 
     Money
 
-    XP'
+    XP
+
+    Level'
 --- !u!222 &1986941346
 CanvasRenderer:
   m_ObjectHideFlags: 0
