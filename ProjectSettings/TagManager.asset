@@ -20,10 +20,11 @@ TagManager:
   - ThrusterRollDL
   - ThrusterRollDR
   - Sphere
-  - New Tag
   - LawShield
   - Fire
   - Lure
+  - HeadShield
+  - New Tag
   layers:
   - Default
   - TransparentFX

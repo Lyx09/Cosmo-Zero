@@ -22,6 +22,7 @@ public class FullSolo : MonoBehaviour
     private int minerai;
     public GameObject min1, min2, min3, min4;
     public GameObject Lawson;
+    public GameObject HQ;
 
     // Use this for initialization
     void Start ()
@@ -89,7 +90,7 @@ public class FullSolo : MonoBehaviour
                     SkipDialogue();
                     sounded = false;
                     speaker.color = Color.grey;
-                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nPress Tab to access it");
+                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nMove around to show you're awake\n<color=purple>Reward: 750 XP, 500$</color>\nPress Tab to access it");
                     GetComponent<SpaceshipControls>().blockMovement = false;
                     GetComponent<SpaceshipControls>().blockRotation = false;
                     step = 4;
@@ -104,12 +105,24 @@ public class FullSolo : MonoBehaviour
                 cq = (KeyPressed(ref BeginningQ, KeyCode.Q) || cq == "green") ? "green" : "red";
                 cs = (KeyPressed(ref BeginningS, KeyCode.S) || cs == "green") ? "green" : "red";
                 cd = (KeyPressed(ref BeginningD, KeyCode.D) || cd == "green") ? "green" : "red";
-                quest.text = "Press movement keys to show you're awake (<color=" + cz + ">Z</color>, <color=" + cq + ">Q</color>, <color=" + cs + ">S</color>, <color=" + cd + ">D</color>)";
+                quest.text = "Press movement keys to show you're awake (<color=" + cz + ">Z</color>, <color=" + cq + ">Q</color>, <color=" + cs + ">S</color>, <color=" + cd + ">D</color>)\n<color=purple>Reward: 750 XP, 500$</color>";
                 if (cz == "green" && cq == "green" && cs == "green" && cd == "green")
                 {
-                    speaker.color = Color.red;
-                    ChangeDialogue("Ship", "Pilot's presence confirmed\nShip IA coming out of standby mode");
+                    GetComponent<State>().money += 500;
+                    GetComponent<State>().xp += 750;
+                    speaker.color = Color.grey;
+                    ChangeDialogue("<i>Dashboard</i>", "Quest completed");
                     sounded = false;
+                    step = -1;
+                }
+                break;
+            case -1:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.red;
+                    ChangeDialogue("Ship", "Pilot's presence confirmed\nAI coming out of standby mode");
                     step = 5;
                 }
                 break;
@@ -168,8 +181,8 @@ public class FullSolo : MonoBehaviour
                     SkipDialogue();
                     sounded = false;
                     speaker.color = Color.grey;
-                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nFind resources and shoot them to collect them");
-                    quest.text = "Find resources and shoot them to collect them (0/4)";
+                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nFind resources and shoot them to collect them\n<color=purple>Reward: 500 XP</color>");
+                    quest.text = "Find resources and shoot them to collect them (0/4)\n<color=purple>Reward: 500 XP</color>";
                     Vector3 first = transform.position + transform.forward * 20 + transform.right * 8;
                     Vector3 second = transform.position + transform.forward * 20 + transform.right * (-8);
                     Vector3 third = transform.position + transform.forward * 20 + transform.up * 8;
@@ -186,7 +199,20 @@ public class FullSolo : MonoBehaviour
                 {
                     SkipDialogue();
                 }
-                if (GetComponent<State>().xp >= 20)
+                if (GetComponent<State>().xp >= 350)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.grey;
+                    quest.text = "";
+                    GetComponent<State>().xp += 500;
+                    ChangeDialogue("<i>Dashboard</i>", "Quest completed");
+                    step = -2;
+                }
+                quest.text = "Find resources and shoot them to collect them (" +(GetComponent<State>().xp / 5).ToString() + "/4)";
+                break;
+            case -2:
+                if (Input.anyKeyDown)
                 {
                     SkipDialogue();
                     sounded = false;
@@ -195,9 +221,9 @@ public class FullSolo : MonoBehaviour
                     ChangeDialogue("Ship", "Enough resources provided\nStarting reparation process");
                     step = 12;
                 }
-                quest.text = "Find resources and shoot them to collect them (" +(GetComponent<State>().xp / 5).ToString() + "/4)";
                 break;
             case 12:
+                quest.text = "";
                 if (Input.anyKeyDown)
                 {
                     SkipDialogue();
@@ -284,8 +310,8 @@ public class FullSolo : MonoBehaviour
                     sounded = false;
                     speaker.color = Color.grey;
                     GetComponent<Lock>().target = Lawson.transform;
-                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nGo find Sgt Lawson");
-                    quest.text = "Go find Sgt Lawson";
+                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nGo find Sgt Lawson\n<color=purple>Reward: 500 XP</color>");
+                    quest.text = "Go find Sgt Lawson\n<color=purple>Reward: 500 XP</color>";
                     step = 21;
                 }
                 break;
@@ -297,9 +323,20 @@ public class FullSolo : MonoBehaviour
                 break;
             case 22:
                 quest.text = "";
-                speaker.color = Color.green;
-                ChangeDialogue("Pilot", "Lawson?\nCan you hear me?\nWhat happened to you?");
-                step = 23;
+                speaker.color = Color.grey;
+                GetComponent<State>().xp += 500;
+                ChangeDialogue("<i>Dashboard</i>", "Quest completed");
+                step = -3;
+                break;
+            case -3:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "Lawson?\nCan you hear me?\nWhat happened to you?");
+                    step = 23;
+                }
                 break;
             case 23:
                 if (Input.anyKeyDown)
@@ -377,7 +414,7 @@ public class FullSolo : MonoBehaviour
                     SkipDialogue();
                     sounded = false;
                     speaker.color = Color.blue;
-                    ChangeDialogue("Sgt Lawson", "My ship's data seems to indicate that an unexpected threat appeared 70 hours ago\nOur whole squad was moving in a zone supposed to be safe\nI'm afraid we've been attacked");
+                    ChangeDialogue("Sgt Lawson", "My ship doesn't seem to have any data prior to 70 hours ago\nSomething must have happened while our squad was patrolling");
                     step = 31;
                 }
                 break;
@@ -427,8 +464,8 @@ public class FullSolo : MonoBehaviour
                     SkipDialogue();
                     sounded = false;
                     speaker.color = Color.grey;
-                    ChangeDialogue("<i>Dashboard</i>", "New quest:Go to your squad's headquarters");
-                    quest.text = "Go to your squad's headquarters";
+                    ChangeDialogue("<i>Dashboard</i>", "New quest:\nGo to your squad's headquarter\n<color=purple>Reward: 500 XP</color>");
+                    quest.text = "Go to your squad's headquarter\n<color=purple>Reward: 500 XP</color>";
                     step = 36;
                 }
                 break;
@@ -438,6 +475,7 @@ public class FullSolo : MonoBehaviour
                     SkipDialogue();
                     sounded = false;
                     speaker.color = Color.green;
+                    GetComponent<Lock>().target = HQ.transform;
                     ChangeDialogue("Pilot", "Alright\n");
                     step = 37;
                 }
@@ -445,8 +483,36 @@ public class FullSolo : MonoBehaviour
             case 37:
                 if (Input.anyKeyDown)
                 {
-                    
+                    SkipDialogue();
                 }
+                break;
+            case 38:
+                quest.text = "";
+                speaker.color = Color.grey;
+                GetComponent<State>().xp += 500;
+                GetComponent<Lock>().target = null;
+                ChangeDialogue("<i>Dashboard</i>", "Quest completed");
+                step = -4;
+                break;
+            case -4:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.red;
+                    ChangeDialogue("Ship", "Connection with Headquarter established\nRetrieving data...");
+                    step = 39;
+                }
+                break;
+            case 39:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    ChangeDialogue("Ship", "Last entry: 70 hours ago\n\"Squad has stumbled upon an unexpected threat\nGetting ready to defend itself if necessary\"");
+                    step = 40;
+                }
+                break;
+            case 40:
                 break;
             default:
                 break;
@@ -533,6 +599,12 @@ public class FullSolo : MonoBehaviour
             SkipDialogue();
             sounded = false;
             step = 22;
+        }
+        else if (other.CompareTag("HeadShield") && (step == 37))
+        {
+            SkipDialogue();
+            sounded = false;
+            step = 38;
         }
     }
 }
