@@ -70,13 +70,10 @@ public class Lock_m : MonoBehaviour
         }
         else
         {
-            Debug.Log("W: " + Screen.width + "H: " + Screen.height);
-            Vector3 ScreenTargetPos = camera.WorldToScreenPoint(target.position) + new Vector3(-410, -301);
-            Debug.Log("Target " + ScreenTargetPos);
+            Vector3 ScreenTargetPos = camera.WorldToScreenPoint(target.position);
             if (ScreenTargetPos.z > 0)
             {
                 lockTransform.anchoredPosition = (Vector2)ScreenTargetPos - lockTransform.sizeDelta / 2;
-                Debug.Log("Icon " + lockTransform.anchoredPosition);
                 LockHPRect.anchoredPosition = (Vector2)ScreenTargetPos - new Vector2(0, lockTransform.sizeDelta.x  / 2 + 5);
                 LockNameRect.anchoredPosition = (Vector2) ScreenTargetPos + new Vector2(0,lockTransform.sizeDelta.x/2 + 5);
                 if (target.GetComponent<State_m>() != null)
@@ -150,8 +147,9 @@ public class Lock_m : MonoBehaviour
                     {
                         posArrowY = ScreenTargetPos.y;
                     }
+                    
+                    arrowTransform.localRotation = Quaternion.Euler(0, 0, left * Vector2.Angle((Vector2)ScreenTargetPos - middleScreen, Vector2.up));
 
-                    arrowTransform.rotation = Quaternion.Euler(0, 0, left * Vector2.Angle((Vector2)ScreenTargetPos - middleScreen, Vector2.up));
                     //only works on half the screen
                     arrowTransform.anchoredPosition = new Vector2(posArrowX, posArrowY);
                 }

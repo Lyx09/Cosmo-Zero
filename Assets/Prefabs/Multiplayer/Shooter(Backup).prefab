@@ -440,7 +440,7 @@ GameObject:
   - 114: {fileID: 114000013781919942}
   - 114: {fileID: 114000012020256468}
   m_Layer: 0
-  m_Name: Shooter
+  m_Name: Shooter(Backup)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

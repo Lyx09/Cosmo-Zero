@@ -47,9 +47,9 @@ public class Shooting_m : NetworkBehaviour
             CmdShoot();
         }
 
-        if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock>().target != null)
+        if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock_m>().target != null)
         {
-            target = GetComponent<Lock>().target;
+            target = GetComponent<Lock_m>().target;
             missileavl = Time.time + missilecd;
             CmdShootMissile();
         }
