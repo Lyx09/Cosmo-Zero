@@ -53,7 +53,7 @@ public class BuySkill : MonoBehaviour
         Skills sk = player.GetComponent<Skills>();
         if (s.skillpoints >= stealthcost)
         {
-            s.skillpoints -= Timefreezecost;
+            s.skillpoints -= stealthcost;
             sk.stealthUnlock = true;
             button.GetComponent<Button>().interactable = false;
         }

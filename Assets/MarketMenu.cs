@@ -21,7 +21,7 @@ public class MarketMenu : MonoBehaviour
     void Update()
     {
         State s = player.GetComponent<State>();
-        text.text = "MARKET \n MONEY : " + s.skillpoints.ToString();
+        text.text = "MARKET \n MONEY : " + s.money.ToString();
 
         if (Input.GetKeyDown("y"))
         {

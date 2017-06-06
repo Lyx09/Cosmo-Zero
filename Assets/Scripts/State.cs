@@ -40,6 +40,8 @@ public class State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("n"))
+            money += 500;
         if (Input.GetKeyDown("b"))
             xp += (int)(250 * Mathf.Pow(2, level-1));
         if (xp >= 250 * Mathf.Pow(2,level))

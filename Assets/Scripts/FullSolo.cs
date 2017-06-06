@@ -6,7 +6,7 @@ using System.Collections;
 public class FullSolo : MonoBehaviour
 {
     private bool sounded = false;
-    private int step = 0;
+    private int step = 1;
     public GameObject Dialogue, Ship, Health, Lock, Cross;
     public Image Cut;
     public Text speaker, message, quest;
@@ -65,6 +65,7 @@ public class FullSolo : MonoBehaviour
             case 1:
                 if (Input.anyKeyDown)
                 {
+                    Cutter(false);
                     SkipDialogue();
                     sounded = false;
                     speaker.color = Color.green;
