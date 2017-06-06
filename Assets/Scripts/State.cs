@@ -4,6 +4,8 @@ using System.Collections;
 
 public class State : MonoBehaviour
 {
+    public int level = 1;
+    public int skillpoints;
     //Display
     public Text LifeDisp; //L'objet UI qui display TOUT
     public float life = 100; //Bah...
@@ -31,11 +33,15 @@ public class State : MonoBehaviour
         money = 0;
         xp = 0;
         UpLife();
+        cooldown = 5.00F;
+        level = 1;
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
+        if (xp >= 250 * Mathf.Pow(2,level))
+            xp = levelup(xp);
         if (enemy != null)
         {
             if (enemy.GetComponent<MissileBehaviour>() != null)
@@ -65,7 +71,17 @@ public class State : MonoBehaviour
             cooldown = timeregen;
         }
         UpLife();
-	}
+    }
+
+
+
+    public int levelup (int xp)
+    {        
+        level += 1;
+        skillpoints += 1;
+        xp -= 125 * (int)Mathf.Pow(2, level);
+        return xp;
+    }
 
     public void Hurt (float power) //A appeler quand le vaisseau est touché
     {
@@ -104,6 +120,6 @@ public class State : MonoBehaviour
 
     void UpLife ()
     {
-        LifeDisp.text = " HP: " + ((int)life).ToString() + " / " + ((int)maxlife).ToString() +"\n Money: " + money.ToString() + "\n XP: " + xp.ToString() ;
+        LifeDisp.text = " HP: " + ((int)life).ToString() + " / " + ((int)maxlife).ToString() +"\n Money: " + money.ToString() + "\n XP: " + xp.ToString() + " / " + (250 * Mathf.Pow(2, level)).ToString() + "\n Level: " + level.ToString();
     }
 }

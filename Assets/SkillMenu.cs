@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class EscMenu : MonoBehaviour
+public class SkillMenu : MonoBehaviour
 {
 
     public GameObject EscapePanel;
     public SpaceshipControls movements;
-
+    public GameObject player;
+    public Text text;
 
     void Start()
     {
@@ -16,19 +18,21 @@ public class EscMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("escape"))
+        State s = player.GetComponent<State>();
+        text.text = "SKILLTREE \n REMAINING SKILLPOINTS : " + s.skillpoints.ToString();
+
+        if (Input.GetKeyDown("l"))
         {
             if (EscapePanel.gameObject.activeSelf)
             {
-                movements.blockMovement = true;
-                movements.blockRotation = true;
+                movements.blockMovement = false;
+                movements.blockRotation = false;
                 EscapePanel.gameObject.SetActive(false);
             }
             else
             {
-
-                movements.blockMovement = false;
-                movements.blockRotation = false;
+                movements.blockMovement = true;
+                movements.blockRotation = true;
                 EscapePanel.gameObject.SetActive(true);
             }
         }

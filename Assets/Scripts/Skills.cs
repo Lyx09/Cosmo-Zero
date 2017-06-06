@@ -7,7 +7,7 @@ public class Skills : MonoBehaviour {
     [SerializeField] private SpaceshipControls spaceShipControls;
 
     //For doubleTap function
-    public bool dashUnlock = true;
+    public bool dashUnlock = false;
 
     private int buttonCountA = 0;
     private int buttonCountE = 0;
@@ -239,8 +239,8 @@ public class Skills : MonoBehaviour {
                 }
             }
         }
-
-        /*
+        
+        
 	    if (timeControl)
 	    {
 	        if (Input.GetButton("Time Control") && timeCoolDown <= 0F)
@@ -255,7 +255,7 @@ public class Skills : MonoBehaviour {
 	            Time.timeScale = 1f;
 	        }
 	    }
-        */
+        
 
         //UPDATING TIMERS
 
