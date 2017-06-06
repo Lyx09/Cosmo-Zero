@@ -70,21 +70,24 @@ public class Lock_m : MonoBehaviour
         }
         else
         {
-            Vector3 ScreenTargetPos = camera.WorldToScreenPoint(target.position);
+            Debug.Log("W: " + Screen.width + "H: " + Screen.height);
+            Vector3 ScreenTargetPos = camera.WorldToScreenPoint(target.position) + new Vector3(-410, -301);
+            Debug.Log("Target " + ScreenTargetPos);
             if (ScreenTargetPos.z > 0)
             {
                 lockTransform.anchoredPosition = (Vector2)ScreenTargetPos - lockTransform.sizeDelta / 2;
+                Debug.Log("Icon " + lockTransform.anchoredPosition);
                 LockHPRect.anchoredPosition = (Vector2)ScreenTargetPos - new Vector2(0, lockTransform.sizeDelta.x  / 2 + 5);
                 LockNameRect.anchoredPosition = (Vector2) ScreenTargetPos + new Vector2(0,lockTransform.sizeDelta.x/2 + 5);
-                if (target.GetComponent<State>() != null)
-                    LockHP.text = target.GetComponent<State>().life.ToString();
-                else if (target.GetComponent<EnemyScript>() != null)
-                    LockHP.text = target.GetComponent<EnemyScript>().life.ToString();
+                if (target.GetComponent<State_m>() != null)
+                    LockHP.text = target.GetComponent<State_m>().currentHealth.ToString();
             }
+            
             
             float posArrowX;
             float posArrowY;
             float left = 1;
+
             if (circle)
             {
                 if (ScreenTargetPos.z < 0)
@@ -157,15 +160,12 @@ public class Lock_m : MonoBehaviour
                     arrowTransform.anchoredPosition = new Vector2(-10, -10); //hides the arrow
                 }
             }
-
+            
         }
+        
 
         if (Input.GetButtonDown("Lock"))
         {
-
-            //Closest from mouse or closest from screencenter ?
-            //https://docs.unity3d.com/ScriptReference/Physics.OverlapSphere.html
-
             //Searches all enemies visible on screen
             List<GameObject> visibleEnemies = new List<GameObject>();
 
@@ -212,7 +212,7 @@ public class Lock_m : MonoBehaviour
                 target = closestEnemy.transform;
                 if (closestEnemy.tag == "Enemy" || closestEnemy.tag == "Player")
                 {
-                    LockHP.text = closestEnemy.GetComponent<State>().life.ToString();
+                    LockHP.text = closestEnemy.GetComponent<State_m>().currentHealth.ToString();
                     LockName.text = closestEnemy.name;
                 }
                 else
