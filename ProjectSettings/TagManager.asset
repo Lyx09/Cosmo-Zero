@@ -25,6 +25,11 @@ TagManager:
   - Lure
   - HeadShield
   - New Tag
+  - CP
+  - CP1
+  - CP2
+  - CP3
+  - CP4
   layers:
   - Default
   - TransparentFX
