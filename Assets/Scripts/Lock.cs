@@ -157,7 +157,13 @@ public class Lock : MonoBehaviour
                     arrowTransform.anchoredPosition = new Vector2(-10, -10); //hides the arrow
                 }
             }
-
+            if (target.GetComponent<Skills>() != null)
+            {
+                if (target.GetComponent<Skills>().stealth.activeSelf)
+                {
+                    target = null;
+                }
+            }
         }
 
         if (Input.GetButtonDown("Lock"))

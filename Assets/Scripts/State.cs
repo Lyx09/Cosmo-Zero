@@ -4,20 +4,30 @@ using System.Collections;
 
 public class State : MonoBehaviour
 {
-    public float maxlife; //La vie max. Obvious comment is obvious
-    public float regenlife; //Quantité de vie régen à chaque régen
-    public Text LifeDisp; //L'objet UI qui display TOUT
-    public float cdregen; //Le temps qu'il faut passer hors combat avant de passer en mode régen
-    public float timeregen; //Le temps entre chaque tips de régen
-    private int money;
-    public int xp;
-    public float life; //Bah...
-    private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
-    private float cooldown; //Le temps à attendre avant le prochain gain de vie
     public int level = 1;
     public int skillpoints;
-	// Use this for initialization
-	void Start ()
+    //Display
+    public Text LifeDisp; //L'objet UI qui display TOUT
+    public float life = 100; //Bah...
+    public float maxlife; //La vie max. Obvious comment is obvious
+    private int money;
+    public int xp;
+    //Regen
+    public float regenlife; //Quantité de vie régen à chaque régen
+    public float cdregen; //Le temps qu'il faut passer hors combat avant de passer en mode régen
+    public float timeregen; //Le temps entre chaque tips de régen
+    private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
+    private float cooldown = 5.0f; //Le temps à attendre avant le prochain gain de vie
+    //Shield
+    public float shieldblock = 0;
+    public GameObject shield;
+    //Warning
+    public GameObject enemy;
+    public AudioSource warning;
+
+
+    // Use this for initialization
+    void Start ()
     {
         life = maxlife;
         money = 0;
@@ -32,11 +42,22 @@ public class State : MonoBehaviour
     {
         if (xp >= 250 * Mathf.Pow(2,level))
             xp = levelup(xp);
-        if (Input.anyKeyDown)
+        if (enemy != null)
         {
-            if (Input.GetKeyDown(KeyCode.T))
+            if (enemy.GetComponent<MissileBehaviour>() != null)
             {
-                Hurt(10);
+                if (enemy.GetComponent<MissileBehaviour>().target == transform)
+                {
+                    if (!warning.isPlaying)
+                    {
+                        warning.Play();
+                        Debug.Log(1);
+                    }
+                }
+                else
+                {
+                    warning.Stop();
+                }
             }
         }
         if (Time.time - chrono >= cooldown)
@@ -64,8 +85,28 @@ public class State : MonoBehaviour
 
     public void Hurt (float power) //A appeler quand le vaisseau est touché
     {
-        if (life - power <= maxlife)
-            life -= power;
+        if (power > 0)
+        {
+            if (shieldblock > 0)
+            {
+                if (shieldblock > power)
+                {
+                    shieldblock -= power;
+                }
+                else
+                {
+                    life -= (power - shieldblock);
+                    shieldblock = 0;
+                    shield.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                life -= power;
+            }
+        }
+        if (life > maxlife)
+            life = maxlife;
         chrono = Time.time;
         cooldown = cdregen;
         UpLife();

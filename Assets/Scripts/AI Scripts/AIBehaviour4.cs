@@ -242,7 +242,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
         //Debug.Log(target_velocity.magnitude);
         //Debug.Log(predict_ahead);
-        Debug.DrawLine(transform.position, future_target_pos);
+        //Debug.DrawLine(transform.position, future_target_pos);
 
         return doFlee(future_target_pos);
     }
@@ -281,6 +281,26 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
         Debug.Log("AVOIDANCE" + avoidance.magnitude);
 
         self_prevpos = self_transfo.position;
+        return avoidance;
+    }
+
+    Vector3 TestAvoid (Vector3 target_pos)
+    {
+        Vector3 ahead = transform.position + GetComponent<Rigidbody>().velocity * 20.0f;
+        Vector3 ahead2 = ahead * 0.5f;
+        Vector3 avoidance = Vector3.zero;
+        RaycastHit hit;
+        if (Physics.SphereCast(sphereCast_origin.position, self_size / 2F, self_transfo.forward, out hit, 20.0f) && hit.transform.name != target_transform.name && hit.transform.name != self_transfo.name)
+        {
+            if (hit.distance <= ahead.magnitude || hit.distance <= ahead2.magnitude)
+            {
+                avoidance.x = ahead.x - hit.transform.position.x;
+                avoidance.y = ahead.y - hit.transform.position.y;
+                avoidance.z = ahead.z - hit.transform.position.z;
+                avoidance.Normalize();
+                avoidance *= 20.0f;
+            }
+        }
         return avoidance;
     }
 

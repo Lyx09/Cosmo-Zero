@@ -8,10 +8,15 @@ public class MissileBehaviour : MonoBehaviour
     public Vector3 speed;
     private Rigidbody rb;
     public int dmg;
+
 	// Use this for initialization
 	void Start ()
     {
         rb = GetComponent<Rigidbody>();
+        if (target.GetComponent<State>() != null)
+        {
+            target.GetComponent<State>().enemy = gameObject;
+        }
 	}
 	
 	// Update is called once per frame
@@ -21,9 +26,20 @@ public class MissileBehaviour : MonoBehaviour
     }
     void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * 35);
-        var rotation = Quaternion.LookRotation(target.position - transform.position);
-        rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, 5));
+        if (target != null)
+        {
+            if (Vector3.Distance(transform.position, target.transform.position) < 10)
+            {
+                transform.LookAt(target.transform);
+                transform.Translate(Vector3.forward * Time.fixedDeltaTime * 20);
+            }
+            else
+            {
+                transform.Translate(Vector3.forward * Time.fixedDeltaTime * 20);
+                var rotation = Quaternion.LookRotation(target.position - transform.position);
+                rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, 5));
+            }
+        }
     }
     void OnCollisionEnter(Collision other)
     {
@@ -35,7 +51,6 @@ public class MissileBehaviour : MonoBehaviour
             {
                 State shooter = sender.GetComponent<State>();
                 shooter.Kill(enemysc.xpvalue);
-                Debug.Log("ok");
             }
             enemysc.Hurt(dmg);
         }

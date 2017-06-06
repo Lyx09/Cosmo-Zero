@@ -43,7 +43,6 @@ public class Explode : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-
         Destroy(gameObject);
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
         {

@@ -3,10 +3,7 @@ using System.Collections;
 
 public class Bulette : MonoBehaviour
 {
-    private float creation;
-    private Rigidbody rb;
     private GameObject sender;
-    public Vector3 speed;
 
     // Use this for initialization
     public void SetSender(GameObject go)
@@ -16,23 +13,15 @@ public class Bulette : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        creation = Time.time;
-        rb.AddForce(transform.up * 50);
     }
 
     void Update()
     {
-        if (Time.time > creation + 1F)
-        {
-            Destroy(gameObject);
-        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = speed;
     }
 
     void OnCollisionEnter(Collision other)

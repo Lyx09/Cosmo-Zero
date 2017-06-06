@@ -31,8 +31,45 @@ public class Skills : MonoBehaviour {
     private float timeUseLeft = 0F;
     private float timeCoolDown = 0F;
 
-    void Start () {
+    //Shield
+    public bool shieldUnlock;
+    private float block = 150;
+    private float shieldcd = 75.0f; //Cooldown between two uses of the shield
+    private float shieldavl; //Time at which the shield will be available
+    private float shieldspan = 15.0f; //Time the shield lasts
+    private float shieldend; //Time at which the shield will end
+
+    //Stealth
+    public bool stealthUnlock;
+    public GameObject stealth;
+    private float stealthcd = 75.0f;
+    private float stealthavl;
+    private float stealthspan = 15.0f;
+    private float stealthend;
+
+    //Missile
+    public bool missileUnlock;
+    public GameObject Missile;
+    public static Transform target;
+    public float missilecd = 5.0f;
+    public int missiledmg = 7;
+    private float missileavl;
+    public float missilespan = 4.5f;
+
+    //Lure
+    public bool lureUnlock;
+    public GameObject lure;
+    public float lurecd = 15.0f;
+    private float lureavl;
+    public float lurespan = 2.0f;
+
+    void Start ()
+    {
         rb = GetComponent<Rigidbody>();
+        shieldavl = Time.time;
+        stealthavl = Time.time;
+        missileavl = Time.time + missilecd;
+        lureavl = Time.time;
     }
 	
 	// Update is called once per frame
@@ -278,5 +315,73 @@ public class Skills : MonoBehaviour {
 
 
     */
+        if (shieldUnlock)
+        {
+            if (Time.time >= shieldavl)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    shieldavl = Time.time + shieldcd;
+                    shieldend = Time.time + shieldspan;
+                    GetComponent<State>().shield.SetActive(true);
+                    GetComponent<State>().shieldblock = block;
+                }
+            }
+            if (Time.time >= shieldend)
+            {
+                GetComponent<State>().shield.SetActive(false);
+                GetComponent<State>().shieldblock = 0;
+            }
+        }
+        if (stealthUnlock)
+        {
+            if (Time.time >+ stealthavl)
+            {
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    stealthavl = Time.time + stealthavl;
+                    stealthend = Time.time + stealthspan;
+                    GetComponent<MeshRenderer>().enabled = false;
+                    stealth.SetActive(true);
+                }
+            }
+            if (Time.time >= stealthend)
+            {
+                GetComponent<MeshRenderer>().enabled = true;
+                stealth.SetActive(false);
+            }
+        }
+        if (missileUnlock)
+        {
+            if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock>().target != null)
+            {
+                target = GetComponent<Lock>().target;
+                missileavl = Time.time + missilecd;
+                SendMissile();
+            }
+        }
+        if (lureUnlock)
+        {
+            if (Input.GetKeyDown(KeyCode.L) && Time.time >= lureavl)
+            {
+                lureavl = Time.time + lurecd;
+                GameObject mylure = Instantiate(lure);
+                mylure.transform.position = transform.position;
+                mylure.transform.rotation = transform.rotation;
+                mylure.GetComponent<Rigidbody>().velocity = - transform.forward * 15;
+                Destroy(mylure, lurespan);
+            }
+        }
+    }
+    void SendMissile()
+    {
+        GameObject mymissile = Instantiate(Missile);
+        mymissile.transform.position = gameObject.transform.position + gameObject.transform.forward;
+        mymissile.transform.rotation = gameObject.transform.rotation;
+        MissileBehaviour mb = mymissile.GetComponent<MissileBehaviour>();
+        mb.target = target;
+        mb.sender = gameObject;
+        mb.dmg = missiledmg;
+        Destroy(mymissile, missilespan);
     }
 }
