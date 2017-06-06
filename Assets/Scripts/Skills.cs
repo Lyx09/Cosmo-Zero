@@ -239,8 +239,8 @@ public class Skills : MonoBehaviour {
                 }
             }
         }
+
         /*
-        
 	    if (timeControl)
 	    {
 	        if (Input.GetButton("Time Control") && timeCoolDown <= 0F)
@@ -255,7 +255,7 @@ public class Skills : MonoBehaviour {
 	            Time.timeScale = 1f;
 	        }
 	    }
-        */  
+        */
 
         //UPDATING TIMERS
 

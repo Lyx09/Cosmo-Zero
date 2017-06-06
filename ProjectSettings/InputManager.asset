@@ -437,19 +437,3 @@ InputManager:
     type: 0
     axis: 0
     joyNum: 0
-  - serializedVersion: 3
-    m_Name: SkillTree
-    descriptiveName: Skill tree menu
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: l
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 2
-    dead: 0.001
-    sensitivity: 2
-    snap: 1
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
