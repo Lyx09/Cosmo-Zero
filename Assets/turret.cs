@@ -17,6 +17,7 @@ public class turret : MonoBehaviour
     public AudioSource audioshoot;
     public float bulletcd = 1;
 
+    public GameObject explosion;
 
     private float timeavl;
 
@@ -76,7 +77,29 @@ public class turret : MonoBehaviour
 	    }
 	}
 
+    void OnCollisionEnter(Collision collision)
+    {
+        Bulette b = collision.gameObject.GetComponent<Bulette>();
+        if (b != null)
+        {
+            hp -= 1;
+        }
 
+        MissileBehaviour m = collision.gameObject.GetComponent<MissileBehaviour>();
+        if (m != null)
+        {
+            hp -= m.dmg;
+        }
+
+        if (hp <= 0)
+        {
+            //Turret dies
+            GameObject.Instantiate(explosion, transform.position,transform.rotation);
+
+            Destroy(gameObject.transform.parent.gameObject); //destroys parent
+            
+        }
+    }
 
     public void Shoot()
     {

@@ -4622,6 +4622,7 @@ GameObject:
   - 114: {fileID: 1803642579}
   - 54: {fileID: 1803642578}
   - 82: {fileID: 1803642577}
+  - 65: {fileID: 1803642580}
   m_Layer: 0
   m_Name: Head
   m_TagString: Enemy
@@ -4653,7 +4654,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c1dabc6cf8e7f594fadbc347b30e0664, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 016020f41c7ea3c40a5c0299059e2d53, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -4729,7 +4730,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -4747,7 +4748,7 @@ MonoBehaviour:
   target: {fileID: 0}
   fireRate: 10
   detection_radius: 50
-  hp: 0
+  hp: 10
   rotation_speed: 2
   shooting: {fileID: 0}
   rcOrigin: {fileID: 1672340833}
@@ -4757,6 +4758,19 @@ MonoBehaviour:
     type: 2}
   audioshoot: {fileID: 1803642577}
   bulletcd: 1
+  explosion: {fileID: 1000013063239222, guid: 843695ef5e6d39f458b99e399ccc09b1, type: 2}
+--- !u!65 &1803642580
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803642575}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!4 &1807663637 stripped
 Transform:
   m_PrefabParentObject: {fileID: 461184, guid: 4d1fe716878bc194ca0ee3965fca5e88, type: 2}
