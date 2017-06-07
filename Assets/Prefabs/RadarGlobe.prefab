@@ -225,6 +225,7 @@ MonoBehaviour:
   radar_center: {fileID: 0}
   radius_radar: 100
   blip: {fileID: 1000012915412950, guid: 205337ff617125d4d9df0382a7a6b34b, type: 2}
+  player: {fileID: 0}
 --- !u!135 &135000013589362598
 SphereCollider:
   m_ObjectHideFlags: 1

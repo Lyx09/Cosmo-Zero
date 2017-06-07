@@ -11,20 +11,30 @@ public class Radar : MonoBehaviour
     [SerializeField]
     private GameObject blip;
     private Transform disc;
+    public GameObject player;
+    public GameObject mimick;
 
     private List<Transform> list_radar;
     private List<Transform> list_actual;
+
+    private double x, y, z;
 
     void Start ()
     {
         list_radar = new List<Transform>();
         list_actual = new List<Transform>();
-
         disc = transform.transform.Find("disc");
+        list_actual.Add(player.transform);
+        Vector3 radar_pos = transform.position + (player.transform.position - radar_center.position) * transform.localScale.x / radius_radar;
+        GameObject new_obj = Instantiate(blip, radar_pos, disc.rotation) as GameObject;
+        new_obj.transform.parent = gameObject.transform;
+        list_radar.Add(new_obj.transform);
     }
 	
 	void Update ()
 	{
+        mimick.transform.position = player.transform.position;
+        mimick.transform.rotation = player.transform.rotation;
 	    transform.localRotation = radar_center.rotation;
 	    int layerMask = 1 << 8; //Layer 8
         Collider[] insideRadar = Physics.OverlapSphere(radar_center.position,radius_radar,layerMask);
@@ -33,9 +43,11 @@ public class Radar : MonoBehaviour
 	    {
 	        bool add = true;
 	        int counter = 0;
+            if (collider1.CompareTag("Player"))
+                add = false;
 	        while (counter < list_actual.Count && add) //Test if collider is already in the radar
 	        {
-	            if (list_actual[counter].name == collider1.name || list_actual[counter].tag == "Player") //maybe find another unique property
+	            if (list_actual[counter].name == collider1.name) //maybe find another unique property
 	            {
                     add = false;
 	            }

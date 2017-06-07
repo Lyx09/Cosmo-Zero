@@ -11,6 +11,9 @@ public class CameraScript : MonoBehaviour
     public float cameraRollVelocity = 20F;
     public Transform cameraMainPos;
     public Transform cameraRearPos;
+    public GameObject skillpanel;
+    public GameObject Marketpanel;
+    public GameObject Menupanel;
 
     private SpaceshipControls Scontrols;
 
@@ -71,7 +74,7 @@ public class CameraScript : MonoBehaviour
             transform.localRotation = Quaternion.Euler(0,180,0);
             cameraIsRear = true;
         }
-	    else
+	    else if (!Marketpanel.activeSelf && !skillpanel.activeSelf && !Menupanel.activeSelf)
         {
             if (cameraIsRear)
             {
