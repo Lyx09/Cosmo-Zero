@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 public class CountCPs : MonoBehaviour {
     public GameObject panel;
     private int count;
-    private bool CP1;
-    private bool CP2;
-    private bool CP3;
-    private bool CP4;
-    private bool CP;
+    public bool CP1;
+    public bool CP2;
+    public bool CP3;
+    public bool CP4;
+    public bool CP;
     public GameObject chrono;
 
 

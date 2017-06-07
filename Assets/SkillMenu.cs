@@ -11,6 +11,7 @@ public class SkillMenu : MonoBehaviour
     public Text text;
     public GameObject EscapeMenuPanel;
     public GameObject MarketPanel;
+    public GameObject health;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class SkillMenu : MonoBehaviour
         {
             if (SkillMenuPanel.gameObject.activeSelf)
             {
+                health.SetActive(true);
                 movements.blockMovement = false;
                 movements.blockRotation = false;
                 Shooting shooting = player.GetComponent<Shooting>();
@@ -35,6 +37,7 @@ public class SkillMenu : MonoBehaviour
             }
             else if(!MarketPanel.gameObject.activeSelf && !EscapeMenuPanel.gameObject.activeSelf)
             {
+                health.SetActive(false);
                 movements.blockMovement = true;
                 movements.blockRotation = true;
                 Shooting shooting = player.GetComponent<Shooting>();
