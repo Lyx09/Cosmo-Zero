@@ -12,18 +12,20 @@ public class MarketUpgrades : MonoBehaviour
     public Text text;
     public GameObject player;
     public GameObject button;
+    public static int upgrades = 0;
 
 
     public void LifeUpgrade()
     {
         State s = player.GetComponent<State>();
-        if (s.money >= LifeUpCost)
+        if (State.money >= LifeUpCost)
         {
-            s.money -= LifeUpCost;
+            upgrades++;
+            State.money -= LifeUpCost;
             LifeUpCost *= 2;
-            s.maxlife *= 2;
-            text.text = "LIFE UPGRADE\n" + (s.maxlife).ToString() + " HPmax to " + (s.maxlife * 2).ToString() + " HPmax\n COST" + LifeUpCost.ToString();
-            if (s.maxlife > 5000)
+            State.maxlife *= 2;
+            text.text = "LIFE UPGRADE\n" + (State.maxlife).ToString() + " HPmax to " + (State.maxlife * 2).ToString() + " HPmax\n COST" + LifeUpCost.ToString();
+            if (State.maxlife > 5000)
             {
                 button.GetComponent<Button>().interactable = false;
                 text.text = "MAX LEVEL REACHED";    
@@ -33,16 +35,17 @@ public class MarketUpgrades : MonoBehaviour
     public void RegenUpgrade()
     {
         State s = player.GetComponent<State>();
-        if (s.money >= RegenUpCost)
+        if (State.money >= RegenUpCost)
         {
-            if (s.regenlife == 0)
-                s.regenlife = 1;
+            upgrades++;
+            if (State.regenlife == 0)
+                State.regenlife = 1;
             else
-                s.regenlife += 1;
-            s.money -= RegenUpCost;
+                State.regenlife += 1;
+            State.money -= RegenUpCost;
             RegenUpCost *= 2;
-            text.text = "REGEN UPGRADE\n" + (s.regenlife).ToString() + " HP/sec to " + (s.regenlife + 1).ToString() + " HP/sec\n COST" + RegenUpCost.ToString();
-            if (s.regenlife == 5)
+            text.text = "REGEN UPGRADE\n" + (State.regenlife).ToString() + " HP/sec to " + (State.regenlife + 1).ToString() + " HP/sec\n COST" + RegenUpCost.ToString();
+            if (State.regenlife == 5)
             {
                 button.GetComponent<Button>().interactable = false;
                 text.text = "MAX LEVEL REACHED";
@@ -53,13 +56,14 @@ public class MarketUpgrades : MonoBehaviour
     {
         State s = player.GetComponent<State>();
         Shooting sh = player.GetComponent<Shooting>();
-        if (s.money >= FireRateUpCost)
+        if (State.money >= FireRateUpCost)
         {
-            s.money -= FireRateUpCost;
+            upgrades++;
+            State.money -= FireRateUpCost;
             FireRateUpCost *= 2;
-            sh.cd -= (float).1;
-            text.text = "RATE OF FIRE UPGRADE\n" + (sh.cd).ToString() + " to " + (sh.cd - 0.1).ToString() + "\n COST" + (FireRateUpCost /2).ToString();
-            if (sh.cd == 0.2)
+            Shooting.cd -= (float).1;
+            text.text = "RATE OF FIRE UPGRADE\n" + (Shooting.cd).ToString() + " to " + (Shooting.cd - 0.1).ToString() + "\n COST" + (FireRateUpCost /2).ToString();
+            if (Shooting.cd == 0.2)
             {
                 button.GetComponent<Button>().interactable = false;
                 text.text = "MAX LEVEL REACHED";
@@ -70,13 +74,14 @@ public class MarketUpgrades : MonoBehaviour
     {
         State s = player.GetComponent<State>();
         Shooting sh = player.GetComponent<Shooting>();
-        if (s.money >= DamageUpCost)
+        if (State.money >= DamageUpCost)
         {
-            s.money -= DamageUpCost;
+            upgrades++;
+            State.money -= DamageUpCost;
             DamageUpCost *= 2;
-            sh.damage += 1;
-            text.text = "DAMAGE UPGRADE\n" + (sh.damage).ToString() + " damage to " + (sh.damage +1).ToString() + " damage\n COST " + DamageUpCost.ToString();
-            if (sh.damage == 8)
+            Shooting.damage += 1;
+            text.text = "DAMAGE UPGRADE\n" + (Shooting.damage).ToString() + " damage to " + (Shooting.damage +1).ToString() + " damage\n COST " + DamageUpCost.ToString();
+            if (Shooting.damage == 8)
             {
                 button.GetComponent<Button>().interactable = false;
                 text.text = "MAX LEVEL REACHED";

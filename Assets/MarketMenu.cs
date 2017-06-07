@@ -22,7 +22,7 @@ public class MarketMenu : MonoBehaviour
     void Update()
     {
         State s = player.GetComponent<State>();
-        text.text = "SHOP \n MONEY : " + s.money.ToString();
+        text.text = "SHOP \n MONEY : " + State.money.ToString();
 
         if (Input.GetKeyDown("y"))
         {

@@ -405,7 +405,7 @@ public class TutoQuests : MonoBehaviour
                 break;
             case 25:
                 message.text = "To complete this last quest,\nyou have to shoot 5 targets, by using your left click";
-                quest.text = "Current quest:\n-Shoot 5 targets (" + Player.GetComponent<State>().xp.ToString() + "/5)";
+                quest.text = "Current quest:\n-Shoot 5 targets (" + State.xp.ToString() + "/5)";
                 Health1.gameObject.SetActive(true);
                 Health2.gameObject.SetActive(true);
                 Display.gameObject.SetActive(true);
@@ -416,7 +416,7 @@ public class TutoQuests : MonoBehaviour
                 step = 26;
                 break;
             case 26:
-                quest.text = "Current quest:\n-Shoot 5 targets (" + Player.GetComponent<State>().xp.ToString() + "/5)";
+                quest.text = "Current quest:\n-Shoot 5 targets (" + State.xp.ToString() + "/5)";
                 if (Input.anyKeyDown)
                 {
                     if (!sounded)
@@ -426,7 +426,7 @@ public class TutoQuests : MonoBehaviour
                     }
                     Dialogue.SetActive(false);
                 }
-                if (Player.GetComponent<State>().xp == 5)
+                if (State.xp == 5)
                     step = 27;
                 break;
             case 27:

@@ -7,8 +7,8 @@ public class Shooting : MonoBehaviour
     private Rigidbody rb;
     public GameObject bullet;
     public float bulletspeed = 57.0f;
-    public float cd = 0.1f;
-    public int damage = 1;
+    public static float cd = 0.1f;
+    public static int damage = 1;
     private float timeavl; //Moment at which next shoot will be available;
     public float bulletspan = 2.0f;
 

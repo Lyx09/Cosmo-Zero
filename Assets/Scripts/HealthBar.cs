@@ -20,6 +20,6 @@ public class HealthBar : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        foreground.fillAmount = s.life / s.maxlife;
+        foreground.fillAmount = s.life / State.maxlife;
 	}
 }

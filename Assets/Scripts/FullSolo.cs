@@ -9,7 +9,7 @@ public class FullSolo : MonoBehaviour
 {
     public static int enemycount;
     private bool sounded = false;
-    private static int step = 0;
+    private int step = 0;
     public GameObject Dialogue, Ship, Health, Lock, Cross;
     public Image Cut;
     public Text speaker, message, quest, side;
@@ -30,6 +30,7 @@ public class FullSolo : MonoBehaviour
     public GameObject Ixal;
     public bool raced = false;
     public GameObject victorypanel;
+    private bool skillquest;
 
     private List<string> sidequests;
 
@@ -38,8 +39,6 @@ public class FullSolo : MonoBehaviour
     {
         Player = GetComponent<Rigidbody>();
         Cutter(true);
-        GetComponent<SpaceshipControls>().blockMovement = true;
-        GetComponent<SpaceshipControls>().blockRotation = true;
         sidequests = new List<string>();
     }
 	
@@ -54,7 +53,7 @@ public class FullSolo : MonoBehaviour
         side.text = str;
         if (GetComponent<State>().life <= 0)
         {
-            GetComponent<State>().life = GetComponent<State>().maxlife;
+            GetComponent<State>().life = State.maxlife;
             step = 0;
             quest.text = "";
             SkipDialogue();
@@ -67,8 +66,22 @@ public class FullSolo : MonoBehaviour
             speaker.color = Color.grey;
             ChangeDialogue("<i>Dashboard</i>", "Side quest completed");
             sidequests.Remove("Kill 10 enemies\n" + (enemycount - 4).ToString() + "/10\n<color=purple>Reward: 3000$</color>");
-            GetComponent<State>().money += 3000;
+            State.money += 3000;
             enemycount = -500;
+        }
+        if (MarketUpgrades.upgrades >= 4)
+        {
+            speaker.color = Color.grey;
+            ChangeDialogue("<i>Dashboard</i>", "Side quest completed");
+            sidequests.Remove("Buy 4 upgrades");
+            MarketUpgrades.upgrades -= 500;
+        }
+        if (NbSkills() >= 4 && !skillquest)
+        {
+            skillquest = true;
+            speaker.color = Color.grey;
+            ChangeDialogue("<i>Dashboard</i>", "Side quest completed");
+            sidequests.Remove("Unlock 4 skills");
         }
 	    switch (step)
         {
@@ -132,8 +145,8 @@ public class FullSolo : MonoBehaviour
                 quest.text = "Press movement keys to show you're awake (<color=" + cz + ">Z</color>, <color=" + cq + ">Q</color>, <color=" + cs + ">S</color>, <color=" + cd + ">D</color>)\n<color=purple>Reward: 750 XP, 500$</color>";
                 if (cz == "green" && cq == "green" && cs == "green" && cd == "green")
                 {
-                    GetComponent<State>().money += 500;
-                    GetComponent<State>().xp += 750;
+                    State.money += 500;
+                    State.xp += 750;
                     speaker.color = Color.grey;
                     quest.text = "";
                     ChangeDialogue("<i>Dashboard</i>", "Quest completed");
@@ -224,17 +237,17 @@ public class FullSolo : MonoBehaviour
                 {
                     SkipDialogue();
                 }
-                if (GetComponent<State>().xp >= 350)
+                if (State.xp >= 350)
                 {
                     SkipDialogue();
                     sounded = false;
                     speaker.color = Color.grey;
                     quest.text = "";
-                    GetComponent<State>().xp += 500;
+                    State.xp += 500;
                     ChangeDialogue("<i>Dashboard</i>", "Quest completed");
                     step = -2;
                 }
-                quest.text = "Find resources and shoot them to collect them (" +(GetComponent<State>().xp / 5).ToString() + "/4)";
+                quest.text = "Find resources and shoot them to collect them (" +(State.xp / 5).ToString() + "/4)";
                 break;
             case -2:
                 if (Input.anyKeyDown)
@@ -349,7 +362,7 @@ public class FullSolo : MonoBehaviour
             case 22:
                 quest.text = "";
                 speaker.color = Color.grey;
-                GetComponent<State>().xp += 500;
+                State.xp += 500;
                 ChangeDialogue("<i>Dashboard</i>", "Quest completed");
                 step = -3;
                 break;
@@ -514,7 +527,7 @@ public class FullSolo : MonoBehaviour
             case 38:
                 quest.text = "";
                 speaker.color = Color.grey;
-                GetComponent<State>().xp += 500;
+                State.xp += 500;
                 GetComponent<Lock>().target = null;
                 ChangeDialogue("<i>Dashboard</i>", "Quest completed");
                 step = -4;
@@ -570,7 +583,7 @@ public class FullSolo : MonoBehaviour
                     SkipDialogue();
                     sounded = false;
                     speaker.color = Color.grey;
-                    GetComponent<State>().xp += 500;
+                    State.xp += 500;
                     quest.text = "";
                     ChangeDialogue("<i>Dashboard</i>", "Quest completed");
                     step = 43;
@@ -581,7 +594,7 @@ public class FullSolo : MonoBehaviour
                 {
                     SkipDialogue();
                     sounded = false;
-                    initialmoney = GetComponent<State>().money;
+                    initialmoney = State.money;
                     ChangeDialogue("<i>Dashboard</i>", "New quest:\nBuy something in the shop\n<color=purple>Reward: 1000$</color>");
                     quest.text = "Buy something in the shop\n<color=purple>Reward: 1000$</color>";
                     step = 44;
@@ -592,11 +605,11 @@ public class FullSolo : MonoBehaviour
                 {
                     SkipDialogue();
                 }
-                if (GetComponent<State>().money < initialmoney)
+                if (MarketUpgrades.upgrades >= 1)
                 {
                     SkipDialogue();
                     sounded = false;
-                    GetComponent<State>().money += 1000;
+                    State.money += 1000;
                     quest.text = "";
                     ChangeDialogue("<i>Dashboard</i>", "Quest completed");
                     step = -5;
@@ -607,7 +620,7 @@ public class FullSolo : MonoBehaviour
                 {
                     SkipDialogue();
                     sounded = false;
-                    ChangeDialogue("<i>Dashboard</i>", "Kill 10 enemies\n<color=purple>Reward: 3000$</color>");
+                    ChangeDialogue("<i>Dashboard</i>", "<i>Side Quest:</i>\nKill 10 enemies\n<color=purple>Reward: 3000$</color>");
                     sidequests.Add("Kill 10 enemies\n" + (enemycount - 4).ToString() + "/10\n<color=purple>Reward: 3000$</color>");
                     step = 45;
                 }
@@ -630,8 +643,8 @@ public class FullSolo : MonoBehaviour
                 }
                 break;
             case 47:
-                GetComponent<State>().money += 250;
-                GetComponent<State>().xp += 250;
+                State.money += 250;
+                State.xp += 250;
                 quest.text = "";
                 GetComponent<Lock>().target = null;
                 quest.text = "";
@@ -764,6 +777,42 @@ public class FullSolo : MonoBehaviour
                     step = 61;
                 }
                 break;
+            case 61:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.grey;
+                    ChangeDialogue("<i>Dashboard</i>", "<i>Side Quest:</i>\nUnlock 4 skills");
+                    sidequests.Add("Unlock 4 skills");
+                    step = 62;
+                }
+                break;
+            case 62:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    ChangeDialogue("<i>Dashboard</i>", "<i>Side Quest:</i>\nBuy 4 upgrades");
+                    sidequests.Add("Buy 4 upgrades");
+                    step = 63;
+                }
+                break;
+            case 63:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    ChangeDialogue("<i>Dashboard</i>", "Go defeat Orez");
+                    step = 64;
+                }
+                break;
+            case 64:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                }
+                break;
             default:
                 break;
         }
@@ -862,5 +911,26 @@ public class FullSolo : MonoBehaviour
             sounded = false;
             step = 47;
         }
+        else if (other.CompareTag("FinalPortal") && (step == 64))
+        {
+            SceneManager.LoadScene(5);
+        }
+    }
+    int NbSkills()
+    {
+        int x = 0;
+        if (Skills.dashUnlock)
+            x++;
+        if (Skills.missileUnlock)
+            x++;
+        if (Skills.missileUnlock)
+            x++;
+        if (Skills.shieldUnlock)
+            x++;
+        if (Skills.timeControl)
+            x++;
+        if (Skills.stealthUnlock)
+            x++;
+        return x;
     }
 }

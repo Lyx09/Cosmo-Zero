@@ -9,15 +9,15 @@ public class State : MonoBehaviour
     //Display
     public Text LifeDisp; //L'objet UI qui display TOUT
     public float life = 100; //Bah...
-    public float maxlife; //La vie max. Obvious comment is obvious
-    public int money;
-    public int xp;
+    public static float maxlife; //La vie max. Obvious comment is obvious
+    public static int money;
+    public static  int xp;
     //Regen
-    public float regenlife; //Quantité de vie régen à chaque régen
+    public static float regenlife; //Quantité de vie régen à chaque régen
     public float cdregen; //Le temps qu'il faut passer hors combat avant de passer en mode régen
     public float timeregen; //Le temps entre chaque tips de régen
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
-    private float cooldown = 5.0f; //Le temps à attendre avant le prochain gain de vie
+    private float cooldown = 1.0f; //Le temps à attendre avant le prochain gain de vie
     //Shield
     public float shieldblock = 0;
     public GameObject shield;
@@ -40,10 +40,6 @@ public class State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("n"))
-            money += 500;
-        if (Input.GetKeyDown("b"))
-            xp += (int)(250 * Mathf.Pow(2, level-1));
         if (xp >= 250 * Mathf.Pow(2,level))
             xp = levelup(xp);
         if (enemy != null)
@@ -123,12 +119,6 @@ public class State : MonoBehaviour
         if (GetComponent<FullSolo>() != null)
             FullSolo.enemycount++;
     }
-
-    public void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
-
     void UpLife ()
     {
         LifeDisp.text = " HP: " + ((int)life).ToString() + " / " + ((int)maxlife).ToString() +"\n Money: " + money.ToString() + "\n XP: " + xp.ToString() + " / " + (250 * Mathf.Pow(2, level)).ToString() + "\n Level: " + level.ToString();
