@@ -7,7 +7,7 @@ public class State_m : NetworkBehaviour
 {
     public float maxHealth = 1000;
 
-    [SyncVar(hook = "UpdateDisplay")] public float currentHealth = 1000;
+    [SyncVar(hook = "UpdateDisplayHealth")] public float currentHealth = 1000;
 
     public bool destroyOnDeath = false;
 
@@ -15,8 +15,8 @@ public class State_m : NetworkBehaviour
     public float cdregen; //Le temps qu'il faut passer hors combat avant de passer en mode régen
     public float timeregen; //Le temps entre chaque tick de régen
 
-    private int kills = 0;
-    public int deaths = 0;
+    [SyncVar(hook = "UpdateDisplayKills")] public int kills = 0;
+    [SyncVar(hook = "UpdateDisplayDeaths")] public int deaths = 0;
 
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
     private float cooldown = 5.0F; //Le temps à attendre avant le prochain gain de vie
@@ -53,6 +53,7 @@ public class State_m : NetworkBehaviour
 
     public void TakeDamage(float amount)
     {
+        Debug.Log(amount);
         if (!isServer)
         {
             return;
@@ -67,6 +68,7 @@ public class State_m : NetworkBehaviour
             }
             else
             {
+                deaths++;
                 currentHealth = maxHealth; //waiting time
                 RpcRespawn();
             }
@@ -74,10 +76,9 @@ public class State_m : NetworkBehaviour
 
         chrono = Time.time;
         cooldown = cdregen;
-        //UpdateDisplay(); //Automatically called when health changes
     }
 
-    void UpdateDisplay(float curHealth)
+    void UpdateDisplayHealth(float curHealth)
     {
         if (foreground != null)
         {
@@ -87,6 +88,32 @@ public class State_m : NetworkBehaviour
         if (LifeDisp != null)
         {
             LifeDisp.text = " HP: " + ((int)currentHealth).ToString() + "\n Kills: " + kills.ToString() + "\n Deaths: " + deaths.ToString();
+        }
+    }
+
+    void UpdateDisplayDeaths(int dth)
+    {
+        if (foreground != null)
+        {
+            foreground.fillAmount = currentHealth / maxHealth;
+        }
+
+        if (LifeDisp != null)
+        {
+            LifeDisp.text = " HP: " + ((int)currentHealth).ToString() + "\n Kills: " + kills.ToString() + "\n Deaths: " + dth.ToString();
+        }
+    }
+
+    void UpdateDisplayKills(int kls)
+    {
+        if (foreground != null)
+        {
+            foreground.fillAmount = currentHealth / maxHealth;
+        }
+
+        if (LifeDisp != null)
+        {
+            LifeDisp.text = " HP: " + ((int)currentHealth).ToString() + "\n Kills: " + kls.ToString() + "\n Deaths: " + deaths.ToString();
         }
     }
 

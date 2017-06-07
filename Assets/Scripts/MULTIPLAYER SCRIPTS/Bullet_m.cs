@@ -19,8 +19,17 @@ public class Bullet_m : MonoBehaviour
         var state = hit.GetComponent<State_m>();
         if ( state != null)
         {
-            state.TakeDamage(dmg);
-            Debug.Log(sender.name + " hit " + collision.gameObject.name + " dealing him " + dmg + " damage");
+            if (dmg != 0)
+            {
+                if (state.currentHealth - dmg <= 0)
+                {
+                    sender.GetComponent<State_m>().kills++;
+                }
+                state.TakeDamage(dmg);
+                
+                Debug.Log(sender.name + " hit " + collision.gameObject.name + " dealing him " + dmg + " damage");
+                dmg = 0;
+            }
         }
         Destroy(gameObject);
     }

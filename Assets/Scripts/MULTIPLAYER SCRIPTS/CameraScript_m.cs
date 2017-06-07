@@ -52,7 +52,8 @@ public class CameraScript_m : MonoBehaviour
 
 	    if (!Scontrols.isCurrentPlayer)
 	    {
-	        Destroy(gameObject);
+            gameObject.SetActive(false);
+	        //Destroy(gameObject);
 	    }
     }
 	

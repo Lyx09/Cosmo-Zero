@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Resources;
 using System.Security;
+using UnityEngine.Networking;
 
-public class ThrusterManager_m : MonoBehaviour
+public class ThrusterManager_m : NetworkBehaviour
 {
     //TODO: Add flare to main engine
 
@@ -59,6 +60,11 @@ public class ThrusterManager_m : MonoBehaviour
 
     void Start()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         originalCamPos = cameraTransform.localPosition;
         playerrb = GetComponent<Rigidbody>();
 
@@ -129,6 +135,11 @@ public class ThrusterManager_m : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         Vector3 projected = Vector3.Project(playerrb.velocity, transform.forward);
         float relativeSpeed = projected.magnitude/maxSpeed; //current speed compared to maxSpeed
         //Debug.Log(Vector3.Angle(projected, transform.forward));
@@ -212,17 +223,6 @@ public class ThrusterManager_m : MonoBehaviour
             DRB = true;
             DRF = true;
         }
-        else
-        {
-            URF = false;
-            URB = false;
-            DRB = false;
-            DRF = false;
-            ULF = false;
-            ULB = false;
-            DLB = false;
-            DLF = false;
-        }
 
         
         // ---------- PERPENDICULAR ----------
@@ -246,24 +246,6 @@ public class ThrusterManager_m : MonoBehaviour
             RollUL = true;
             RollUR = true;
         }
-        else
-        {
-            DLF = false;
-            DLB = false;
-            DRB = false;
-            DRF = false;
-
-            RollDL = false;
-            RollDR = false;
-
-            ULF = false;
-            ULB = false;
-            URB = false;
-            URF = false;
-
-            RollUL = false;
-            RollUR = false;
-        }
 
 
         // ---------- ROLL ---------- 
@@ -277,13 +259,6 @@ public class ThrusterManager_m : MonoBehaviour
         {
             RollDL = true;
             RollUR = true;
-        }
-        else
-        {
-            RollDL = false;
-            RollUR = false;
-            RollDR = false;
-            RollUL = false;
         }
 
 

@@ -20,7 +20,17 @@ TagManager:
   - ThrusterRollDL
   - ThrusterRollDR
   - Sphere
+  - LawShield
+  - Fire
+  - Lure
+  - HeadShield
   - New Tag
+  - CP
+  - CP1
+  - CP2
+  - CP3
+  - CP4
+  - Ixal
   layers:
   - Default
   - TransparentFX
