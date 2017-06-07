@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class Skills_m : MonoBehaviour {
+public class Skills_m : NetworkBehaviour {
 
     private Rigidbody rb;
     [SerializeField] private SpaceshipControls_m spaceShipControls;
@@ -32,16 +33,23 @@ public class Skills_m : MonoBehaviour {
     private float timeCoolDown = 0F;
 
     void Start () {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         rb = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         //################################################################################
         //#--------------------------------DASH MANAGER---------------------------------#
         //################################################################################
-        
+
         //DISPLAY
         //Debug.Log("Dash Cool Down:" + coolDownDash );
         if (!spaceShipControls.blockMovement)
@@ -203,23 +211,6 @@ public class Skills_m : MonoBehaviour {
             }
         }
 
-        /*
-	    if (timeControl)
-	    {
-	        if (Input.GetButton("Time Control") && timeCoolDown <= 0F)
-	        {
-	            Time.timeScale = timeFactor;
-	            timeUseLeft = maxTimeUseTime;
-	            timeCoolDown = maxTimeCoolDown + maxTimeUseTime;
-	        }
-
-	        if (timeUseLeft <= 0)
-	        {
-	            Time.timeScale = 1f;
-	        }
-	    }
-        */
-
         //UPDATING TIMERS
 
         //dash
@@ -244,39 +235,5 @@ public class Skills_m : MonoBehaviour {
         {
             coolDownDash -= Time.deltaTime;
         }
-
-        //Time Control
-	    if (timeUseLeft > 0)
-	    {
-	        timeUseLeft -= Time.deltaTime * (1/Time.timeScale);
-	    }
-
-	    if (timeCoolDown > 0)
-	    {
-	        timeCoolDown -= Time.deltaTime *(1/ Time.timeScale);
-	    }
-
-        //Back
-        /*
-         * 
-        private Vector3[] Pos;
-
-
-        Pos = new Vector3[60];
-        for (int i = 0; i < Pos.Length; i++)
-        {
-            Pos[i] = transform.position;
-        }
-
-
-        for (int i = 0; i < Pos.Length - 1; i++)
-        {
-            Pos[i] = Pos[i + 1];
-        }
-        Pos[Pos.Length - 1] = transform.position;
-
-
-
-    */
     }
 }

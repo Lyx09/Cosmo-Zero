@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class Lock_m : MonoBehaviour
+public class Lock_m : NetworkBehaviour
 {
     //The code needs to be simplified
     //NOTE: There exist a dead center when locking a target it is located at the exact oposite of the target.
 
     [Tooltip("Put the player's camera here")]
     public Camera camera;
+
+    [SyncVar] public Vector3 targetV3;
     public Transform target;
     public Text LockHP;
     public Text LockName;
@@ -33,8 +36,19 @@ public class Lock_m : MonoBehaviour
 
     private Vector2 middleScreen = new Vector2(Screen.width / 2F, Screen.height / 2F);
 
+    public Canvas canvas;
+
     void Start()
     {
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.transform.localPosition = new Vector3(0,0,-1.001F);
+
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         if (LockHP == null)
         {
             LockHP = GameObject.Find("LockHP").GetComponent<Text>();
@@ -58,6 +72,21 @@ public class Lock_m : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        if (target == null)
+        {
+             targetV3 = Vector3.zero;
+        }
+        else
+        {
+            targetV3 = target.position;
+        }
+        
+
         XhairUI.anchoredPosition = (Vector2)camera.WorldToScreenPoint(XhairShip.position) - XhairUI.sizeDelta / 2;
 
         if (target == null)
@@ -208,6 +237,7 @@ public class Lock_m : MonoBehaviour
             if (closestEnemy != null)
             {
                 target = closestEnemy.transform;
+
                 if (closestEnemy.tag == "Enemy" || closestEnemy.tag == "Player")
                 {
                     LockHP.text = closestEnemy.GetComponent<State_m>().currentHealth.ToString();

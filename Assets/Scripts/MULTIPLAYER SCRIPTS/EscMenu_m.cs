@@ -25,6 +25,7 @@ public class EscMenu_m : NetworkBehaviour
         if (Input.GetKeyDown("escape"))
         {
             isEscape = !isEscape;
+            EscapePanel.SetActive(isEscape);
             Controls.isInMenu = isEscape;
 
         }

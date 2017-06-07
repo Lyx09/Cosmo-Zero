@@ -16,7 +16,7 @@ public class Shooting_m : NetworkBehaviour
 
     public GameObject missilePrefab;
     public Transform missileSpawn;
-    public static Transform target;
+    public static Vector3 tarV3;
     public float missilecd = 5.0f;
     public float missileDamage = 7;
     public float missileavl;
@@ -49,7 +49,7 @@ public class Shooting_m : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(1) && (Time.time >= missileavl) && GetComponent<Lock_m>().target != null)
         {
-            target = GetComponent<Lock_m>().target;
+            tarV3 = GetComponent<Lock_m>().targetV3;
             missileavl = Time.time + missilecd;
             CmdShootMissile();
         }
@@ -61,7 +61,7 @@ public class Shooting_m : NetworkBehaviour
         var bullet = (GameObject)Instantiate(bulletPrefab,bulletSpawn.position,bulletSpawn.rotation);
         bullet.GetComponent<Bullet_m>().Initialize(gameObject, bulletDamage);
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
-        NetworkServer.Spawn(bullet); //add in network manager
+        NetworkServer.Spawn(bullet);
         Destroy(bullet, bulletLifeSpan);
     }
 
@@ -69,13 +69,10 @@ public class Shooting_m : NetworkBehaviour
     void CmdShootMissile()
     {
         var missile = (GameObject)Instantiate(missilePrefab, missileSpawn.position, missileSpawn.rotation);
+        
+        missile.GetComponent<MissileBehaviour_m>().Initialize(gameObject,missileDamage);
 
-        MissileBehaviour mb = missile.GetComponent<MissileBehaviour>();
-        mb.target = target;
-        mb.sender = gameObject;
-        mb.dmg = missileDamage;
-
-        NetworkServer.Spawn(missile); //add in network manager
+        NetworkServer.Spawn(missile);
         Destroy(missile, missileLifeSpan);
     }
 }
