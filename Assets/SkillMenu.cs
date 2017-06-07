@@ -29,12 +29,16 @@ public class SkillMenu : MonoBehaviour
             {
                 movements.blockMovement = false;
                 movements.blockRotation = false;
+                Shooting shooting = player.GetComponent<Shooting>();
+                shooting.enabled = true;
                 SkillMenuPanel.gameObject.SetActive(false);
             }
             else if(!MarketPanel.gameObject.activeSelf && !EscapeMenuPanel.gameObject.activeSelf)
             {
                 movements.blockMovement = true;
                 movements.blockRotation = true;
+                Shooting shooting = player.GetComponent<Shooting>();
+                shooting.enabled = false;
                 SkillMenuPanel.gameObject.SetActive(true);
             }
         }

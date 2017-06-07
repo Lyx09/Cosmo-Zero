@@ -78,7 +78,7 @@ public class CameraScript_m : MonoBehaviour
                 transform.localPosition = currentPos;
                 cameraIsRear = false;
             }
-            Scontrols.blockRotation = false;
+            //Scontrols.blockRotation = false;
             currentPos = transform.localPosition;
 
             float inputX = Input.GetAxis("Lateral")*inputFactX;

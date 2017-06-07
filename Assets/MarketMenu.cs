@@ -29,12 +29,16 @@ public class MarketMenu : MonoBehaviour
             {
                 movements.blockMovement = false;
                 movements.blockRotation = false;
+                Shooting shooting = player.GetComponent<Shooting>();
+                shooting.enabled = true;
                 MarketPanel.gameObject.SetActive(false);
             }
             else if (!SkillMenuPanel.gameObject.activeSelf && !EscapeMenuPanel.gameObject.activeSelf)
             {
                 movements.blockMovement = true;
                 movements.blockRotation = true;
+                Shooting shooting = player.GetComponent<Shooting>();
+                shooting.enabled = false;
                 MarketPanel.gameObject.SetActive(true);
             }
         }
