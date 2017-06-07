@@ -21,3 +21,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Scene.unity
   - enabled: 1
     path: Assets/Scenes/SinglePlayer.unity
+  - enabled: 1
+    path: Assets/Scenes/RaceQuest.unity

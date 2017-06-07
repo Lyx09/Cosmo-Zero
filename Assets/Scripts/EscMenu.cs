@@ -5,10 +5,15 @@ public class EscMenu : MonoBehaviour
 {
 
     public GameObject EscapePanel;
+    public GameObject SkillMenuPanel;
+    public GameObject MarketPanel;
+    private SpaceshipControls movements;
+
 
     void Start()
     {
         EscapePanel.gameObject.SetActive(false);
+        movements = GetComponent<SpaceshipControls>();
     }
 
     void Update()
@@ -17,12 +22,15 @@ public class EscMenu : MonoBehaviour
         {
             if (EscapePanel.gameObject.activeSelf)
             {
-                Time.timeScale = 1.0f;
+                movements.blockMovement = true;
+                movements.blockRotation = true;
                 EscapePanel.gameObject.SetActive(false);
             }
-            else
+            else if (!MarketPanel.gameObject.activeSelf && !SkillMenuPanel.gameObject.activeSelf)
             {
-                Time.timeScale = 0.0f;
+
+                movements.blockMovement = false;
+                movements.blockRotation = false;
                 EscapePanel.gameObject.SetActive(true);
             }
         }

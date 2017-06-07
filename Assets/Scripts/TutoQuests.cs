@@ -82,14 +82,20 @@ public class TutoQuests : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Tab))
                     {
                         if (!sounded)
+                        {
                             next.Play();
+                            sounded = true;
+                        }
                         Dialogue.gameObject.SetActive(false);
                         btab = true;
                     }
                     else if (Input.anyKeyDown)
                     {
-                        next.Play();
-                        sounded = true;
+                        if (!sounded)
+                        {
+                            next.Play();
+                            sounded = true;
+                        }
                         Dialogue.gameObject.SetActive(false);
                     }
                 }

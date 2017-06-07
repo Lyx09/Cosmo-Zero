@@ -42,7 +42,6 @@ public class SpaceshipControls : MonoBehaviour
     void FixedUpdate()
     {
 
-
         //TODO set project control settings
         //CANDO Different speed for the 3 axes
 
