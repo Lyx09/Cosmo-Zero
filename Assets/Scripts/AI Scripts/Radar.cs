@@ -12,9 +12,12 @@ public class Radar : MonoBehaviour
     private GameObject blip;
     private Transform disc;
     public GameObject player;
+    public GameObject mimick;
 
     private List<Transform> list_radar;
     private List<Transform> list_actual;
+
+    private double x, y, z;
 
     void Start ()
     {
@@ -30,6 +33,8 @@ public class Radar : MonoBehaviour
 	
 	void Update ()
 	{
+        mimick.transform.position = player.transform.position;
+        mimick.transform.rotation = player.transform.rotation;
 	    transform.localRotation = radar_center.rotation;
 	    int layerMask = 1 << 8; //Layer 8
         Collider[] insideRadar = Physics.OverlapSphere(radar_center.position,radius_radar,layerMask);
