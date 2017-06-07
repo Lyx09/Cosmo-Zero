@@ -955,7 +955,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012374843142, guid: ee608e190c6b60c4882757f67039be9a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 115
+      value: 108.17
       objectReference: {fileID: 0}
     - target: {fileID: 4000012374843142, guid: ee608e190c6b60c4882757f67039be9a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1019,9 +1019,10 @@ MonoBehaviour:
   self_size: 3
   attack_range: 10
   safe_range: 10
-  rotation_speed: 1.5
+  rotation_speed: 7
   self_state: {fileID: 0}
   self_shooting: {fileID: 0}
+  target2_transform: {fileID: 0}
   target_transform: {fileID: 1388981450}
   sphereCast_origin: {fileID: 1896266093}
 --- !u!64 &868320980
@@ -1062,13 +1063,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d46c910f7302a4abfcc8224d604e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioshoot: {fileID: 0}
   bullet: {fileID: 0}
+  bulletspeed: 57
   cd: 1
   damage: 1
-  Missile: {fileID: 0}
-  missilecd: 1
-  missiledmg: 10
-  missileavl: 0
+  bulletspan: 2
 --- !u!114 &868320983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,13 +1080,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd61870123500241b970ba677f694e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxlife: 100
-  regenlife: 0
+  level: 1
+  skillpoints: 0
   LifeDisp: {fileID: 0}
+  life: 100
+  maxlife: 100
+  money: 0
+  xp: 0
+  regenlife: 0
   cdregen: 0
   timeregen: 0
-  xp: 0
-  life: 100
+  shieldblock: 0
+  shield: {fileID: 0}
+  enemy: {fileID: 0}
+  warning: {fileID: 0}
 --- !u!4 &898779169 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012609105370, guid: ad13c23a0cfc8884fbd732efdae01208,

@@ -50,7 +50,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        /*if (Input.GetKeyDown(KeyCode.Alpha0))
             variable = KeyCode.Alpha0;
         else if (Input.GetKeyDown(KeyCode.Alpha1))
             variable = KeyCode.Alpha1;
@@ -87,7 +87,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
             default:
                 Seek(target_transform.position);
                 break;
-        }
+        }*/
         // APPLY FORCES HERE
         /*
         if (target_transform == null)
@@ -115,10 +115,13 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
             }
         }
         */
-        
 
+        //Debug.DrawLine(self_transfo.position, steering);
+        Seek(target_transform.position);
+        Avoid(target_transform.position);
         self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(steering), rotation_speed * Time.deltaTime);
-        self_transfo.position += Vector3.ClampMagnitude(steering, max_speed); //make mass matter
+        self_transfo.position += self_transfo.forward * 0.35f;
+        //self_transfo.position += Vector3.ClampMagnitude(steering, max_speed); //make mass matter
         steering = Vector3.zero;
     }
 
@@ -156,7 +159,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
     void Avoid(Vector3 target_pos, float max_see_ahead = 10F)
     {
-        steering += doAvoid(target_pos, max_see_ahead);
+        steering += TestAvoid(target_pos);
     }
 
     void Avoid2(Vector3 target_pos)
@@ -286,7 +289,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
     Vector3 TestAvoid (Vector3 target_pos)
     {
-        Vector3 ahead = transform.position + GetComponent<Rigidbody>().velocity * 20.0f;
+        Vector3 ahead = self_transfo.position + GetComponent<Rigidbody>().velocity * 20.0f;
         Vector3 ahead2 = ahead * 0.5f;
         Vector3 avoidance = Vector3.zero;
         RaycastHit hit;
@@ -297,8 +300,18 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
                 avoidance.x = ahead.x - hit.transform.position.x;
                 avoidance.y = ahead.y - hit.transform.position.y;
                 avoidance.z = ahead.z - hit.transform.position.z;
-                avoidance.Normalize();
-                avoidance *= 20.0f;
+                if (avoidance.magnitude > 20.0f)
+                {
+                    return avoidance.normalized * Time.deltaTime * speed;
+                }
+                float new_speed = ((avoidance.magnitude - 5.0f) / (10.0f - 5.0f)) * speed;
+
+                if (new_speed < 0) //Also clamp below ? Mathf.Clamp
+                {
+                    new_speed = 0;
+                }
+
+                return avoidance.normalized * Time.deltaTime * new_speed;
             }
         }
         return avoidance;
