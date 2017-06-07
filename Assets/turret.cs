@@ -11,16 +11,29 @@ public class turret : MonoBehaviour
     public Shooting shooting;
     public Transform rcOrigin;
 
+    public float bulletspan = 3;
+    public float bulletspeed = 60;
+    public GameObject bulletPrefab;
+    public AudioSource audioshoot;
+    public float bulletcd = 1;
+
+
+    private float timeavl;
+
     void Start()
     {
-        shooting = gameObject.GetComponent<Shooting>();
+        timeavl = Time.time + bulletcd;
     }
 
 	void Update ()
 	{
-	    if (target == null)
+        Debug.DrawLine(transform.position, transform.position + transform.right * 20, Color.cyan);
+        if (target == null)
 	    {
-	        Collider[] detected = Physics.OverlapSphere(gameObject.transform.position, detection_radius);
+	        Quaternion finalRot = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90, 0), rotation_speed * Time.deltaTime);
+	        transform.rotation = Quaternion.Euler(finalRot.eulerAngles.x, finalRot.eulerAngles.y, 0);
+
+            Collider[] detected = Physics.OverlapSphere(gameObject.transform.position, detection_radius);
 	        foreach (Collider collider in detected)
 	        {
 	            if (collider.tag == "Player")
@@ -34,7 +47,7 @@ public class turret : MonoBehaviour
 	        if ((target.transform.position - gameObject.transform.position).magnitude > detection_radius)
 	        {
 	            target = null;
-	        }
+            }
 	        else
 	        {
                 Ray ray = new Ray(rcOrigin.position,target.transform.position - rcOrigin.position);
@@ -45,16 +58,37 @@ public class turret : MonoBehaviour
                     Debug.DrawLine(ray.origin, hit.point,Color.cyan);
 	                if (hit.collider.tag == "Player")
 	                {
-	                    transform.rotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(target.transform.position), rotation_speed * Time.deltaTime);
-                        //shooting.Shoot();
+	                    var targetRotation = Quaternion.LookRotation(target.transform.position - transform.position,transform.up);
+	                    targetRotation.x = 0;
+                        Quaternion finalRot = Quaternion.Slerp(transform.rotation, targetRotation, rotation_speed * Time.deltaTime);
+	                    transform.rotation = Quaternion.Euler(finalRot.eulerAngles.x, finalRot.eulerAngles.y , 0);
+	                    if ((Time.time >= timeavl))
+	                    {
+	                        Shoot();
+                        }
 	                }
                 }
+	            else
+	            {
+	                target = null;
+	            }
 	        }
 	    }
 	}
 
-    void OnCollisionEnter()
+
+
+    public void Shoot()
     {
-        
+        timeavl = Time.time + bulletcd;
+        audioshoot.Stop();
+        audioshoot.Play();
+
+        GameObject newbull = Instantiate(bulletPrefab);
+        newbull.transform.position = rcOrigin.position;
+        newbull.transform.rotation = transform.rotation;
+        newbull.transform.Rotate(90, 0, 0);
+        newbull.GetComponent<Rigidbody>().velocity = newbull.transform.up * bulletspeed;
+        Destroy(newbull, bulletspan);
     }
 }
