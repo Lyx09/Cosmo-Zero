@@ -120,6 +120,13 @@ public class State : MonoBehaviour
     {
         xp += a;
         UpLife();
+        if (GetComponent<FullSolo>() != null)
+            FullSolo.enemycount++;
+    }
+
+    public void Awake()
+    {
+        DontDestroyOnLoad(this);
     }
 
     void UpLife ()

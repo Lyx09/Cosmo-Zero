@@ -2,14 +2,17 @@
 using UnityEngine.UI;
 using System.Threading;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class FullSolo : MonoBehaviour
 {
+    public static int enemycount;
     private bool sounded = false;
-    private int step = 1;
+    private static int step = 0;
     public GameObject Dialogue, Ship, Health, Lock, Cross;
     public Image Cut;
-    public Text speaker, message, quest;
+    public Text speaker, message, quest, side;
     private Rigidbody Player;
     public AudioSource next, bug;
     private int buggy = 0;
@@ -24,6 +27,11 @@ public class FullSolo : MonoBehaviour
     public GameObject Lawson;
     public GameObject HQ;
     private int initialmoney;
+    public GameObject Ixal;
+    public bool raced = false;
+    public GameObject victorypanel;
+
+    private List<string> sidequests;
 
     // Use this for initialization
     void Start ()
@@ -32,11 +40,18 @@ public class FullSolo : MonoBehaviour
         Cutter(true);
         GetComponent<SpaceshipControls>().blockMovement = true;
         GetComponent<SpaceshipControls>().blockRotation = true;
+        sidequests = new List<string>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        string str = "";
+        foreach (string s in sidequests)
+        {
+            str += s + "\n";
+        }
+        side.text = str;
         if (GetComponent<State>().life <= 0)
         {
             GetComponent<State>().life = GetComponent<State>().maxlife;
@@ -46,6 +61,14 @@ public class FullSolo : MonoBehaviour
             Cutter(true);
             transform.position = new Vector3(0, 0, 0);
             Cutter(false);
+        }
+        if (enemycount >= 14)
+        {
+            speaker.color = Color.grey;
+            ChangeDialogue("<i>Dashboard</i>", "Side quest completed");
+            sidequests.Remove("Kill 10 enemies\n" + (enemycount - 4).ToString() + "/10\n<color=purple>Reward: 3000$</color>");
+            GetComponent<State>().money += 3000;
+            enemycount = -500;
         }
 	    switch (step)
         {
@@ -139,7 +162,7 @@ public class FullSolo : MonoBehaviour
                 }
                 break;
             case 6:
-                if (Time.time - StartPause >= 1.0f)
+                if (Time.time - StartPause >= 0.0f)
                 {
                     Cutter(false);
                     speaker.color = Color.red;
@@ -542,7 +565,7 @@ public class FullSolo : MonoBehaviour
                 {
                     SkipDialogue();
                 }
-                if (sk.dashUnlock || sk.lureUnlock || sk.missileUnlock || sk.stealthUnlock || sk.shieldUnlock || sk.timeControl)
+                if (Skills.dashUnlock || Skills.lureUnlock || Skills.missileUnlock || Skills.stealthUnlock || Skills.shieldUnlock || Skills.timeControl)
                 {
                     SkipDialogue();
                     sounded = false;
@@ -576,6 +599,16 @@ public class FullSolo : MonoBehaviour
                     GetComponent<State>().money += 1000;
                     quest.text = "";
                     ChangeDialogue("<i>Dashboard</i>", "Quest completed");
+                    step = -5;
+                }
+                break;
+            case -5:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    ChangeDialogue("<i>Dashboard</i>", "Kill 10 enemies\n<color=purple>Reward: 3000$</color>");
+                    sidequests.Add("Kill 10 enemies\n" + (enemycount - 4).ToString() + "/10\n<color=purple>Reward: 3000$</color>");
                     step = 45;
                 }
                 break;
@@ -584,6 +617,151 @@ public class FullSolo : MonoBehaviour
                 {
                     SkipDialogue();
                     sounded = false;
+                    ChangeDialogue("<i>Dashboard</i>", "Go to Ixal\n<color=purple>Reward: 250 XP, 250$</color>");
+                    quest.text = "Go to Ixal\n<color=purple>Reward: 250 XP, 250$</color>";
+                    GetComponent<Lock>().target = Ixal.transform;
+                    step = 46;
+                }
+                break;
+            case 46:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                }
+                break;
+            case 47:
+                GetComponent<State>().money += 250;
+                GetComponent<State>().xp += 250;
+                quest.text = "";
+                GetComponent<Lock>().target = null;
+                quest.text = "";
+                ChangeDialogue("<i>Dashboard</i>", "Quest completed");
+                step = 48;
+                break;
+            case 48:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.white;
+                    ChangeDialogue("???", "I've been waiting\nI knew at least one of you would come here");
+                    step = 49;
+                }
+                break;
+            case 49:
+                if(Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "Who's talking?\nHow did you know I was going to come?");
+                    step = 50;
+                }
+                break;
+            case 50:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.white;
+                    ChangeDialogue("???", "So many questions already\nI shall answer only once you've proven me that you're worthy");
+                    step = 51;
+                }
+                break;
+            case 51:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.white;
+                    ChangeDialogue("???", "Finish this race in less than 30 seconds and I'll be convinced");
+                    step = 52;
+                }
+                break;
+            case 52:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    GetComponent<Countdown>().enabled = true;
+                    GetComponent<CountCPs>().enabled = true;
+                    transform.position = new Vector3(600, -190, -2085);
+                    transform.rotation = new Quaternion(0, 0, -30, 0);
+                    step = 53;
+                }
+                break;
+            case 53:
+                if (raced)
+                {
+                    GetComponent<Countdown>().enabled = false;
+                    GetComponent<Countdown>().enabled = false;
+                    step = 54;
+                }
+                break;
+            case 54:
+                if (Input.anyKeyDown)
+                {
+                    victorypanel.SetActive(false);
+                    ChangeDialogue("???", "I have to admit this was pretty impressive\nI will now explain my purpose to you");
+                    step = 55;
+                }
+                break;
+            case 55:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    ChangeDialogue("???", "I know who attacked your squad\nAnd I want to help you to get your revenge");
+                    step = 56;
+                }
+                break;
+            case 56:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "Who?\nHow do you know?\nWho are you?");
+                    step = 57;
+                }
+                break;
+            case 57:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.white;
+                    ChangeDialogue("???", "I'm a mercenary\nI cannot show myself, I cannot tell anymore about myself,\nBut I can tell you that I also seek revenge against the one responsible");
+                    step = 58;
+                }
+                break;
+            case 58:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    ChangeDialogue("Mercenary", "The one you're looking for is named Orez\nHe's been terrorizing the area around my planet for years\nYou have to find him and end this, for I cannot fight him by myself");
+                    step = 59;
+                }
+                break;
+            case 59:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.green;
+                    ChangeDialogue("Pilot", "I will!\nWhere can I find him?");
+                    step = 60;
+                }
+                break;
+            case 60:
+                if (Input.anyKeyDown)
+                {
+                    SkipDialogue();
+                    sounded = false;
+                    speaker.color = Color.white;
+                    ChangeDialogue("Mercenary", "I'll give you his coordinates right now, but you have to be fully prepared before fighting him");
+                    step = 61;
                 }
                 break;
             default:
@@ -677,6 +855,12 @@ public class FullSolo : MonoBehaviour
             SkipDialogue();
             sounded = false;
             step = 38;
+        }
+        else if (other.CompareTag("Ixal") && step == 46)
+        {
+            SkipDialogue();
+            sounded = false;
+            step = 47;
         }
     }
 }

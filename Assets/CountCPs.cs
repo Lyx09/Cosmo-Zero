@@ -10,6 +10,7 @@ public class CountCPs : MonoBehaviour {
     private bool CP3;
     private bool CP4;
     private bool CP;
+    public GameObject chrono;
 
 
     // Use this for initialization
@@ -24,7 +25,8 @@ public class CountCPs : MonoBehaviour {
         if (CP1 && CP2 && CP3 && CP4 && CP)
         {
             panel.SetActive(true);
-            //SceneManager.LoadScene();
+            chrono.SetActive(false);
+            GetComponent<FullSolo>().raced = true;
         }
     }
     void OnTriggerEnter(Collider other)

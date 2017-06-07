@@ -8,11 +8,13 @@ public class Countdown : MonoBehaviour
     public Text text;
     public GameObject panel;
     private float beginning;
+    public GameObject chrono;
     public 
 
     void Start ()
     {
         beginning = Time.time;
+        chrono.SetActive(true);
     }
     void Update()
     {
@@ -23,7 +25,7 @@ public class Countdown : MonoBehaviour
         if ((t-beginning) > (delai + 3))
         {
             panel.SetActive(false);
-            transform.position = new Vector3(1025, 1000, 990);
+            transform.position = new Vector3(600, -190, -2085);
             beginning = Time.time;
         }
     }

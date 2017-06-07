@@ -21,7 +21,7 @@ public class BuySkill : MonoBehaviour
         if (s.skillpoints >= Dashcost)
         {
             s.skillpoints -= Dashcost;
-            sk.dashUnlock = true;
+            Skills.dashUnlock = true;
             button.GetComponent<Button>().interactable = false;
         }
     }
@@ -32,7 +32,7 @@ public class BuySkill : MonoBehaviour
         if (s.skillpoints >= Timefreezecost)
         {
             s.skillpoints -= Timefreezecost;
-            sk.timeControl = true;
+            Skills.timeControl = true;
             button.GetComponent<Button>().interactable = false;
         }
     }
@@ -43,7 +43,7 @@ public class BuySkill : MonoBehaviour
         if (s.skillpoints >= Hommingmissilecost)
         {
             s.skillpoints -= Hommingmissilecost;
-            sk.missileUnlock = true;
+            Skills.missileUnlock = true;
             button.GetComponent<Button>().interactable = false;
         }
     }
@@ -54,7 +54,7 @@ public class BuySkill : MonoBehaviour
         if (s.skillpoints >= stealthcost)
         {
             s.skillpoints -= stealthcost;
-            sk.stealthUnlock = true;
+            Skills.stealthUnlock = true;
             button.GetComponent<Button>().interactable = false;
         }
     }
@@ -65,7 +65,7 @@ public class BuySkill : MonoBehaviour
         if (s.skillpoints >= shieldcost)
         {
             s.skillpoints -= shieldcost;
-            sk.shieldUnlock = true;
+            Skills.shieldUnlock = true;
             button.GetComponent<Button>().interactable = false;
         }
     }
@@ -76,7 +76,7 @@ public class BuySkill : MonoBehaviour
         if (s.skillpoints >= Lurecost)
         {
             s.skillpoints -= Lurecost;
-            sk.lureUnlock = true;
+            Skills.lureUnlock = true;
             button.GetComponent<Button>().interactable = false;
         }
     }

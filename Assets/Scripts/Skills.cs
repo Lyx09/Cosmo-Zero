@@ -7,7 +7,7 @@ public class Skills : MonoBehaviour {
     [SerializeField] private SpaceshipControls spaceShipControls;
 
     //For doubleTap function
-    public bool dashUnlock = false;
+    public static bool dashUnlock = false;
 
     private int buttonCountA = 0;
     private int buttonCountE = 0;
@@ -24,7 +24,7 @@ public class Skills : MonoBehaviour {
     public float dashIntensity = 5000;
 
     // For TimeControl
-    public bool timeControl = false; //Should not be used in multiplayer
+    public static bool timeControl = false; //Should not be used in multiplayer
     [SerializeField] private float timeFactor = 0.5F;
     [SerializeField] private float maxTimeUseTime = 5F;
     [SerializeField] private float maxTimeCoolDown = 10F;
@@ -32,7 +32,7 @@ public class Skills : MonoBehaviour {
     private float timeCoolDown = 0F;
 
     //Shield
-    public bool shieldUnlock;
+    public static bool shieldUnlock;
     private float block = 150;
     private float shieldcd = 75.0f; //Cooldown between two uses of the shield
     private float shieldavl; //Time at which the shield will be available
@@ -40,7 +40,7 @@ public class Skills : MonoBehaviour {
     private float shieldend; //Time at which the shield will end
 
     //Stealth
-    public bool stealthUnlock;
+    public static bool stealthUnlock;
     public GameObject stealth;
     private float stealthcd = 75.0f;
     private float stealthavl;
@@ -48,7 +48,7 @@ public class Skills : MonoBehaviour {
     private float stealthend;
 
     //Missile
-    public bool missileUnlock;
+    public static bool missileUnlock;
     public GameObject Missile;
     public static Transform target;
     public float missilecd = 5.0f;
@@ -57,7 +57,7 @@ public class Skills : MonoBehaviour {
     public float missilespan = 4.5f;
 
     //Lure
-    public bool lureUnlock;
+    public static bool lureUnlock;
     public GameObject lure;
     public float lurecd = 15.0f;
     private float lureavl;

@@ -22,7 +22,7 @@ public class MarketUpgrades : MonoBehaviour
             s.money -= LifeUpCost;
             LifeUpCost *= 2;
             s.maxlife *= 2;
-            text.text = "LIFE UPGRADE\n" + (s.maxlife).ToString() + " HP to " + (s.maxlife * 2).ToString() + " HP\n COST" + LifeUpCost.ToString();
+            text.text = "LIFE UPGRADE\n" + (s.maxlife).ToString() + " HPmax to " + (s.maxlife * 2).ToString() + " HPmax\n COST" + LifeUpCost.ToString();
             if (s.maxlife > 5000)
             {
                 button.GetComponent<Button>().interactable = false;
