@@ -368,7 +368,7 @@ public class Skills : MonoBehaviour {
                 GameObject mylure = Instantiate(lure);
                 mylure.transform.position = transform.position;
                 mylure.transform.rotation = transform.rotation;
-                mylure.GetComponent<Rigidbody>().velocity = - transform.forward * 15;
+                mylure.GetComponent<Rigidbody>().velocity = - transform.forward * 30;
                 Destroy(mylure, lurespan);
             }
         }
