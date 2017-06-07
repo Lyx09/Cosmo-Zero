@@ -42,6 +42,7 @@ public class SpaceshipControls_m : NetworkBehaviour
 
     void Start()
     {
+        Needed.co++;
         if (!isLocalPlayer)
         {
             isCurrentPlayer = false;
