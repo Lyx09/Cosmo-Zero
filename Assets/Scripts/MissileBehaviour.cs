@@ -7,7 +7,7 @@ public class MissileBehaviour : MonoBehaviour
     public GameObject sender;
     public Vector3 speed;
     private Rigidbody rb;
-    public int dmg;
+    public float dmg;
 
 	// Use this for initialization
 	void Start ()

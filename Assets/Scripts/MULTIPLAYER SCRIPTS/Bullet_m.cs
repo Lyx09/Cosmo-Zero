@@ -1,29 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Security.Policy;
 
 public class Bullet_m : MonoBehaviour
 {
     private GameObject sender;
+    public float dmg = 1337;
 
-    public void SetSender(GameObject go)
+    public void Initialize(GameObject go, float bulletDamage)
     {
         sender = go;
+        dmg = bulletDamage;
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("Enemy")) //OR PLAYER
+        var hit = collision.gameObject;
+        var state = hit.GetComponent<State_m>();
+        if ( state != null)
         {
-            EnemyScript enemysc = other.gameObject.GetComponent<EnemyScript>();
-            if (enemysc == null)
-                return;
-            if (enemysc.life <= 1)
+            if (dmg != 0)
             {
-                State shooter = sender.GetComponent<State>();
-                shooter.Kill(enemysc.xpvalue);
+                if (state.currentHealth - dmg <= 0)
+                {
+                    sender.GetComponent<State_m>().kills++;
+                }
+                state.TakeDamage(dmg);
+                
+                Debug.Log(sender.name + " hit " + collision.gameObject.name + " dealing him " + dmg + " damage");
+                dmg = 0;
             }
-            enemysc.Hurt(1);
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 }

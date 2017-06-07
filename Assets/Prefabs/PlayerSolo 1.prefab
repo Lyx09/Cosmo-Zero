@@ -795,7 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2604358e204d9d1468be637af1818482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 100
+  maxSpeed: 50
   RollSpeed: 0.5
   acceleration: 1
   deceleration: 2
@@ -901,7 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f302b9667e734074aba08344d9ebb05f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 0}
+  EscapePanel: {fileID: 0}
 --- !u!114 &114000011899033692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -913,13 +913,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d46c910f7302a4abfcc8224d604e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioshoot: {fileID: 0}
   bullet: {fileID: 1000013030908276, guid: 730d02246058fb44eababcf09ba41997, type: 2}
+  bulletspeed: 57
   cd: 0.2
   damage: 1
+  bulletspan: 2
   Missile: {fileID: 1000012407779000, guid: 1f7a43b66b8de884494bef6f427df43f, type: 2}
   missilecd: 5
   missiledmg: 10
   missileavl: 0
+  missilespan: 4.5
 --- !u!114 &114000012641068064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -936,6 +940,7 @@ MonoBehaviour:
   LifeDisp: {fileID: 0}
   cdregen: 3
   timeregen: 1
+  xp: 0
   life: 0
 --- !u!114 &114000013532564958
 MonoBehaviour:
