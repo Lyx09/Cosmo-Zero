@@ -30,15 +30,17 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
     private  Vector3 self_prevpos = Vector3.zero;
     public Transform sphereCast_origin; //Make it automatic Find child with name
     private KeyCode variable;
-
+    private GameObject target;
     private Vector3 steering;
+
+    public float range = 50;
 
     void Start()
     {
+        target = null;
         self_transfo = GetComponent<Transform>();
         self_state = GetComponent<State>();
         self_shooting = GetComponent<Shooting>();
-        variable = KeyCode.Alpha0;
     }
 
     void OnCollisionEnter(Collision collision) //TODO
@@ -50,79 +52,31 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Alpha0))
-            variable = KeyCode.Alpha0;
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-            variable = KeyCode.Alpha1;
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-            variable = KeyCode.Alpha2;
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-            variable = KeyCode.Alpha3;
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-            variable = KeyCode.Alpha4;
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-            variable = KeyCode.Alpha5;
-
-        switch (variable)
+        if (target == null)
         {
-            case KeyCode.Alpha0:
-                Seek(target_transform.position);
-                break;
-            case KeyCode.Alpha1:
-                Flee(target_transform.position);
-                break;
-            case KeyCode.Alpha2:
-                Pursuit(target_transform.position);
-                break;
-            case KeyCode.Alpha3:
-                Evade(target_transform.position,0.5F);
-                break;
-            case KeyCode.Alpha4:
-                Wander1();
-                break;
-            case KeyCode.Alpha5:
-                Seek(target_transform.position);
-                Flee(target2_transform.position);
-                break;
-            default:
-                Seek(target_transform.position);
-                break;
-        }*/
-        // APPLY FORCES HERE
-        /*
-        if (target_transform == null)
-        {
-            Wander1();
-            //Check if ennemy is visible
-        }
-        else if (self_state.life <= self_state.maxlife/4)
-        {
-            if ((target_transform.position - self_transfo.position).magnitude > safe_range)
+            Collider[] colli = Physics.OverlapSphere(transform.position, 50);
+            foreach (Collider collider1 in colli)
             {
-                Wander1();
-            }
-            else
-            {
-                Evade(target_transform.position);
+                if (collider1.gameObject.tag == "Player")
+                {
+                    target = collider1.gameObject;
+                }
             }
         }
         else
         {
-            Pursuit(target_transform.position);
-            if ((target_transform.position - self_transfo.position).magnitude < attack_range)
+            target_transform = target.transform;
+            Seek(target_transform.position);
+            Avoid(target_transform.position);
+            self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(steering), rotation_speed * Time.deltaTime);
+            self_transfo.position += self_transfo.forward * 0.35f;
+            //self_transfo.position += Vector3.ClampMagnitude(steering, max_speed); //make mass matter
+            steering = Vector3.zero;
+            if ((target.transform.position - transform.position).magnitude >= 50)
             {
-                self_shooting.Shoot();
+                target = null;
             }
         }
-        */
-
-        //Debug.DrawLine(self_transfo.position, steering);
-        Seek(target_transform.position);
-        Avoid(target_transform.position);
-        self_transfo.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(steering), rotation_speed * Time.deltaTime);
-        self_transfo.position += self_transfo.forward * 0.35f;
-        //self_transfo.position += Vector3.ClampMagnitude(steering, max_speed); //make mass matter
-        steering = Vector3.zero;
     }
 
     //####################### BEHAVIORS ##############################
