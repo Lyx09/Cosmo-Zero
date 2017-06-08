@@ -101,7 +101,7 @@ public class bossQuest : MonoBehaviour
 	            }
 	            else
 	            {
-	                header.text = "Destroy " + count + " turrets";
+	                header.text = "Destroy " + (7-count) + " turrets";
                 }
 
                 break;
