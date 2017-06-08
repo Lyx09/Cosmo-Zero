@@ -7,7 +7,6 @@ public class UnpauseViaContinue : MonoBehaviour {
     public GameObject player;
     public void Unpause ()
     {
-        Time.timeScale = 1.0f;
         panel.gameObject.SetActive(false);
         player.GetComponent<SpaceshipControls>().blockMovement = false;
         player.GetComponent<SpaceshipControls>().blockRotation = false;
