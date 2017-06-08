@@ -254,7 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 3
   init: 0
-  As: {fileID: 0}
+  As: {fileID: 82000010174906398}
 --- !u!198 &198000010245698542
 ParticleSystem:
   m_ObjectHideFlags: 1

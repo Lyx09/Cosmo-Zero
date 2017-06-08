@@ -3,8 +3,21 @@ guid: 4b85feebf2ac3c941ad0908f80c3aca5
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: Camera
+    100002: //RootNode
+    100004: Floor 01
+    100006: Light
+    400000: Camera
+    400002: //RootNode
+    400004: Floor 01
+    400006: Light
+    2300000: Floor 01
+    3300000: Floor 01
     4300000: Floor_01
     4300002: Floor 01
+    6400000: Floor 01
+    7400000: Default LW Animation
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

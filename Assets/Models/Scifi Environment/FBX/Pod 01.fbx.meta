@@ -3,8 +3,21 @@ guid: 6a429bc97ebafcb46bfc6ab38c46f153
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: Camera
+    100002: Light
+    100004: //RootNode
+    100006: Pod 01
+    400000: Camera
+    400002: Light
+    400004: //RootNode
+    400006: Pod 01
+    2300000: Pod 01
+    3300000: Pod 01
     4300000: Pod_01
     4300002: Pod 01
+    6400000: Pod 01
+    7400000: Default LW Animation
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

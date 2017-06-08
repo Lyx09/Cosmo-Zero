@@ -80,6 +80,8 @@ public class Lock : MonoBehaviour
                     LockHP.text = target.GetComponent<State>().life.ToString();
                 else if (target.GetComponent<EnemyScript>() != null)
                     LockHP.text = target.GetComponent<EnemyScript>().life.ToString();
+                else if (target.transform.parent.gameObject.GetComponent<turret>() != null)
+                    LockHP.text = target.transform.parent.gameObject.GetComponent<turret>().hp.ToString();
             }
             
             float posArrowX;
@@ -215,8 +217,14 @@ public class Lock : MonoBehaviour
 
             if (closestEnemy != null)
             {
+                Debug.Log(closestEnemy.name);
                 target = closestEnemy.transform;
-                if (closestEnemy.tag == "Enemy" || closestEnemy.tag == "Player")
+                if (closestEnemy.tag == "Enemy" && closestEnemy.name == "turretH")
+                {
+                    LockHP.text = closestEnemy.transform.parent.gameObject.GetComponent<turret>().hp.ToString();
+                    LockName.text = "Turret mk.II";
+                }
+                else if (closestEnemy.tag == "Enemy" || closestEnemy.tag == "Player")
                 {
                     LockHP.text = closestEnemy.GetComponent<State>().life.ToString();
                     LockName.text = closestEnemy.name;

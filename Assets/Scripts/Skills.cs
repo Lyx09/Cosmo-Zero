@@ -65,6 +65,7 @@ public class Skills : MonoBehaviour {
 
     void Start ()
     {
+        missileUnlock = true;
         rb = GetComponent<Rigidbody>();
         shieldavl = Time.time;
         stealthavl = Time.time;

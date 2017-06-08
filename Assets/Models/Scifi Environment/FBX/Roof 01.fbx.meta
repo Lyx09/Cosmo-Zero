@@ -3,8 +3,21 @@ guid: 23f31da22665dcc4e9e9c7245fb648a5
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: Camera
+    100002: Light
+    100004: //RootNode
+    100006: Roof 01
+    400000: Camera
+    400002: Light
+    400004: //RootNode
+    400006: Roof 01
+    2300000: Roof 01
+    3300000: Roof 01
     4300000: Roof_01
     4300002: Roof 01
+    6400000: Roof 01
+    7400000: Default LW Animation
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

@@ -3,8 +3,21 @@ guid: a339ca8a8a8292a44a535958f317d1ee
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: Camera
+    100002: Light
+    100004: //RootNode
+    100006: Tunnel ramp 02
+    400000: Camera
+    400002: Light
+    400004: //RootNode
+    400006: Tunnel ramp 02
+    2300000: Tunnel ramp 02
+    3300000: Tunnel ramp 02
     4300000: Tunnel_ramp_02
     4300002: Tunnel ramp 02
+    6400000: Tunnel ramp 02
+    7400000: Default LW Animation
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

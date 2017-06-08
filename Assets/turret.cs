@@ -8,7 +8,6 @@ public class turret : MonoBehaviour
     public float detection_radius = 20;
     public float hp = 5;
     public float rotation_speed = 1;
-    public Shooting shooting;
     public Transform rcOrigin;
 
     public float bulletspan = 3;

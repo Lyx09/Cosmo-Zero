@@ -3,8 +3,21 @@ guid: 175071c5e5da2e1418686f2bbba1e574
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: Camera
+    100002: //RootNode
+    100004: Door wall 01
+    100006: Light
+    400000: Camera
+    400002: //RootNode
+    400004: Door wall 01
+    400006: Light
+    2300000: Door wall 01
+    3300000: Door wall 01
     4300000: Door_wall_01
     4300002: Door wall 01
+    6400000: Door wall 01
+    7400000: Default LW Animation
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 1
