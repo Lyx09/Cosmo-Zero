@@ -1732,7 +1732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e770b1212c5a61489b2d13c1e321d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delai: 30
+  delai: 40
   text: {fileID: 123995508}
   panel: {fileID: 601195276}
   chrono: {fileID: 145111921}
