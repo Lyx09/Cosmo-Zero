@@ -9,7 +9,7 @@ public class FullSolo : MonoBehaviour
 {
     public static int enemycount;
     private bool sounded = false;
-    private int step = 52;
+    private int step = 0;
     public GameObject Dialogue, Ship, Health, Lock, Cross;
     public Image Cut;
     public Text speaker, message, quest, side;
@@ -90,7 +90,7 @@ public class FullSolo : MonoBehaviour
                     Cutter(false);
                     Cut.color = Color.black;
                     speaker.color = Color.red;
-                    ChangeDialogue("Ship" , "WARNING\nDamaged ship. IA in standby\nAwaiting pilot's instructions\nLast interaction: 67 hours ago");
+                    ChangeDialogue("Ship" , "WARNING\nDamaged ship. AI in standby\nAwaiting pilot's instructions\nLast interaction: 67 hours ago");
                 }
                 else if (!bug.isPlaying)
                 {
@@ -819,7 +819,6 @@ public class FullSolo : MonoBehaviour
     {
         if (b)
         {
-            Debug.Log(0);
             Cut.gameObject.SetActive(true);
             Cross.gameObject.SetActive(false);
             Lock.gameObject.SetActive(false);
@@ -830,7 +829,6 @@ public class FullSolo : MonoBehaviour
         }
         else
         {
-            Debug.Log(1);
             Cut.gameObject.SetActive(false);
             Cross.gameObject.SetActive(true);
             Lock.gameObject.SetActive(true);
