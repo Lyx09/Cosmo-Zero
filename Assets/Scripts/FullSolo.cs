@@ -62,7 +62,6 @@ public class FullSolo : MonoBehaviour
         if (enemycount >= 14)
         {
             speaker.color = Color.grey;
-            ChangeDialogue("<i>Dashboard</i>", "Side quest completed");
             sidequests.Remove("Kill 10 enemies\n" + (enemycount - 4).ToString() + "/10\n<color=purple>Reward: 3000$</color>");
             State.money += 3000;
             enemycount = -500;
@@ -70,7 +69,6 @@ public class FullSolo : MonoBehaviour
         if (MarketUpgrades.upgrades >= 4)
         {
             speaker.color = Color.grey;
-            ChangeDialogue("<i>Dashboard</i>", "Side quest completed");
             sidequests.Remove("Buy 4 upgrades");
             MarketUpgrades.upgrades -= 500;
         }
@@ -78,7 +76,6 @@ public class FullSolo : MonoBehaviour
         {
             skillquest = true;
             speaker.color = Color.grey;
-            ChangeDialogue("<i>Dashboard</i>", "Side quest completed");
             sidequests.Remove("Unlock 4 skills");
         }
 	    switch (step)

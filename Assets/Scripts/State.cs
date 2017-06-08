@@ -40,6 +40,16 @@ public class State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            money += 1000;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            xp += 500;
+        }
+
         if (xp >= 250 * Mathf.Pow(2,level))
             xp = levelup(xp);
         if (enemy != null)
