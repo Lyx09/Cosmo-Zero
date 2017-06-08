@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class core : MonoBehaviour
 {
     public State state;
-	
+    public Text CoreLife;
+    public GameObject explosion;
+
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+	    CoreLife.text = "Core energy: " + ((state.life / 500) * 100).ToString() + "%";
+
 	    if (state.life <= 0)
 	    {
-	        Destroy(gameObject);
+	        GameObject.Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(gameObject);
 	    }
 	}
 
