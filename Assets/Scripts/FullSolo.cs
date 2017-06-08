@@ -50,7 +50,10 @@ public class FullSolo : MonoBehaviour
         {
             step = 54;
         }
-
+	    if (Input.GetKeyDown(KeyCode.Alpha9))
+	    {
+	        SceneManager.LoadScene(5);
+        }
         string str = "";
         foreach (string s in sidequests)
         {
