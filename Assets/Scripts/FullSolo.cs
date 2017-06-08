@@ -251,7 +251,7 @@ public class FullSolo : MonoBehaviour
                     ChangeDialogue("<i>Dashboard</i>", "Quest completed");
                     step = -2;
                 }
-                quest.text = "Find resources and shoot them to collect them (" +(State.xp / 5).ToString() + "/4)";
+                quest.text = "Find resources and shoot them to collect them (" +((State.xp - 330) / 5).ToString() + "/4)";
                 break;
             case -2:
                 if (Input.anyKeyDown)

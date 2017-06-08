@@ -80,8 +80,14 @@ public class Lock : MonoBehaviour
                     LockHP.text = target.GetComponent<State>().life.ToString();
                 else if (target.GetComponent<EnemyScript>() != null)
                     LockHP.text = target.GetComponent<EnemyScript>().life.ToString();
-                else if (target.transform.parent.gameObject.GetComponent<turret>() != null)
-                    LockHP.text = target.transform.parent.gameObject.GetComponent<turret>().hp.ToString();
+                else if (target.transform.parent != null)
+                {
+                    if (target.transform.parent.gameObject != null)
+                    {
+                        if (target.transform.parent.gameObject.GetComponent<turret>() != null)
+                            LockHP.text = target.transform.parent.gameObject.GetComponent<turret>().hp.ToString();
+                    }
+                }
             }
             
             float posArrowX;
