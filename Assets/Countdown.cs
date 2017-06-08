@@ -33,6 +33,7 @@ public class Countdown : MonoBehaviour
         {
             panel.SetActive(false);
             transform.position = new Vector3(600, -190, -2085);
+            transform.rotation = new Quaternion(0, 0, -30, 0);
             beginning = Time.time;
         }
     }

@@ -9,7 +9,7 @@ public class FullSolo : MonoBehaviour
 {
     public static int enemycount;
     private bool sounded = false;
-    private int step = 0;
+    private int step = 52;
     public GameObject Dialogue, Ship, Health, Lock, Cross;
     public Image Cut;
     public Text speaker, message, quest, side;
@@ -57,9 +57,7 @@ public class FullSolo : MonoBehaviour
             step = 0;
             quest.text = "";
             SkipDialogue();
-            Cutter(true);
             transform.position = new Vector3(0, 0, 0);
-            Cutter(false);
         }
         if (enemycount >= 14)
         {
@@ -707,7 +705,7 @@ public class FullSolo : MonoBehaviour
                 if (raced)
                 {
                     GetComponent<Countdown>().enabled = false;
-                    GetComponent<Countdown>().enabled = false;
+                    GetComponent<CountCPs>().enabled = false;
                     step = 54;
                 }
                 break;
@@ -821,6 +819,7 @@ public class FullSolo : MonoBehaviour
     {
         if (b)
         {
+            Debug.Log(0);
             Cut.gameObject.SetActive(true);
             Cross.gameObject.SetActive(false);
             Lock.gameObject.SetActive(false);
@@ -831,6 +830,7 @@ public class FullSolo : MonoBehaviour
         }
         else
         {
+            Debug.Log(1);
             Cut.gameObject.SetActive(false);
             Cross.gameObject.SetActive(true);
             Lock.gameObject.SetActive(true);

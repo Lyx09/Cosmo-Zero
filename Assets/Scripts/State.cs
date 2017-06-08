@@ -9,11 +9,11 @@ public class State : MonoBehaviour
     //Display
     public Text LifeDisp; //L'objet UI qui display TOUT
     public float life = 100; //Bah...
-    public static float maxlife; //La vie max. Obvious comment is obvious
-    public static int money;
-    public static  int xp;
+    public static float maxlife = 500; //La vie max. Obvious comment is obvious
+    public static int money = 0;
+    public static  int xp = 0;
     //Regen
-    public static float regenlife; //Quantité de vie régen à chaque régen
+    public static float regenlife = 0; //Quantité de vie régen à chaque régen
     public float cdregen; //Le temps qu'il faut passer hors combat avant de passer en mode régen
     public float timeregen; //Le temps entre chaque tips de régen
     private float chrono; //L'heure à partir de laquelle on compte quand est-ce qu'on pourra régen
