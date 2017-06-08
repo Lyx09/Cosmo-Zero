@@ -44,7 +44,13 @@ public class FullSolo : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update ()
-    {
+	{
+	    Debug.Log(step);
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            step = 54;
+        }
+
         string str = "";
         foreach (string s in sidequests)
         {
@@ -701,8 +707,10 @@ public class FullSolo : MonoBehaviour
             case 53:
                 if (raced)
                 {
+                    Debug.Log(1);
                     GetComponent<Countdown>().enabled = false;
                     GetComponent<CountCPs>().enabled = false;
+                    Debug.Log(2);
                     step = 54;
                 }
                 break;

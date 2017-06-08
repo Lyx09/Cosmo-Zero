@@ -27,6 +27,7 @@ public class CountCPs : MonoBehaviour {
             panel.SetActive(true);
             chrono.SetActive(false);
             GetComponent<FullSolo>().raced = true;
+            Debug.Log(3);
         }
     }
     void OnTriggerEnter(Collider other)
