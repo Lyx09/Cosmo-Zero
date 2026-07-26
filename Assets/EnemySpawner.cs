@@ -1,14 +1,13 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
+using UnityEngine;
 
-public class EnemySpawner : NetworkBehaviour
+public class EnemySpawner : MonoBehaviour
 {
 
     public GameObject enemyPrefab;
     public int numberOfEnemies;
     public float spawnCubeSize = 10;
 
-    public override void OnStartServer()
+    void Start()
     {
         for (int i = 0; i < numberOfEnemies; i++)
         {
@@ -17,7 +16,6 @@ public class EnemySpawner : NetworkBehaviour
             var spawnRotation = Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180));
 
             var enemy = (GameObject)Instantiate(enemyPrefab, spawnPosition, spawnRotation);
-            NetworkServer.Spawn(enemy);
         }
     }
 }

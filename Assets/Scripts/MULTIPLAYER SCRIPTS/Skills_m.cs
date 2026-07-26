@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
 
-public class Skills_m : NetworkBehaviour {
+public class Skills_m : MonoBehaviour {
 
     private Rigidbody rb;
     [SerializeField] private SpaceshipControls_m spaceShipControls;
@@ -33,19 +32,11 @@ public class Skills_m : NetworkBehaviour {
     private float timeCoolDown = 0F;
 
     void Start () {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
         rb = GetComponent<Rigidbody>();
     }
-	
+
 	// Update is called once per frame
 	void Update () {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
         //################################################################################
         //#--------------------------------DASH MANAGER---------------------------------#
         //################################################################################

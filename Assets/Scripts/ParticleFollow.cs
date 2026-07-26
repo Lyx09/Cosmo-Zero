@@ -28,7 +28,7 @@ public sealed class ParticleFollow : MonoBehaviour
         m_cachedTransform.rotation = Quaternion.Slerp(m_cachedTransform.rotation,
             m_target.rotation, Time.deltaTime*m_rotatoionSmooth);
 
-        Vector3 projected = Vector3.Project(m_rb.velocity, m_rb.transform.forward);
+        Vector3 projected = Vector3.Project(m_rb.linearVelocity, m_rb.transform.forward);
         if (projected.magnitude * SpeedFactor < 0.2)
         {
             m_particleRenderer.maxParticleSize = 0;
@@ -48,7 +48,7 @@ public sealed class ParticleFollow : MonoBehaviour
             }
             m_particleRenderer.maxParticleSize = 0.5F;
             m_particleRenderer.lengthScale = Mathf.Lerp(m_particleScaleRange.x,
-            m_particleScaleRange.y, m_rb.velocity.magnitude * SpeedFactor);
+            m_particleScaleRange.y, m_rb.linearVelocity.magnitude * SpeedFactor);
         }
     }
 }

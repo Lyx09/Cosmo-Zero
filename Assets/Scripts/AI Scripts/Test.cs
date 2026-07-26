@@ -39,7 +39,7 @@ public class Test : MonoBehaviour
 
         if (velocty.magnitude > speed)
             velocty = velocty.normalized * speed;
-        rb.velocity = velocty;
+        rb.linearVelocity = velocty;
 
         Quaternion desiredRotation = Quaternion.LookRotation(velocty);
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * 3);

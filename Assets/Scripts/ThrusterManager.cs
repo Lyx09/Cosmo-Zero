@@ -129,7 +129,7 @@ public class ThrusterManager : MonoBehaviour
 
     void Update()
     {
-        Vector3 projected = Vector3.Project(playerrb.velocity, transform.forward);
+        Vector3 projected = Vector3.Project(playerrb.linearVelocity, transform.forward);
         float relativeSpeed = projected.magnitude/maxSpeed; //current speed compared to maxSpeed
         //Debug.Log(Vector3.Angle(projected, transform.forward));
         

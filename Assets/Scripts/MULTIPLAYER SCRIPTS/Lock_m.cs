@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class Lock_m : NetworkBehaviour
+public class Lock_m : MonoBehaviour
 {
     //The code needs to be simplified
     //NOTE: There exist a dead center when locking a target it is located at the exact oposite of the target.
@@ -12,7 +11,7 @@ public class Lock_m : NetworkBehaviour
     [Tooltip("Put the player's camera here")]
     public Camera camera;
 
-    [SyncVar] public Vector3 targetV3;
+    public Vector3 targetV3;
     public Transform target;
     public Text LockHP;
     public Text LockName;
@@ -44,11 +43,6 @@ public class Lock_m : NetworkBehaviour
         canvas.renderMode = RenderMode.WorldSpace;
         canvas.transform.localPosition = new Vector3(0,0,-1.001F);
 
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
         if (LockHP == null)
         {
             LockHP = GameObject.Find("LockHP").GetComponent<Text>();
@@ -72,11 +66,6 @@ public class Lock_m : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
         if (target == null)
         {
              targetV3 = Vector3.zero;

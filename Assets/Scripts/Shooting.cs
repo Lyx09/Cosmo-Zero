@@ -37,7 +37,7 @@ public class Shooting : MonoBehaviour
         newbull.transform.rotation = rb.transform.rotation;
         newbull.transform.Rotate(90, 0, 0);
         newbull.GetComponent<Bulette>().SetSender(gameObject);
-        newbull.GetComponent<Rigidbody>().velocity = newbull.transform.up * bulletspeed;
+        newbull.GetComponent<Rigidbody>().linearVelocity = newbull.transform.up * bulletspeed;
         Destroy(newbull, bulletspan);
     }
 }

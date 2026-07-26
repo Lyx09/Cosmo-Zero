@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
 
-public class Shooting_m : NetworkBehaviour
+public class Shooting_m : MonoBehaviour
 {
     public AudioSource audioshoot;
     
@@ -24,21 +23,12 @@ public class Shooting_m : NetworkBehaviour
     
     void Start()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
         timeavl = Time.time + bulletcd;
         missileavl = Time.time + missilecd;
     }
     
     void Update()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
         if (Input.GetButton("Fire1") && (Time.time >= timeavl))
         {
             timeavl = Time.time + bulletcd;
@@ -55,24 +45,20 @@ public class Shooting_m : NetworkBehaviour
         }
     }
 
-    [Command]
     public void CmdShoot()
     {
         var bullet = (GameObject)Instantiate(bulletPrefab,bulletSpawn.position,bulletSpawn.rotation);
         bullet.GetComponent<Bullet_m>().Initialize(gameObject, bulletDamage);
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * bulletSpeed; //transfor.up ?
-        NetworkServer.Spawn(bullet);
+        bullet.GetComponent<Rigidbody>().linearVelocity = bullet.transform.up * bulletSpeed; //transfor.up ?
         Destroy(bullet, bulletLifeSpan);
     }
 
-    [Command]
     void CmdShootMissile()
     {
         var missile = (GameObject)Instantiate(missilePrefab, missileSpawn.position, missileSpawn.rotation);
-        
+
         missile.GetComponent<MissileBehaviour_m>().Initialize(gameObject,missileDamage);
 
-        NetworkServer.Spawn(missile);
         Destroy(missile, missileLifeSpan);
     }
 }

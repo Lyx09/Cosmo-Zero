@@ -243,7 +243,7 @@ public class AIBehaviour4 : MonoBehaviour //Make it an interface ?
 
     Vector3 TestAvoid (Vector3 target_pos)
     {
-        Vector3 ahead = self_transfo.position + GetComponent<Rigidbody>().velocity * 20.0f;
+        Vector3 ahead = self_transfo.position + GetComponent<Rigidbody>().linearVelocity * 20.0f;
         Vector3 ahead2 = ahead * 0.5f;
         Vector3 avoidance = Vector3.zero;
         RaycastHit hit;

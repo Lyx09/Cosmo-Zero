@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine.EventSystems;
-using UnityEngine.Networking;
 
-public class SpaceshipControls_m : NetworkBehaviour
+public class SpaceshipControls_m : MonoBehaviour
 {
     //https://gist.github.com/LotteMakesStuff/b8853a16de3e680dc1c326fe6f5ebd7e
     //TODO: Add speed level (Quick acceleration / slow deceleration ?)
@@ -42,32 +41,14 @@ public class SpaceshipControls_m : NetworkBehaviour
 
     void Start()
     {
-        if (!isLocalPlayer)
-        {
-            isCurrentPlayer = false;
-            return;
-        }
-        else
-        {
-            rb = GetComponent<Rigidbody>();
-            rb.drag = deceleration;
-            rb.angularDrag = deceleration;
-            isCurrentPlayer = true;
-        }
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        //Change player name etc..
+        rb = GetComponent<Rigidbody>();
+        rb.linearDamping = deceleration;
+        rb.angularDamping = deceleration;
+        isCurrentPlayer = true;
     }
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
         //TODO set project control settings
         //CANDO Different speed for the 3 axes
 

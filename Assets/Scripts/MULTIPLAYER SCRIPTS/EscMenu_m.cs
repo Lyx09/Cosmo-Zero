@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
 
-public class EscMenu_m : NetworkBehaviour
+public class EscMenu_m : MonoBehaviour
 {
 
     public GameObject EscapePanel;
@@ -16,11 +15,6 @@ public class EscMenu_m : NetworkBehaviour
 
     void Update()
     {
-
-        if (!isLocalPlayer)
-        {
-            return;
-        }
 
         if (Input.GetKeyDown("escape"))
         {

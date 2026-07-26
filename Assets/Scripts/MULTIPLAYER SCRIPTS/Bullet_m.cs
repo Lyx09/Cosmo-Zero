@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Security.Policy;
 
 public class Bullet_m : MonoBehaviour
 {

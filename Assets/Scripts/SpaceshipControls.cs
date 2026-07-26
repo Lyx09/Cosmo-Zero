@@ -35,8 +35,8 @@ public class SpaceshipControls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.drag = deceleration;
-        rb.angularDrag = deceleration;
+        rb.linearDamping = deceleration;
+        rb.angularDamping = deceleration;
     }
 
     void FixedUpdate()

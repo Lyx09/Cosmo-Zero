@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Resources;
 using System.Security;
-using UnityEngine.Networking;
 
-public class ThrusterManager_m : NetworkBehaviour
+public class ThrusterManager_m : MonoBehaviour
 {
     //TODO: Add flare to main engine
 
@@ -60,11 +59,6 @@ public class ThrusterManager_m : NetworkBehaviour
 
     void Start()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
         originalCamPos = cameraTransform.localPosition;
         playerrb = GetComponent<Rigidbody>();
 
@@ -135,12 +129,7 @@ public class ThrusterManager_m : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
-        Vector3 projected = Vector3.Project(playerrb.velocity, transform.forward);
+        Vector3 projected = Vector3.Project(playerrb.linearVelocity, transform.forward);
         float relativeSpeed = projected.magnitude/maxSpeed; //current speed compared to maxSpeed
         //Debug.Log(Vector3.Angle(projected, transform.forward));
         
