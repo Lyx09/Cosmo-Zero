@@ -1,5 +1,7 @@
 # Cosmo Zero
 
+<img width="3509" height="2481" alt="Jaquette" src="https://github.com/user-attachments/assets/c0f7f636-e166-4640-9dcb-d8df52fd1e2f" />
+
 **First Presentation (28th February)**
 
 According to the BoS we need:
